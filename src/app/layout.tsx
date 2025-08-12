@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Work_Sans, Roboto } from "next/font/google";
+import { ClientLayout } from "@/components/client-layout";
 import "./globals.css";
 
 const workSans = Work_Sans({
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${workSans.variable} ${roboto.variable} antialiased`}
       >
-        {children}
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
