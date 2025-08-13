@@ -10,11 +10,8 @@ interface ClientLayoutProps {
 export function ClientLayout({ children }: ClientLayoutProps) {
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    console.log('ClientLayout mounted, starting loading timer'); // Debug log
-    // Simulate initial app loading
+  useEffect(() => {    // Simulate initial app loading
     const timer = setTimeout(() => {
-      console.log('Timer completed, setting isLoading to false'); // Debug log
       setIsLoading(false);
     }, 2000); // 2 seconds
 
