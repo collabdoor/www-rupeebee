@@ -68,22 +68,13 @@ const features = [
 export default function FeaturesSection() {
   return (
     <>
-      {/* Header Section */}
       <section
         id="features"
-        className="py-32 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
+        className="py-20 bg-gradient-to-tr from-green-50 via-white to-yellow-50 relative overflow-hidden"
       >
-        {/* Background Pattern */}
-        <DotPattern
-          className={cn(
-            "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",
-            "absolute inset-0 opacity-20"
-          )}
-        />
-
-        <div className="container mx-auto px-4 relative z-10">
+        {/* <div className="container mx-auto px-4 relative z-10">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">  
               Everything{" "}
               <Highlighter action="highlight" color="#FFC107">
                 You
@@ -97,11 +88,11 @@ export default function FeaturesSection() {
               From fraud protection to smart savings, we've got you covered
             </p>
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* Stacking Cards Section */}
-      <section className="relative bg-gradient-to-br from-gray-50 to-white">
+      <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50">
         <StackingCards totalCards={features.length} className="h-[500vh]">
           {features.map((feature, index) => (
             <StackingCardItem
@@ -110,7 +101,9 @@ export default function FeaturesSection() {
               className="h-screen"
             >
               <div className="h-full flex items-center justify-center px-4">
+                
                 <div className="container mx-auto">
+                  
                   <div
                     className={cn(
                       "relative h-[400px] w-full max-w-4xl mx-auto rounded-2xl p-8 shadow-xl border border-white/20",
