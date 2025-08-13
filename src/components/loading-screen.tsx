@@ -29,7 +29,7 @@ export function LoadingScreen() {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center"
     >
       {/* Loading Logo */}
       <motion.div
@@ -77,15 +77,12 @@ export function LoadingScreen() {
         </div>
 
         {/* Loading Text */}
-        <div className="mt-6 text-center">
-          <div className="text-white text-lg mb-2 font-medium">
-            Welcome to RupeeBee
-          </div>
+        <h1 className="mt-12 text-center">
           <WordRotate
             words={["नमस्ते", "Hello", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "হ্যালো"]}
             className="text-green-400 font-semibold text-base"
           />
-        </div>
+        </h1>
       </motion.div>
     </motion.div>
   );
