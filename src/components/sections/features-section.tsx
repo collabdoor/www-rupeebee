@@ -1,8 +1,10 @@
-import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import StackingCards, { StackingCardItem } from "@/components/fancy/blocks/stacking-cards";
 import { DotPattern } from "@/components/magicui/dot-pattern";
 import Image from "next/image";
 import Android from "@/components/magicui/android";
-import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { cn } from "@/lib/utils";
 import {
   ShieldIcon,
@@ -11,132 +13,194 @@ import {
   PhoneIcon,
   UsersIcon,
 } from "lucide-react";
+import { Highlighter } from "../magicui/highlighter";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 const features = [
   {
-    name: "Financial Security",
-    description: "Learn to protect yourself from fraud",
-    href: "#",
-    cta: "Learn more",
-    Icon: ShieldIcon,
-    background: (
-      <div className="absolute -right-20 -top-20 opacity-60">
-        <Image
-          src="/bee-props/security.png"
-          alt="Security"
-          width={200}
-          height={200}
-          className="object-contain"
-        />
-      </div>
-    ),
-    className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
+    title: "Financial Security",
+    description: "Learn to protect yourself from fraud and secure your financial future",
+    icon: ShieldIcon,
+    image: "/bee-props/security.png",
+    gradient: "from-green-100 to-emerald-100",
+    iconColor: "text-green-600",
   },
   {
-    name: "Smart Savings",
-    description: "Grow your money with intelligent planning",
-    href: "#",
-    cta: "Start saving",
-    Icon: TrendingUpIcon,
-    background: (
-      <div className="absolute -right-20 -top-20 opacity-60">
-        <Image
-          src="/bee-props/grow-and-save.png"
-          alt="Savings"
-          width={200}
-          height={200}
-          className="object-contain"
-        />
-      </div>
-    ),
-    className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
+    title: "Smart Savings",
+    description: "Grow your money with intelligent planning and investment strategies",
+    icon: TrendingUpIcon,
+    image: "/bee-props/grow-and-save.png",
+    gradient: "from-blue-100 to-cyan-100",
+    iconColor: "text-blue-600",
   },
   {
-    name: "Financial Tools",
-    description: "Use our calculators and planning tools",
-    href: "#",
-    cta: "Try tools",
-    Icon: CalculatorIcon,
-    background: (
-      <div className="absolute -right-20 -top-20 opacity-60">
-        <Image
-          src="/bee-props/calculator-tools.png"
-          alt="Tools"
-          width={200}
-          height={200}
-          className="object-contain"
-        />
-      </div>
-    ),
-    className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
+    title: "Financial Tools",
+    description: "Use our calculators and planning tools to make informed decisions",
+    icon: CalculatorIcon,
+    image: "/bee-props/calculator-tools.png",
+    gradient: "from-yellow-100 to-amber-100",
+    iconColor: "text-yellow-600",
   },
   {
-    name: "Download RupeeBee",
-    description: "Get the complete financial literacy app",
-    href: "#",
-    cta: "Download now",
-    Icon: PhoneIcon,
-    background: (
-      <div className="absolute -right-10 -top-10 opacity-80">
-        <Android
-          className="size-[150px]"
-          src="/bee-props/welcome-rupeebee.png"
-        />
-      </div>
-    ),
-    className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
+    title: "Download RupeeBee",
+    description: "Get the complete financial literacy app on your mobile device",
+    icon: PhoneIcon,
+    image: "/bee-props/welcome-rupeebee.png",
+    gradient: "from-purple-100 to-violet-100",
+    iconColor: "text-purple-600",
+    isApp: true,
   },
   {
-    name: "Join Community",
-    description: "Connect with like-minded savers",
-    href: "#",
-    cta: "Join us",
-    Icon: UsersIcon,
-    background: (
-      <div className="absolute inset-0 opacity-20">
-        <div className="grid grid-cols-4 gap-4 p-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <Image 
-              key={i}
-              src={`/bee-props/${[10, 11, 12, 13, 14, 15, 16, 17][i]}.png`} 
-              alt="" 
-              width={40} 
-              height={40}
-              className="object-contain rounded-full"
-            />
-          ))}
-        </div>
-      </div>
-    ),
-    className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
+    title: "Join Community",
+    description: "Connect with like-minded savers and learn from each other",
+    icon: UsersIcon,
+    gradient: "from-pink-100 to-rose-100",
+    iconColor: "text-pink-600",
+    isCommunity: true,
   },
 ];
 
 export default function FeaturesSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isContainerReady, setIsContainerReady] = useState(false);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      setIsContainerReady(true);
+    }
+  }, []);
+
   return (
-    <section id="features" className="py-20 bg-white relative">
+    <section id="features" className="py-32 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+      {/* Background Pattern */}
       <DotPattern
         className={cn(
           "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",
-          "opacity-30"
+          "absolute inset-0 opacity-20"
         )}
       />
+      
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-heading mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Everything You Need for{" "}
-            <span className="text-green-700">Financial Success</span>
-          </h2>
+            <Highlighter action="box" color="#87CEFA">
+              Financial Success
+            </Highlighter>
+          </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             From fraud protection to smart savings, we've got you covered
           </p>
         </div>
 
-        <BentoGrid className="lg:grid-rows-3 max-w-5xl mx-auto">
-          {features.map((feature) => (
-            <BentoCard key={feature.name} {...feature} />
-          ))}
-        </BentoGrid>
+        {/* Stacking Cards Container */}
+        <div className="max-w-5xl mx-auto">
+          <div
+            ref={containerRef}
+            className="h-[600px] overflow-auto rounded-2xl"
+          >
+            {isContainerReady && (
+              <StackingCards 
+                totalCards={features.length} 
+                className="h-[300vh]"
+                scrollOptons={{ container: containerRef }}
+              >
+                {/* Initial scroll indicator */}
+                <div className="relative h-[600px] w-full flex justify-center items-center">
+                  <div className="text-center">
+                    <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                      Scroll down to explore ↓
+                    </h3>
+                    <p className="text-gray-600">Discover all our amazing features</p>
+                  </div>
+                </div>
+
+                {features.map((feature, index) => (
+                  <StackingCardItem
+                    key={feature.title}
+                    index={index}
+                    className="h-[600px]"
+                  >
+                    <div
+                      className={cn(
+                        "relative h-full w-full rounded-2xl p-8 shadow-xl border border-white/20",
+                        `bg-gradient-to-br ${feature.gradient}`,
+                        "backdrop-blur-sm mx-4"
+                      )}
+                    >
+                      {/* Card Content */}
+                      <div className="flex flex-col md:flex-row items-center justify-between h-full">
+                        {/* Left Content */}
+                        <div className="flex-1 mb-8 md:mb-0 md:pr-8">
+                          <div className="flex items-center mb-6">
+                            <div className={cn(
+                              "p-4 rounded-full bg-white/90 mr-4 shadow-lg",
+                              feature.iconColor
+                            )}>
+                              <feature.icon className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-3xl md:text-4xl font-bold text-gray-800">
+                              {feature.title}
+                            </h3>
+                          </div>
+                          
+                          <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                            {feature.description}
+                          </p>
+                          
+                          <ShimmerButton 
+                            className="bg-green-600 hover:bg-green-700 text-white px-8 py-4"
+                          >
+                            {feature.title === "Download RupeeBee" ? "Download Now" : "Learn More"}
+                          </ShimmerButton>
+                        </div>
+
+                        {/* Right Visual */}
+                        <div className="flex-shrink-0">
+                          {feature.isApp ? (
+                            <div className="relative">
+                              <Android
+                                className="w-48 h-48 md:w-64 md:h-64"
+                                src={feature.image}
+                              />
+                            </div>
+                          ) : feature.isCommunity ? (
+                            <div className="grid grid-cols-3 gap-3 p-6 bg-white/60 rounded-xl shadow-inner">
+                              {Array.from({ length: 9 }).map((_, i) => (
+                                <Image
+                                  key={i}
+                                  src={`/bee-props/${[10, 11, 12, 13, 14, 15, 16, 17, 18][i]}.png`}
+                                  alt=""
+                                  width={60}
+                                  height={60}
+                                  className="object-contain rounded-full bg-white/80 p-2 shadow-sm"
+                                />
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="relative">
+                              <Image
+                                src={feature.image!}
+                                alt={feature.title}
+                                width={250}
+                                height={250}
+                                className="object-contain drop-shadow-2xl"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Decorative Elements */}
+                      <div className="absolute top-6 right-6 w-20 h-20 bg-white/20 rounded-full blur-xl"></div>
+                      <div className="absolute bottom-6 left-6 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
+                    </div>
+                  </StackingCardItem>
+                ))}
+              </StackingCards>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

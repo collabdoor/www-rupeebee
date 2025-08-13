@@ -77,12 +77,12 @@ export function LoadingScreen() {
         </div>
 
         {/* Loading Text */}
-        <h1 className="mt-12 text-center">
+        <div className="mt-12 text-center">
           <WordRotate
             words={["नमस्ते", "Hello", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "হ্যালো"]}
-            className="text-green-400 font-semibold text-base"
+            className="text-blue bg-blue text-3xl"
           />
-        </h1>
+        </div>
       </motion.div>
     </motion.div>
   );

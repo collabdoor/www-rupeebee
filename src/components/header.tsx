@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { Menu, X } from "lucide-react";
 
@@ -20,7 +21,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed py-3 top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm"
           : "bg-transparent"
@@ -29,7 +30,7 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <Image 
               src="/assets/logo.png" 
               alt="RupeeBee" 
@@ -37,16 +38,16 @@ export default function Header() {
               height={60}
               className="object-contain"
             />
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8 rounded-3xl px-6 py-2 border border-gray-400 bg-gray-100">
             <a 
               href="#features" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
-                  ? "text-gray-600 hover:text-green-700" 
-                  : "text-gray-700 hover:text-green-700"
+                  ? "text-gray-600 hover:text-blue-700" 
+                  : "text-gray-700 hover:text-blue-700"
               }`}
             >
               Features
@@ -55,8 +56,8 @@ export default function Header() {
               href="#about" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
-                  ? "text-gray-600 hover:text-green-700" 
-                  : "text-gray-700 hover:text-green-700"
+                  ? "text-gray-600 hover:text-blue-700" 
+                  : "text-gray-700 hover:text-blue-700"
               }`}
             >
               About
@@ -65,8 +66,8 @@ export default function Header() {
               href="#community" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
-                  ? "text-gray-600 hover:text-green-700" 
-                  : "text-gray-700 hover:text-green-700"
+                  ? "text-gray-600 hover:text-blue-700" 
+                  : "text-gray-700 hover:text-blue-700"
               }`}
             >
               Community
@@ -75,8 +76,8 @@ export default function Header() {
               href="#contact" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
-                  ? "text-gray-600 hover:text-green-700" 
-                  : "text-gray-700 hover:text-green-700"
+                  ? "text-gray-600 hover:text-blue-700" 
+                  : "text-gray-700 hover:text-blue-700"
               }`}
             >
               Contact
