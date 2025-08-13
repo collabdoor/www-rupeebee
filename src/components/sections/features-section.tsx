@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef } from "react";
 import StackingCards, { StackingCardItem } from "@/components/fancy/blocks/stacking-cards";
 import { DotPattern } from "@/components/magicui/dot-pattern";
 import Image from "next/image";
@@ -62,13 +62,6 @@ const features = [
 
 export default function FeaturesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isContainerReady, setIsContainerReady] = useState(false);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      setIsContainerReady(true);
-    }
-  }, []);
 
   return (
     <section id="features" className="py-32 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
@@ -94,112 +87,97 @@ export default function FeaturesSection() {
         </div>
 
         {/* Stacking Cards Container */}
-        <div className="max-w-5xl mx-auto">
-          <div
-            ref={containerRef}
-            className="h-[600px] overflow-auto rounded-2xl"
+        <div 
+          ref={containerRef}
+          className="max-w-4xl mx-auto h-[400vh] overflow-y-auto"
+        >
+          <StackingCards 
+            totalCards={features.length} 
+            scrollOptons={{ container: containerRef }}
           >
-            {isContainerReady && (
-              <StackingCards 
-                totalCards={features.length} 
-                className="h-[300vh]"
-                scrollOptons={{ container: containerRef }}
+            {features.map((feature, index) => (
+              <StackingCardItem
+                key={feature.title}
+                index={index}
+                className="h-[400px]"
               >
-                {/* Initial scroll indicator */}
-                <div className="relative h-[600px] w-full flex justify-center items-center">
-                  <div className="text-center">
-                    <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                      Scroll down to explore ↓
-                    </h3>
-                    <p className="text-gray-600">Discover all our amazing features</p>
-                  </div>
-                </div>
-
-                {features.map((feature, index) => (
-                  <StackingCardItem
-                    key={feature.title}
-                    index={index}
-                    className="h-[600px]"
-                  >
-                    <div
-                      className={cn(
-                        "relative h-full w-full rounded-2xl p-8 shadow-xl border border-white/20",
-                        `bg-gradient-to-br ${feature.gradient}`,
-                        "backdrop-blur-sm mx-4"
-                      )}
-                    >
-                      {/* Card Content */}
-                      <div className="flex flex-col md:flex-row items-center justify-between h-full">
-                        {/* Left Content */}
-                        <div className="flex-1 mb-8 md:mb-0 md:pr-8">
-                          <div className="flex items-center mb-6">
-                            <div className={cn(
-                              "p-4 rounded-full bg-white/90 mr-4 shadow-lg",
-                              feature.iconColor
-                            )}>
-                              <feature.icon className="w-8 h-8" />
-                            </div>
-                            <h3 className="text-3xl md:text-4xl font-bold text-gray-800">
-                              {feature.title}
-                            </h3>
-                          </div>
-                          
-                          <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                            {feature.description}
-                          </p>
-                          
-                          <ShimmerButton 
-                            className="bg-green-600 hover:bg-green-700 text-white px-8 py-4"
-                          >
-                            {feature.title === "Download RupeeBee" ? "Download Now" : "Learn More"}
-                          </ShimmerButton>
+                <div
+                  className={cn(
+                    "relative h-full w-full rounded-2xl p-8 shadow-xl border border-white/20",
+                    `bg-gradient-to-br ${feature.gradient}`,
+                    "backdrop-blur-sm"
+                  )}
+                >
+                  {/* Card Content */}
+                  <div className="flex flex-col md:flex-row items-center justify-between h-full">
+                    {/* Left Content */}
+                    <div className="flex-1 mb-8 md:mb-0 md:pr-8">
+                      <div className="flex items-center mb-4">
+                        <div className={cn(
+                          "p-3 rounded-full bg-white/80 mr-4",
+                          feature.iconColor
+                        )}>
+                          <feature.icon className="w-8 h-8" />
                         </div>
-
-                        {/* Right Visual */}
-                        <div className="flex-shrink-0">
-                          {feature.isApp ? (
-                            <div className="relative">
-                              <Android
-                                className="w-48 h-48 md:w-64 md:h-64"
-                                src={feature.image}
-                              />
-                            </div>
-                          ) : feature.isCommunity ? (
-                            <div className="grid grid-cols-3 gap-3 p-6 bg-white/60 rounded-xl shadow-inner">
-                              {Array.from({ length: 9 }).map((_, i) => (
-                                <Image
-                                  key={i}
-                                  src={`/bee-props/${[10, 11, 12, 13, 14, 15, 16, 17, 18][i]}.png`}
-                                  alt=""
-                                  width={60}
-                                  height={60}
-                                  className="object-contain rounded-full bg-white/80 p-2 shadow-sm"
-                                />
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="relative">
-                              <Image
-                                src={feature.image!}
-                                alt={feature.title}
-                                width={250}
-                                height={250}
-                                className="object-contain drop-shadow-2xl"
-                              />
-                            </div>
-                          )}
-                        </div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+                          {feature.title}
+                        </h3>
                       </div>
-
-                      {/* Decorative Elements */}
-                      <div className="absolute top-6 right-6 w-20 h-20 bg-white/20 rounded-full blur-xl"></div>
-                      <div className="absolute bottom-6 left-6 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
+                      
+                      <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                        {feature.description}
+                      </p>
+                      
+                      <ShimmerButton 
+                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-3"
+                      >
+                        {feature.title === "Download RupeeBee" ? "Download Now" : "Learn More"}
+                      </ShimmerButton>
                     </div>
-                  </StackingCardItem>
-                ))}
-              </StackingCards>
-            )}
-          </div>
+
+                    {/* Right Visual */}
+                    <div className="flex-shrink-0">
+                      {feature.isApp ? (
+                        <div className="relative">
+                          <Android
+                            className="w-48 h-48 md:w-56 md:h-56"
+                            src={feature.image}
+                          />
+                        </div>
+                      ) : feature.isCommunity ? (
+                        <div className="grid grid-cols-3 gap-4 p-6 bg-white/50 rounded-xl">
+                          {Array.from({ length: 9 }).map((_, i) => (
+                            <Image
+                              key={i}
+                              src={`/bee-props/${[10, 11, 12, 13, 14, 15, 16, 17, 18][i]}.png`}
+                              alt=""
+                              width={60}
+                              height={60}
+                              className="object-contain rounded-full bg-white/80 p-2"
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="relative">
+                          <Image
+                            src={feature.image!}
+                            alt={feature.title}
+                            width={200}
+                            height={200}
+                            className="object-contain drop-shadow-lg"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Decorative Elements */}
+                  <div className="absolute top-4 right-4 w-16 h-16 bg-white/20 rounded-full blur-xl"></div>
+                  <div className="absolute bottom-4 left-4 w-12 h-12 bg-white/10 rounded-full blur-lg"></div>
+                </div>
+              </StackingCardItem>
+            ))}
+          </StackingCards>
         </div>
       </div>
     </section>
