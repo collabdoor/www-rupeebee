@@ -1,5 +1,6 @@
 import { TextReveal } from "@/components/magicui/text-reveal";
 
+// not used
 export default function TextRevealSection() {
   return (
     <section className="py-16 -mt-10 bg-gradient-to-tr from-green-50 via-white to-yellow-50">
