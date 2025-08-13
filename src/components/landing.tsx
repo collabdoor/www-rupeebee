@@ -14,7 +14,13 @@ import Iphone15Pro from "./magicui/iphone-15-pro";
 import Header from "./header";
 import Footer from "./footer";
 import { cn } from "@/lib/utils";
-import { ShieldIcon, TrendingUpIcon, CalculatorIcon, PhoneIcon, UsersIcon } from "lucide-react";
+import {
+  ShieldIcon,
+  TrendingUpIcon,
+  CalculatorIcon,
+  PhoneIcon,
+  UsersIcon,
+} from "lucide-react";
 
 const features = [
   {
@@ -25,10 +31,10 @@ const features = [
     Icon: ShieldIcon,
     background: (
       <div className="absolute -right-20 -top-20 opacity-60">
-        <Image 
-          src="/bee-props/security.png" 
-          alt="Security" 
-          width={200} 
+        <Image
+          src="/bee-props/security.png"
+          alt="Security"
+          width={200}
           height={200}
           className="object-contain"
         />
@@ -44,10 +50,10 @@ const features = [
     Icon: TrendingUpIcon,
     background: (
       <div className="absolute -right-20 -top-20 opacity-60">
-        <Image 
-          src="/bee-props/grow-and-save.png" 
-          alt="Savings" 
-          width={200} 
+        <Image
+          src="/bee-props/grow-and-save.png"
+          alt="Savings"
+          width={200}
           height={200}
           className="object-contain"
         />
@@ -63,10 +69,10 @@ const features = [
     Icon: CalculatorIcon,
     background: (
       <div className="absolute -right-20 -top-20 opacity-60">
-        <Image 
-          src="/bee-props/calculator-tools.png" 
-          alt="Tools" 
-          width={200} 
+        <Image
+          src="/bee-props/calculator-tools.png"
+          alt="Tools"
+          width={200}
           height={200}
           className="object-contain"
         />
@@ -86,6 +92,10 @@ const features = [
           className="size-[150px]"
           src="/bee-props/welcome-rupeebee.png"
         />
+        <Iphone15Pro
+          className="size-[150px]"
+          src="/bee-props/welcome-rupeebee.png"
+        />
       </div>
     ),
     className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
@@ -100,11 +110,11 @@ const features = [
       <div className="absolute inset-0 opacity-20">
         <div className="grid grid-cols-4 gap-4 p-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <Image 
+            <Image
               key={i}
-              src={`/bee-props/${[10, 11, 12, 13, 14, 15, 16, 17][i]}.png`} 
-              alt="" 
-              width={40} 
+              src={`/bee-props/${[10, 11, 12, 13, 14, 15, 16, 17][i]}.png`}
+              alt=""
+              width={40}
               height={40}
               className="object-contain rounded-full"
             />
@@ -117,63 +127,71 @@ const features = [
 ];
 
 const testimonials = [
-  { name: "Priya", role: "Student", content: "RupeeBee helped me save ₹50,000 in 6 months!" },
-  { name: "Rahul", role: "Professional", content: "No more falling for financial scams. Thank you!" },
-  { name: "Anita", role: "Entrepreneur", content: "Best financial literacy app in India." },
-  { name: "Vikash", role: "Teacher", content: "Teaching my students to be financially smart." },
-  { name: "Meera", role: "Mother", content: "Protecting my family's financial future." },
+  {
+    name: "Priya",
+    role: "Student",
+    content: "RupeeBee helped me save ₹50,000 in 6 months!",
+  },
+  {
+    name: "Rahul",
+    role: "Professional",
+    content: "No more falling for financial scams. Thank you!",
+  },
+  {
+    name: "Anita",
+    role: "Entrepreneur",
+    content: "Best financial literacy app in India.",
+  },
+  {
+    name: "Vikash",
+    role: "Teacher",
+    content: "Teaching my students to be financially smart.",
+  },
+  {
+    name: "Meera",
+    role: "Mother",
+    content: "Protecting my family's financial future.",
+  },
 ];
 
 export default function Landing() {
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-green-50 to-yellow-50 py-20">
-        <DotPattern
-          className={cn(
-            "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
-          )}
-        />
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <AnimatedGradientText className="text-lg">
-                  🐝 Welcome to RupeeBee
-                </AnimatedGradientText>
-                
-                <h1 className="text-5xl lg:text-6xl font-bold text-heading leading-tight">
-                  Master Your{" "}
-                  <Highlighter 
-                    action="highlight" 
-                    color="#FFC107"
-                  >
-                    <span className="text-green-700">Financial Future</span>
-                  </Highlighter>
+                <h1 className="text-left">
+                  <p className="leading-relaxed">
+                    The{" "}
+                    <Highlighter action="underline" color="#FF9800">
+                      Magic UI Highlighter
+                    </Highlighter>{" "}
+                    makes important{" "}
+                    <Highlighter action="highlight" color="#87CEFA">
+                      text stand out
+                    </Highlighter>{" "} 
+                    effortlessly.
+                  </p>
                 </h1>
-                
-                <div className="text-xl text-gray-600 flex items-center gap-2">
-                  <span>Say</span>
-                  <WordRotate 
-                    words={["नमस्ते", "Hello", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "হ্যালো"]} 
-                    className="text-green-700 font-semibold"
-                  />
-                  <span>to financial literacy</span>
-                </div>
               </div>
 
               <p className="text-lg text-gray-600 max-w-lg">
-                Learn to save, grow, and protect your money. Stay safe from financial fraud with India's most trusted financial literacy platform.
+                Learn to save, grow, and protect your money. Stay safe from
+                financial fraud with India's most trusted financial literacy
+                platform.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <ShimmerButton className="bg-green-700 hover:bg-green-800">
                   <span className="text-white font-medium">Download App</span>
                 </ShimmerButton>
-                
+
                 <button className="px-6 py-3 border-2 border-green-700 text-green-700 font-medium rounded-lg hover:bg-green-50 transition-colors">
                   Learn More
                 </button>
@@ -189,7 +207,8 @@ export default function Landing() {
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-green-700">
-                    ₹<NumberTicker value={5} />Cr+
+                    ₹<NumberTicker value={5} />
+                    Cr+
                   </div>
                   <div className="text-sm text-gray-600">Money Saved</div>
                 </div>
@@ -211,10 +230,10 @@ export default function Landing() {
                   delay={0}
                   radius={150}
                 >
-                  <Image 
-                    src="/bee-props/10.png" 
-                    alt="" 
-                    width={50} 
+                  <Image
+                    src="/bee-props/10.png"
+                    alt=""
+                    width={50}
                     height={50}
                     className="rounded-full"
                   />
@@ -225,10 +244,10 @@ export default function Landing() {
                   delay={10}
                   radius={150}
                 >
-                  <Image 
-                    src="/bee-props/security.png" 
-                    alt="" 
-                    width={50} 
+                  <Image
+                    src="/bee-props/security.png"
+                    alt=""
+                    width={50}
                     height={50}
                     className="rounded-full"
                   />
@@ -240,15 +259,15 @@ export default function Landing() {
                   radius={200}
                   reverse
                 >
-                  <Image 
-                    src="/bee-props/calculator-tools.png" 
-                    alt="" 
-                    width={40} 
+                  <Image
+                    src="/bee-props/calculator-tools.png"
+                    alt=""
+                    width={40}
                     height={40}
                     className="rounded-full"
                   />
                 </OrbitingCircles>
-                
+
                 <Android
                   className="size-[400px] z-10"
                   src="/bee-props/welcome-rupeebee.png"
@@ -289,7 +308,9 @@ export default function Landing() {
       {/* Text Reveal Section */}
       <section className="py-0">
         <TextReveal className="bg-gradient-to-r from-green-50 to-yellow-50">
-          Financial literacy is not just about money, it's about freedom, security, and the power to make informed decisions that shape your future.
+          Financial literacy is not just about money, it's about freedom,
+          security, and the power to make informed decisions that shape your
+          future.
         </TextReveal>
       </section>
 
@@ -313,17 +334,21 @@ export default function Landing() {
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center overflow-hidden">
-                    <Image 
-                      src={`/bee-props/${[15, 20, 25, 30, 35][idx % 5]}.png`} 
+                    <Image
+                      src={`/bee-props/${[15, 20, 25, 30, 35][idx % 5]}.png`}
                       alt={testimonial.name}
-                      width={40} 
+                      width={40}
                       height={40}
                       className="rounded-full object-cover w-full h-full"
                     />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
+                    <div className="font-semibold text-gray-900">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {testimonial.role}
+                    </div>
                   </div>
                 </div>
                 <p className="text-gray-700">"{testimonial.content}"</p>
@@ -340,9 +365,10 @@ export default function Landing() {
             Ready to Start Your Financial Journey?
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Download RupeeBee today and join thousands of Indians building a secure financial future
+            Download RupeeBee today and join thousands of Indians building a
+            secure financial future
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <ShimmerButton className="bg-white text-green-700 hover:bg-gray-100">
               <span className="font-medium">Download for Android</span>
@@ -353,7 +379,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
-      
+
       <Footer />
     </div>
   );

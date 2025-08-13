@@ -9,7 +9,6 @@ interface ClientLayoutProps {
 
 export function ClientLayout({ children }: ClientLayoutProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     console.log('ClientLayout mounted, starting loading timer'); // Debug log
@@ -17,31 +16,18 @@ export function ClientLayout({ children }: ClientLayoutProps) {
     const timer = setTimeout(() => {
       console.log('Timer completed, setting isLoading to false'); // Debug log
       setIsLoading(false);
-    }, 3000); // Increased to 3 seconds for better testing
+    }, 2000); // 2 seconds
 
     return () => clearTimeout(timer);
   }, []);
 
-  const handleLoadingComplete = () => {
-    console.log('Loading complete callback triggered'); // Debug log
-    setShowContent(true);
-  };
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
-    <>
-      <LoadingScreen 
-        isLoading={isLoading} 
-        onLoadingComplete={handleLoadingComplete}
-      />
-      
-      {/* Main Content */}
-      <div 
-        className={`min-h-screen transition-opacity duration-500 ${
-          showContent ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        {children}
-      </div>
-    </>
+    <div className="min-h-screen">
+      {children}
+    </div>
   );
 }

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Work_Sans, Roboto } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import { ClientLayout } from "@/components/client-layout";
 import "./globals.css";
 
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${workSans.variable} ${roboto.variable} antialiased`}
+        className={`${inter.variable} ${roboto.variable} antialiased`}
       >
         <ClientLayout>
           {children}

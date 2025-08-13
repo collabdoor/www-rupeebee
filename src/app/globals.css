@@ -15,8 +15,8 @@
   --color-gray: #6B7280;           /* Secondary text */
 
   /* Typography */
-  --font-heading: var(--font-work-sans);     /* For headings and subheadings */
-  --font-body: var(--font-roboto);           /* For general text */
+  --font-heading: var(--font-inter);        /* For headings and subheadings */
+  --font-body: var(--font-roboto);          /* For general text */
 
   /* Font Weights */
   --font-weight-light: 300;
