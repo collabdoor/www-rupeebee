@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Globe } from "@/components/magicui/globe";
+import WorldMap from "@/components/ui/world-map";
 import { ArrowRight, Users, Shield, BookOpen, Globe as GlobeIcon } from "lucide-react";
 
 export default function WhatsNextPage() {
@@ -24,13 +24,46 @@ export default function WhatsNextPage() {
             financially aware and secure society.
           </p>
 
-          {/* Globe Component */}
-          <div className="relative flex items-center justify-center overflow-hidden rounded-3xl bg-white/50 backdrop-blur-sm border border-green-100 mx-auto max-w-2xl h-96 mb-16">
-            <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-green-600 to-green-800 bg-clip-text text-center text-6xl md:text-8xl font-bold leading-none text-transparent z-10">
-              Global
-            </span>
-            <Globe className="top-20" />
-            <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(34,197,94,0.1),rgba(255,255,255,0))]" />
+          {/* WorldMap Component */}
+          <div className="relative w-full max-w-6xl mx-auto mb-16">
+            <div className="bg-white/50 backdrop-blur-sm border border-green-100 rounded-3xl p-8">
+              <WorldMap
+                dots={[
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi (India - Starting point)
+                    end: { lat: 23.8103, lng: 90.4125 }, // Bangladesh (Dhaka)
+                  },
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                    end: { lat: 27.7172, lng: 85.324 }, // Nepal (Kathmandu)
+                  },
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                    end: { lat: 6.9271, lng: 79.8612 }, // Sri Lanka (Colombo)
+                  },
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                    end: { lat: 35.6762, lng: 139.6503 }, // Japan (Tokyo)
+                  },
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                    end: { lat: -1.2921, lng: 36.8219 }, // Kenya (Nairobi)
+                  },
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                    end: { lat: 51.5074, lng: -0.1278 }, // UK (London)
+                  },
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                    end: { lat: -23.5505, lng: -46.6333 }, // Brazil (São Paulo)
+                  },
+                  {
+                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                    end: { lat: 40.7128, lng: -74.0060 }, // USA (New York)
+                  },
+                ]}
+              />
+            </div>
           </div>
         </div>
       </div>
