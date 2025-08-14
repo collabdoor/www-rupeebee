@@ -14,7 +14,7 @@ import {
   PhoneIcon,
   UsersIcon,
 } from "lucide-react";
-import { Highlighter } from "../magicui/highlighter";
+import { Highlighter } from "./magicui/highlighter";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 const features = [
@@ -68,29 +68,6 @@ const features = [
 export default function FeaturesSection() {
   return (
     <>
-      <section
-        id="features"
-        className="py-20 bg-gradient-to-tr from-green-50 via-white to-yellow-50 relative overflow-hidden"
-      >
-        {/* <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">  
-              Everything{" "}
-              <Highlighter action="highlight" color="#FFC107">
-                You
-              </Highlighter>{" "}
-              Need for{" "}
-              <Highlighter action="box" color="#66BB6A">
-                Financial Success
-              </Highlighter>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From fraud protection to smart savings, we've got you covered
-            </p>
-          </div>
-        </div> */}
-      </section>
-
       {/* Stacking Cards Section */}
       <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50">
         <StackingCards totalCards={features.length} className="h-[500vh]">
@@ -100,7 +77,15 @@ export default function FeaturesSection() {
               index={index}
               className="h-screen"
             >
-              <div className="h-full flex items-center justify-center px-4">
+              <div className="h-full flex flex-col items-center justify-center px-4">
+                {/* Tagline - only show on first card */}
+                {index === 0 && (
+                  <div className="text-center mb-8">
+                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                      From fraud protection to smart savings, we've got you covered
+                    </p>
+                  </div>
+                )}
                 
                 <div className="container mx-auto">
                   

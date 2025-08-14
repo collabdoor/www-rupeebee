@@ -3,10 +3,9 @@ import Footer from "@/components/footer";
 import {
   HeroSection,
   FeaturesSection,
-  TextRevealSection,
   TechStackSection,
   CTASection,
-} from "@/components/sections";
+} from "@/components";
 
 export default function Home() {
   return (
