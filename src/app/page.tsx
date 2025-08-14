@@ -1,8 +1,7 @@
 import {
   HeroSection,
   FeaturesSection,
-  TechStackSection,
-  FlutterComparison,
+  TechStackAndComparison,
   CTASection,
 } from "@/components";
 
@@ -15,10 +14,7 @@ export default function Home() {
           <FeaturesSection />
         </div>
         <div className="section-spacing">
-          <TechStackSection />
-        </div>
-        <div className="section-spacing">
-          <FlutterComparison />
+          <TechStackAndComparison />
         </div>
         {/* <div className="section-spacing">
           <CTASection />
