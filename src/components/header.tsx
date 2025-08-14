@@ -42,27 +42,27 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 rounded-3xl px-6 py-2 border border-gray-400 bg-gray-100">
-            <a 
-              href="#features" 
+            <Link 
+              href="/learn" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
                   ? "text-gray-600 hover:text-blue-700" 
                   : "text-gray-700 hover:text-blue-700"
               }`}
             >
-              Features
-            </a>
-            <a 
-              href="#about" 
+              Learn
+            </Link>
+            <Link 
+              href="/next" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
                   ? "text-gray-600 hover:text-blue-700" 
                   : "text-gray-700 hover:text-blue-700"
               }`}
             >
-              About
-            </a>
-            <a 
+              What's Next?
+            </Link>
+            <Link 
               href="#community" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
@@ -71,8 +71,8 @@ export default function Header() {
               }`}
             >
               Community
-            </a>
-            <a 
+            </Link>
+            <Link 
               href="#contact" 
               className={`transition-colors duration-300 font-medium ${
                 isScrolled 
@@ -81,7 +81,7 @@ export default function Header() {
               }`}
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* CTA Button & Mobile Menu */}
@@ -112,34 +112,34 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-sm border-t border-gray-200 shadow-lg rounded-b-lg mt-1">
-              <a
+              <Link
                 href="#features"
                 className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Features
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#about"
                 className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#community"
                 className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Community
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#contact"
                 className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
         )}

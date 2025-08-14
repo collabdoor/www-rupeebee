@@ -31,9 +31,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${roboto.variable} antialiased`}
       >
-        <ClientLayout>
+        {/* <ClientLayout> */}
           {children}
-        </ClientLayout>
+        {/* </ClientLayout> */}
       </body>
     </html>
   );
