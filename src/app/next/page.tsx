@@ -4,15 +4,10 @@ import { ArrowRight, Users, Shield, BookOpen, Globe as GlobeIcon } from "lucide-
 
 export default function WhatsNextPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-yellow-50">
       {/* Hero Section with Globe */}
       <div className="container mx-auto px-4 py-16">
-        <div className="text-center max-w-6xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <span>🚀</span>
-            Future Vision
-          </div>
-          
+        <div className="text-center max-w-6xl mx-auto mt-32">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
             What's Next for
             <span className="bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent"> RupeeBee</span>

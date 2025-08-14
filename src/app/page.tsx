@@ -10,15 +10,18 @@ import {
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-yellow-50">
-      <Header />
-      <div className="space-y-0">
+      <main className="space-y-0">
         <HeroSection />
-        <FeaturesSection />
-        {/* <TextRevealSection /> */}
-        <TechStackSection />
-        <CTASection />
-      </div>
-      <Footer />
+        <div className="section-spacing">
+          <FeaturesSection />
+        </div>
+        <div className="section-spacing">
+          <TechStackSection />
+        </div>
+        <div className="section-spacing">
+          <CTASection />
+        </div>
+      </main>
     </div>
   );
 }

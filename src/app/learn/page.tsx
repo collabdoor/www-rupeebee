@@ -9,14 +9,9 @@ import {
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-yellow-50">
-      {/* Header Section */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-violet-100">
       <div className="container mx-auto px-4 py-16">
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <span>💡</span>
-            Financial Awareness Guide
-          </div>
+        <div className="text-center max-w-4xl mx-auto mb-16 mt-32">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
             Do's & Don'ts
           </h1>
@@ -24,15 +19,6 @@ export default function FAQPage() {
             Learn essential financial safety practices to protect yourself from fraud and make smart money decisions. 
             Your financial security starts with awareness.
           </p>
-          <div className="mt-8">
-            <Image 
-              src="/bee-props/security.png" 
-              alt="Financial Security" 
-              width={200} 
-              height={200}
-              className="mx-auto object-contain"
-            />
-          </div>
         </div>
 
         {/* FAQ Accordion */}

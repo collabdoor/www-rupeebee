@@ -3,34 +3,34 @@ import Image from "next/image";
 
 export default function CTASection() {
   return (
-    <section className="py-20 -mt-10 bg-gradient-to-br from-green-50 via-white to-yellow-50">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto bg-gradient-to-r from-green-500 to-green-600 text-white rounded-3xl p-16 shadow-xl relative overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="bg-gradient-to-br from-green-50 via-white to-yellow-50">
+      <div className="container-responsive">
+        <div className="max-w-6xl mx-auto bg-gradient-to-r from-green-500 to-green-600 text-white rounded-3xl p-8 lg:p-16 shadow-2xl relative overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-6">
-              <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
+            <div className="space-y-6 text-center lg:text-left">
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight">
                 Try our RupeeBee app for free for 14 days
               </h2>
-              <p className="text-xl text-green-100 leading-relaxed">
+              <p className="text-lg lg:text-xl text-green-100 leading-relaxed max-w-lg">
                 The first step to a healthier financial you takes less than a minute.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <ShimmerButton className="bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">📱</span>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <ShimmerButton className="bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-xl shadow-lg transition-all duration-300">
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg">📱</span>
                     <div className="text-left">
-                      <div className="text-xs">Download on the</div>
+                      <div className="text-xs opacity-80">Download on the</div>
                       <div className="font-semibold">App Store</div>
                     </div>
                   </div>
                 </ShimmerButton>
-                <ShimmerButton className="bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">📱</span>
+                <ShimmerButton className="bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-xl shadow-lg transition-all duration-300">
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg">📱</span>
                     <div className="text-left">
-                      <div className="text-xs">GET IT ON</div>
+                      <div className="text-xs opacity-80">GET IT ON</div>
                       <div className="font-semibold">Google Play</div>
                     </div>
                   </div>

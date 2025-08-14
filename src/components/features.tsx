@@ -68,7 +68,6 @@ const features = [
 export default function FeaturesSection() {
   return (
     <>
-      {/* Stacking Cards Section */}
       <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50">
         <StackingCards totalCards={features.length} className="h-[500vh]">
           {features.map((feature, index) => (
@@ -77,48 +76,45 @@ export default function FeaturesSection() {
               index={index}
               className="h-screen"
             >
-              <div className="h-full flex flex-col items-center justify-center px-4">
-                {/* Tagline - only show on first card */}
+              <div className="h-full flex flex-col items-center justify-center px-2 sm:px-4">
                 {index === 0 && (
-                  <div className="text-center mb-8">
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                  <div className="text-center mb-8 sm:mb-14 px-4">
+                    <h1 className="text-base sm:text-lg md:text-xl text-gray-600 mx-auto max-w-2xl leading-relaxed">
                       From fraud protection to smart savings, we've got you covered
-                    </p>
+                    </h1>
                   </div>
                 )}
                 
-                <div className="container mx-auto">
-                  
+                <div className="container mx-auto px-2 sm:px-4">
                   <div
                     className={cn(
-                      "relative h-[400px] w-full max-w-4xl mx-auto rounded-2xl p-8 shadow-xl border border-white/20",
+                      "relative min-h-[300px] sm:min-h-[350px] md:h-[400px] w-full max-w-xs sm:max-w-2xl md:max-w-4xl mx-auto rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl border border-white/20",
                       `bg-gradient-to-br ${feature.gradient}`,
                       "backdrop-blur-sm"
                     )}
                   >
                     {/* Card Content */}
-                    <div className="flex flex-col md:flex-row items-center justify-between h-full">
+                    <div className="flex flex-col md:flex-row items-center justify-between h-full gap-4 md:gap-0">
                       {/* Left Content */}
-                      <div className="flex-1 mb-8 md:mb-0 md:pr-8">
-                        <div className="flex items-center mb-4">
+                      <div className="flex-1 text-center md:text-left md:pr-8">
+                        <div className="flex items-center justify-center md:justify-start mb-3 sm:mb-4">
                           <div
                             className={cn(
-                              "p-3 rounded-full bg-white/80 mr-4",
+                              "p-2 sm:p-3 rounded-full bg-white/80 mr-2 sm:mr-4 flex-shrink-0",
                               feature.iconColor
                             )}
                           >
-                            <feature.icon className="w-8 h-8" />
+                            <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
                           </div>
-                          <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+                          <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 leading-tight">
                             {feature.title}
                           </h3>
                         </div>
 
-                        <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                        <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed max-w-sm md:max-w-none mx-auto md:mx-0">
                           {feature.description}
                         </p>
-
-                        <ShimmerButton className="bg-green-600 hover:bg-green-700 text-white px-6 py-3">
+                        <ShimmerButton className="bg-green-600 hover:bg-green-700 text-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base">
                           {feature.title === "Download RupeeBee"
                             ? "Download Now"
                             : "Learn More"}
@@ -126,16 +122,16 @@ export default function FeaturesSection() {
                       </div>
 
                       {/* Right Visual */}
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0 mt-4 md:mt-0">
                         {feature.isApp ? (
                           <div className="relative">
                             <Android
-                              className="w-48 h-48 md:w-56 md:h-56"
+                              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 mx-auto"
                               src={feature.image}
                             />
                           </div>
                         ) : feature.isCommunity ? (
-                          <div className="grid grid-cols-3 gap-4 p-6 bg-white/50 rounded-xl">
+                          <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 bg-white/50 rounded-lg sm:rounded-xl max-w-xs sm:max-w-sm mx-auto">
                             {Array.from({ length: 9 }).map((_, i) => (
                               <Image
                                 key={i}
@@ -143,9 +139,9 @@ export default function FeaturesSection() {
                                   [10, 11, 12, 13, 14, 15, 16, 17, 18][i]
                                 }.png`}
                                 alt=""
-                                width={60}
-                                height={60}
-                                className="object-contain rounded-full bg-white/80 p-2"
+                                width={40}
+                                height={40}
+                                className="object-contain rounded-full bg-white/80 p-1 sm:p-2 w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14"
                               />
                             ))}
                           </div>
@@ -154,9 +150,9 @@ export default function FeaturesSection() {
                             <Image
                               src={feature.image!}
                               alt={feature.title}
-                              width={200}
-                              height={200}
-                              className="object-contain drop-shadow-lg"
+                              width={120}
+                              height={120}
+                              className="object-contain drop-shadow-lg mx-auto sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56"
                             />
                           </div>
                         )}
@@ -164,8 +160,8 @@ export default function FeaturesSection() {
                     </div>
 
                     {/* Decorative Elements */}
-                    <div className="absolute top-4 right-4 w-16 h-16 bg-white/20 rounded-full blur-xl"></div>
-                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-white/10 rounded-full blur-lg"></div>
+                    <div className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white/20 rounded-full blur-xl"></div>
+                    <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 bg-white/10 rounded-full blur-lg"></div>
                   </div>
                 </div>
               </div>

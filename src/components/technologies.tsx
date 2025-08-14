@@ -13,7 +13,7 @@ const Circle = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "z-10 flex size-24 items-center justify-center rounded-full border-2 border-border bg-white p-4 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        "z-10 flex size-16 sm:size-20 md:size-24 items-center justify-center rounded-full border-2 border-border bg-white p-2 sm:p-3 md:p-4 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
         className,
       )}
     >
@@ -35,48 +35,48 @@ export default function TechStackSection() {
   const div7Ref = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="techstack" className="py-20 -mt-10 bg-gradient-to-tr from-green-50 via-white to-yellow-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-heading mb-4">
+    <section id="techstack" className="bg-gradient-to-tr from-green-50 via-white to-yellow-50">
+      <div className="container-responsive">
+        <div className="text-center space-y-4 sm:space-y-6 mb-12 sm:mb-16 px-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
             Built with <span className="text-green-700">Modern Technology</span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Powered by cutting-edge tools and frameworks for the best experience
           </p>
         </div>
 
         <div
           className={cn(
-            "relative flex h-[500px] w-full items-center justify-center overflow-hidden p-10",
+            "relative flex min-h-[300px] sm:min-h-[400px] md:h-[500px] w-full items-center justify-center overflow-hidden p-4 sm:p-6 md:p-10",
           )}
           ref={containerRef}
         >
-          <div className="flex size-full max-w-4xl flex-row items-stretch justify-between gap-10">
-            <div className="flex flex-col justify-center gap-4">
-              <Circle ref={div1Ref}>
+          <div className="flex size-full max-w-xs sm:max-w-2xl md:max-w-4xl flex-col sm:flex-row items-center sm:items-stretch justify-center sm:justify-between gap-6 sm:gap-8 md:gap-10">
+            <div className="flex flex-row sm:flex-col justify-center items-center sm:items-stretch gap-2 sm:gap-4">
+              <Circle ref={div1Ref} className="size-12 sm:size-16 md:size-24">
                 <Icons.flutter />
               </Circle>
-              <Circle ref={div2Ref}>
+              <Circle ref={div2Ref} className="size-12 sm:size-16 md:size-24">
                 <Icons.dart />
               </Circle>
-              <Circle ref={div3Ref}>
+              <Circle ref={div3Ref} className="size-12 sm:size-16 md:size-24">
                 <Icons.riverpod />
               </Circle>
-              <Circle ref={div4Ref}>
+              <Circle ref={div4Ref} className="size-12 sm:size-16 md:size-24 hidden sm:flex">
                 <Icons.hive />
               </Circle>
-              <Circle ref={div5Ref}>
+              <Circle ref={div5Ref} className="size-12 sm:size-16 md:size-24 hidden sm:flex">
                 <Icons.material />
               </Circle>
             </div>
             <div className="flex flex-col justify-center">
-              <Circle ref={div6Ref} className="size-32">
+              <Circle ref={div6Ref} className="size-20 sm:size-24 md:size-32">
                 <Icons.rupeebee />
               </Circle>
             </div>
             <div className="flex flex-col justify-center">
-              <Circle ref={div7Ref}>
+              <Circle ref={div7Ref} className="size-12 sm:size-16 md:size-24">
                 <Icons.riverpod />
               </Circle>
             </div>

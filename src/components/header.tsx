@@ -1,149 +1,127 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
-import { Menu, X } from "lucide-react";
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const navItems = [
+    {
+      name: "Learn",
+      link: "/learn",
+    },
+    {
+      name: "What's Next?",
+      link: "/next",
+    },
+    {
+      name: "Community",
+      link: "#community",
+    },
+    {
+      name: "Contact",
+      link: "#contact",
+    },
+  ];
 
   return (
-    <header
-      className={`fixed py-3 top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <Image 
-              src="/assets/logo.png" 
-              alt="RupeeBee" 
-              width={60} 
-              height={60}
-              className="object-contain"
-            />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 rounded-3xl px-6 py-2 border border-gray-400 bg-gray-100">
-            <Link 
-              href="/learn" 
-              className={`transition-colors duration-300 font-medium ${
-                isScrolled 
-                  ? "text-gray-600 hover:text-blue-700" 
-                  : "text-gray-700 hover:text-blue-700"
-              }`}
-            >
-              Learn
-            </Link>
-            <Link 
-              href="/next" 
-              className={`transition-colors duration-300 font-medium ${
-                isScrolled 
-                  ? "text-gray-600 hover:text-blue-700" 
-                  : "text-gray-700 hover:text-blue-700"
-              }`}
-            >
-              What's Next?
-            </Link>
-            <Link 
-              href="#community" 
-              className={`transition-colors duration-300 font-medium ${
-                isScrolled 
-                  ? "text-gray-600 hover:text-blue-700" 
-                  : "text-gray-700 hover:text-blue-700"
-              }`}
-            >
-              Community
-            </Link>
-            <Link 
-              href="#contact" 
-              className={`transition-colors duration-300 font-medium ${
-                isScrolled 
-                  ? "text-gray-600 hover:text-blue-700" 
-                  : "text-gray-700 hover:text-blue-700"
-              }`}
-            >
-              Contact
-            </Link>
-          </nav>
-
-          {/* CTA Button & Mobile Menu */}
-          <div className="flex items-center gap-4">
-            <ShimmerButton className="bg-green-700 hover:bg-green-800 text-sm">
-              <span className="text-white font-medium">Download App</span>
-            </ShimmerButton>
-            
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 rounded-md transition-colors duration-300 ${
-                isScrolled
-                  ? "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  : "text-gray-700 hover:text-gray-900 hover:bg-white/20"
-              }`}
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-sm border-t border-gray-200 shadow-lg rounded-b-lg mt-1">
-              <Link
-                href="#features"
-                className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Features
-              </Link>
-              <Link
-                href="#about"
-                className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="#community"
-                className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Community
-              </Link>
-              <Link
-                href="#contact"
-                className="block px-3 py-2 text-gray-600 hover:text-green-700 hover:bg-gray-50 rounded-md font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
+    <div className="relative w-full">
+      <Navbar>
+        {/* Desktop Navigation */}
+        <NavBody>
+          {/* Custom Logo for Desktop */}
+          <Link href="/" className="flex items-center gap-3 group relative z-20 mr-4 px-2 py-1">
+            <div className="relative">
+              <Image 
+                src="/assets/logo.png" 
+                alt="RupeeBee" 
+                width={48} 
+                height={48}
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
+                priority
+              />
             </div>
+            <div className="hidden sm:block">
+              <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+                RupeeBee
+              </span>
+            </div>
+          </Link>
+          
+          <NavItems items={navItems} />
+          
+          <div className="flex items-center gap-3">
+            <NavbarButton 
+              variant="primary"
+              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+            >
+              Credits
+            </NavbarButton>
           </div>
-        )}
-      </div>
-    </header>
+        </NavBody>
+
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <MobileNavHeader>
+            {/* Custom Logo for Mobile */}
+            <Link href="/" className="flex items-center gap-3 relative z-20 mr-4 px-2 py-1">
+              <Image 
+                src="/assets/logo.png" 
+                alt="RupeeBee" 
+                width={40} 
+                height={40}
+                className="object-contain"
+                priority
+              />
+              <span className="text-lg font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+                RupeeBee
+              </span>
+            </Link>
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+          >
+            {navItems.map((item, idx) => (
+              <Link
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300 hover:text-green-600 transition-colors duration-300 py-2 block"
+              >
+                <span className="block">{item.name}</span>
+              </Link>
+            ))}
+            <div className="flex w-full flex-col gap-4 mt-6">
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                variant="primary"
+                className="w-full hover:text-green-500 bg-gradient-to-r rounded-full from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+              >
+                Credits
+              </NavbarButton>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
+    </div>
   );
 }

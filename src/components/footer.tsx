@@ -3,12 +3,11 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-gray-100">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-10">
         <div className=" grid md:grid-cols-2 gap-8">
-          {/* Column 1 - Logo */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <span className="text-xl font-bold text-gray-800">rupeebee</span>
+              <span className="text-xl font-bold text-gray-800">RupeeBee</span>
             </div>
             <p className="text-gray-600 text-sm leading-relaxed">
               RupeeBee is your friendly guide to financial awareness and fraud
@@ -42,57 +41,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-
-          {/* Column 2 - Quick Links */}
-          <div className="grid md:grid-cols-2 gap-8 justify-items-end">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-800">
-                Quick Links
-              </h3>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 hover:text-gray-800 transition-colors text-sm"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 hover:text-gray-800 transition-colors text-sm"
-                  >
-                    Do's & Don'ts
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 hover:text-gray-800 transition-colors text-sm"
-                  >
-                    What's Next
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-600 hover:text-gray-800 transition-colors text-sm"
-                  >
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 3 - About us */}
-           
-          </div>
         </div>
-
-        {/* Partner Logos */}
-
-        {/* Bottom Copyright */}
         <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-sm">
             Copyright © RupeeBee - 2025 All rights reserved.
