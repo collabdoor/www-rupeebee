@@ -23,13 +23,16 @@ import Image from "next/image";
 
 const Circle = forwardRef<
   HTMLDivElement,
-  { className?: string; children?: React.ReactNode }
+  { 
+    className?: string; 
+    children?: React.ReactNode;
+  }
 >(({ className, children }, ref) => {
   return (
     <div
       ref={ref}
       className={cn(
-        "z-10 flex size-16 sm:size-20 md:size-24 items-center justify-center rounded-full border-2 border-border bg-white p-2 sm:p-3 md:p-4 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        "z-10 flex items-center justify-center rounded-full border-2 border-border bg-white shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)] transition-all duration-300",
         className
       )}
     >
@@ -179,6 +182,15 @@ const Icons = {
       className="w-8 h-8"
     />
   ),
+  react: () => (
+    <Image
+      src="/technologies/react-native.svg"
+      alt="React Native"
+      width={32}
+      height={32}
+      className="w-8 h-8"
+    />
+  ),
   rupeebee: () => (
     <Image
       src="/assets/logo.png"
@@ -237,19 +249,31 @@ const FeatureCard = ({ feature, index }: { feature: any; index: number }) => (
 
 export default function TechStackAndComparison() {
   const [activeTab, setActiveTab] = useState<"overview" | "technologies">(
-    "overview"
+    "technologies"
   );
 
   // Refs for tech stack animation
   const containerRef = useRef<HTMLDivElement>(null);
-  const div1Ref = useRef<HTMLDivElement>(null);
-  const div2Ref = useRef<HTMLDivElement>(null);
-  const div3Ref = useRef<HTMLDivElement>(null);
-  const div4Ref = useRef<HTMLDivElement>(null);
-  const div5Ref = useRef<HTMLDivElement>(null);
-  const div6Ref = useRef<HTMLDivElement>(null);
-  const div7Ref = useRef<HTMLDivElement>(null);
-  const div8Ref = useRef<HTMLDivElement>(null);
+  
+  // Description card refs
+  const desc1Ref = useRef<HTMLDivElement>(null);
+  const desc2Ref = useRef<HTMLDivElement>(null);
+  const desc3Ref = useRef<HTMLDivElement>(null);
+  const desc4Ref = useRef<HTMLDivElement>(null);
+  const desc5Ref = useRef<HTMLDivElement>(null);
+  const desc6Ref = useRef<HTMLDivElement>(null);
+  
+  // Tech icon refs
+  const icon1Ref = useRef<HTMLDivElement>(null);
+  const icon2Ref = useRef<HTMLDivElement>(null);
+  const icon3Ref = useRef<HTMLDivElement>(null);
+  const icon4Ref = useRef<HTMLDivElement>(null);
+  const icon5Ref = useRef<HTMLDivElement>(null);
+  const icon6Ref = useRef<HTMLDivElement>(null);
+  
+  // Center refs
+  const rupeebeeRef = useRef<HTMLDivElement>(null);
+  const usersRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50 py-16 sm:py-24">
@@ -270,16 +294,16 @@ export default function TechStackAndComparison() {
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-8">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-1 shadow-lg border">
+          <div className="bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-lg border">
             {[
-              { key: "overview", label: "Overview" },
-              { key: "technologies", label: "Technologies Used" },
+              { key: "technologies", label: "Which TechStack?" },
+              { key: "overview", label: "Why though?" },
             ].map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key as any)}
                 className={cn(
-                  "px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300",
+                  "px-6 py-3 rounded-full text-md font-semibold transition-all duration-300",
                   activeTab === tab.key
                     ? "bg-green-600 text-white shadow-md"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -325,17 +349,18 @@ export default function TechStackAndComparison() {
                     calculators, and secure transactions.
                   </p>
                   <div className="space-y-3">
-                    {comparisonData.flutter.features
-                      .slice(0, 3)
-                      .map((feature, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center gap-2 text-sm"
-                        >
-                          <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                          <span>{feature.title}</span>
-                        </div>
-                      ))}
+                    {comparisonData.flutter.features.map((feature, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        className="flex items-center gap-2 text-sm"
+                      >
+                        <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <span className="font-medium">{feature.title}</span>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -346,8 +371,8 @@ export default function TechStackAndComparison() {
                 <div className="relative bg-white/70 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-200">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                      <div className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
-                        <span className="text-white font-bold text-sm">RN</span>
+                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <Icons.react />
                       </div>
                     </div>
                     <div>
@@ -365,59 +390,24 @@ export default function TechStackAndComparison() {
                     causing performance overhead.
                   </p>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>Large JavaScript ecosystem</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <XCircle className="w-4 h-4 text-red-500" />
-                      <span>JS bridge performance overhead</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <XCircle className="w-4 h-4 text-red-500" />
-                      <span>Limited financial UI customization</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Detailed Comparison */}
-              <div className="md:col-span-2 mt-8">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                      <Icons.flutter />
-                      Why Flutter for RupeeBee
-                    </h3>
-                    <div className="space-y-3">
-                      {comparisonData.flutter.features.map((feature, index) => (
-                        <FeatureCard
+                    {comparisonData.reactNative.features.map(
+                      (feature, index) => (
+                        <motion.div
                           key={index}
-                          feature={feature}
-                          index={index}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                      <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
-                        <span className="text-white font-bold text-xs">RN</span>
-                      </div>
-                      React Native Limitations
-                    </h3>
-                    <div className="space-y-3">
-                      {comparisonData.reactNative.features.map(
-                        (feature, index) => (
-                          <FeatureCard
-                            key={index}
-                            feature={feature}
-                            index={index}
-                          />
-                        )
-                      )}
-                    </div>
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                          className="flex items-center gap-2 text-sm"
+                        >
+                          {feature.advantage ? (
+                            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                          ) : (
+                            <XCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
+                          )}
+                          <span className="font-medium">{feature.title}</span>
+                        </motion.div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -434,188 +424,253 @@ export default function TechStackAndComparison() {
               transition={{ duration: 0.5 }}
               className="max-w-6xl mx-auto"
             >
-              <div
-                className={cn(
-                  "relative flex min-h-[300px] sm:min-h-[400px] md:h-[500px] w-full items-center justify-center overflow-hidden p-4 sm:p-6 md:p-10"
-                )}
+              <div 
+                className="relative flex min-h-[500px] w-full items-center justify-center overflow-hidden p-6"
                 ref={containerRef}
               >
-                <div className="flex size-full max-w-xs sm:max-w-2xl md:max-w-4xl flex-col sm:flex-row items-center sm:items-stretch justify-center sm:justify-between gap-6 sm:gap-8 md:gap-10">
-                  <div className="flex flex-row sm:flex-col justify-center items-center sm:items-stretch gap-2 sm:gap-4">
-                    <Circle
-                      ref={div1Ref}
-                      className="size-12 sm:size-16 md:size-24"
+                <div className="flex size-full items-center justify-between gap-8">
+                  
+                  {/* Description Cards - Left Side */}
+                  <div className="flex flex-col gap-6 w-1/3">
+                    <div 
+                      ref={desc1Ref}
+                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden"
                     >
+                      <div 
+                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
+                        style={{
+                          backgroundImage: `url('/technologies/flutter.svg')`,
+                          backgroundSize: '80px 80px',
+                          backgroundPosition: 'right 10px center',
+                        }}
+                      />
+                      <div className="relative z-10">
+                        <h3 className="font-semibold text-gray-900 mb-2">Flutter</h3>
+                        <p className="text-sm text-gray-600">Cross-platform framework for beautiful apps</p>
+                      </div>
+                    </div>
+
+                    <div 
+                      ref={desc2Ref}
+                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform translate-x-4"
+                    >
+                      <div 
+                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
+                        style={{
+                          backgroundImage: `url('/technologies/dart.svg')`,
+                          backgroundSize: '80px 80px',
+                          backgroundPosition: 'right 10px center',
+                        }}
+                      />
+                      <div className="relative z-10">
+                        <h3 className="font-semibold text-gray-900 mb-2">Dart</h3>
+                        <p className="text-sm text-gray-600">Object-oriented language for UI development</p>
+                      </div>
+                    </div>
+
+                    <div 
+                      ref={desc3Ref}
+                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform -translate-x-2"
+                    >
+                      <div 
+                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
+                        style={{
+                          backgroundImage: `url('/technologies/riverpod.svg')`,
+                          backgroundSize: '80px 80px',
+                          backgroundPosition: 'right 10px center',
+                        }}
+                      />
+                      <div className="relative z-10">
+                        <h3 className="font-semibold text-gray-900 mb-2">Riverpod</h3>
+                        <p className="text-sm text-gray-600">Provider pattern with compile-time safety</p>
+                      </div>
+                    </div>
+
+                    <div 
+                      ref={desc4Ref}
+                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform translate-x-6"
+                    >
+                      <div 
+                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
+                        style={{
+                          backgroundImage: `url('/technologies/hive.svg')`,
+                          backgroundSize: '80px 80px',
+                          backgroundPosition: 'right 10px center',
+                        }}
+                      />
+                      <div className="relative z-10">
+                        <h3 className="font-semibold text-gray-900 mb-2">Hive</h3>
+                        <p className="text-sm text-gray-600">NoSQL database with encryption</p>
+                      </div>
+                    </div>
+
+                    <div 
+                      ref={desc5Ref}
+                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden"
+                    >
+                      <div 
+                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
+                        style={{
+                          backgroundImage: `url('/technologies/supabase.svg')`,
+                          backgroundSize: '80px 80px',
+                          backgroundPosition: 'right 10px center',
+                        }}
+                      />
+                      <div className="relative z-10">
+                        <h3 className="font-semibold text-gray-900 mb-2">Supabase</h3>
+                        <p className="text-sm text-gray-600">Open-source Firebase alternative</p>
+                      </div>
+                    </div>
+
+                    <div 
+                      ref={desc6Ref}
+                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform translate-x-3"
+                    >
+                      <div 
+                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
+                        style={{
+                          backgroundImage: `url('/technologies/lottie.svg')`,
+                          backgroundSize: '80px 80px',
+                          backgroundPosition: 'right 10px center',
+                        }}
+                      />
+                      <div className="relative z-10">
+                        <h3 className="font-semibold text-gray-900 mb-2">Lottie</h3>
+                        <p className="text-sm text-gray-600">Lightweight, scalable animations</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tech Stack Icons - Center */}
+                  <div className="flex flex-col items-center justify-center gap-4 w-1/3">
+                    <Circle ref={icon1Ref} className="size-16 sm:size-20 md:size-24">
                       <Icons.flutter />
                     </Circle>
-                    <Circle
-                      ref={div2Ref}
-                      className="size-12 sm:size-16 md:size-24"
-                    >
+                    <Circle ref={icon2Ref} className="size-16 sm:size-20 md:size-24">
                       <Icons.dart />
                     </Circle>
-                    <Circle
-                      ref={div3Ref}
-                      className="size-12 sm:size-16 md:size-24"
-                    >
+                    <Circle ref={icon3Ref} className="size-16 sm:size-20 md:size-24">
                       <Icons.riverpod />
                     </Circle>
-                    <Circle
-                      ref={div4Ref}
-                      className="size-12 sm:size-16 md:size-24 hidden sm:flex"
-                    >
+                    <Circle ref={icon4Ref} className="size-16 sm:size-20 md:size-24">
                       <Icons.hive />
                     </Circle>
-                    <Circle
-                      ref={div5Ref}
-                      className="size-12 sm:size-16 md:size-24 hidden sm:flex"
-                    >
-                      <Icons.lottie />
-                    </Circle>
-                    <Circle
-                      ref={div6Ref}
-                      className="size-12 sm:size-16 md:size-24 hidden sm:flex"
-                    >
+                    <Circle ref={icon5Ref} className="size-16 sm:size-20 md:size-24">
                       <Icons.supabase />
                     </Circle>
-                  </div>
-                  <div className="flex flex-col justify-center">
-                    <Circle
-                      ref={div7Ref}
-                      className="size-20 sm:size-24 md:size-32"
-                    >
-                      <Icons.rupeebee />
+                    <Circle ref={icon6Ref} className="size-16 sm:size-20 md:size-24">
+                      <Icons.lottie />
                     </Circle>
                   </div>
-                  <div className="flex flex-col justify-center">
-                    <Circle
-                      ref={div8Ref}
-                      className="size-12 sm:size-16 md:size-24"
-                    >
-                      <Users2 />
+
+                  {/* RupeeBee & Users - Right Side */}
+                  <div className="flex flex-col items-center gap-8 w-1/3">
+                    <Circle ref={rupeebeeRef} className="size-20 sm:size-24 md:size-28">
+                      <Icons.rupeebee />
+                    </Circle>
+                    <Circle ref={usersRef} className="size-16 sm:size-20 md:size-24">
+                      <Users2 className="w-8 h-8" />
                     </Circle>
                   </div>
                 </div>
 
+                {/* Animated Beams - Description Cards to Icons */}
                 <AnimatedBeam
                   containerRef={containerRef}
-                  fromRef={div1Ref}
-                  toRef={div6Ref}
+                  fromRef={desc1Ref}
+                  toRef={icon1Ref}
                   gradientStartColor="#10B981"
                   gradientStopColor="#F59E0B"
                 />
                 <AnimatedBeam
                   containerRef={containerRef}
-                  fromRef={div2Ref}
-                  toRef={div6Ref}
+                  fromRef={desc2Ref}
+                  toRef={icon2Ref}
                   gradientStartColor="#10B981"
                   gradientStopColor="#F59E0B"
                 />
                 <AnimatedBeam
                   containerRef={containerRef}
-                  fromRef={div3Ref}
-                  toRef={div6Ref}
+                  fromRef={desc3Ref}
+                  toRef={icon3Ref}
                   gradientStartColor="#10B981"
                   gradientStopColor="#F59E0B"
                 />
                 <AnimatedBeam
                   containerRef={containerRef}
-                  fromRef={div4Ref}
-                  toRef={div6Ref}
+                  fromRef={desc4Ref}
+                  toRef={icon4Ref}
                   gradientStartColor="#10B981"
                   gradientStopColor="#F59E0B"
                 />
                 <AnimatedBeam
                   containerRef={containerRef}
-                  fromRef={div5Ref}
-                  toRef={div6Ref}
+                  fromRef={desc5Ref}
+                  toRef={icon5Ref}
                   gradientStartColor="#10B981"
                   gradientStopColor="#F59E0B"
                 />
                 <AnimatedBeam
                   containerRef={containerRef}
-                  fromRef={div7Ref}
-                  toRef={div6Ref}
+                  fromRef={desc6Ref}
+                  toRef={icon6Ref}
+                  gradientStartColor="#10B981"
+                  gradientStopColor="#F59E0B"
+                />
+                
+                {/* Icons to RupeeBee */}
+                <AnimatedBeam
+                  containerRef={containerRef}
+                  fromRef={icon1Ref}
+                  toRef={rupeebeeRef}
                   gradientStartColor="#10B981"
                   gradientStopColor="#F59E0B"
                 />
                 <AnimatedBeam
                   containerRef={containerRef}
-                  fromRef={div6Ref}
-                  toRef={div8Ref}
+                  fromRef={icon2Ref}
+                  toRef={rupeebeeRef}
+                  gradientStartColor="#10B981"
+                  gradientStopColor="#F59E0B"
+                />
+                <AnimatedBeam
+                  containerRef={containerRef}
+                  fromRef={icon3Ref}
+                  toRef={rupeebeeRef}
+                  gradientStartColor="#10B981"
+                  gradientStopColor="#F59E0B"
+                />
+                <AnimatedBeam
+                  containerRef={containerRef}
+                  fromRef={icon4Ref}
+                  toRef={rupeebeeRef}
+                  gradientStartColor="#10B981"
+                  gradientStopColor="#F59E0B"
+                />
+                <AnimatedBeam
+                  containerRef={containerRef}
+                  fromRef={icon5Ref}
+                  toRef={rupeebeeRef}
+                  gradientStartColor="#10B981"
+                  gradientStopColor="#F59E0B"
+                />
+                <AnimatedBeam
+                  containerRef={containerRef}
+                  fromRef={icon6Ref}
+                  toRef={rupeebeeRef}
+                  gradientStartColor="#10B981"
+                  gradientStopColor="#F59E0B"
+                />
+                
+                {/* RupeeBee to Users */}
+                <AnimatedBeam
+                  containerRef={containerRef}
+                  fromRef={rupeebeeRef}
+                  toRef={usersRef}
                   gradientStartColor="#10B981"
                   gradientStopColor="#F59E0B"
                 />
               </div>
-
-              {/* Technology Descriptions */}
-              {/* <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Icons.flutter />
-                    <h3 className="font-semibold text-gray-900">Flutter</h3>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Google's UI toolkit for building beautiful, natively
-                    compiled applications
-                  </p>
-                </div>
-
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Icons.dart />
-                    <h3 className="font-semibold text-gray-900">Dart</h3>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Optimized programming language for fast apps with great
-                    developer experience
-                  </p>
-                </div>
-
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Icons.riverpod />
-                    <h3 className="font-semibold text-gray-900">Riverpod</h3>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Reactive state management that makes data flow simple and
-                    testable
-                  </p>
-                </div>
-
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Icons.hive />
-                    <h3 className="font-semibold text-gray-900">Hive</h3>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Lightning-fast local database for secure financial data
-                    storage
-                  </p>
-                </div>
-
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Icons.supabase />
-                    <h3 className="font-semibold text-gray-900">Supabase</h3>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Open-source backend for secure authentication and real-time
-                    data sync
-                  </p>
-                </div>
-
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Icons.lottie />
-                    <h3 className="font-semibold text-gray-900">Lottie</h3>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Beautiful animations that make financial learning engaging
-                    and fun
-                  </p>
-                </div>
-              </div> */}
             </motion.div>
           )}
         </AnimatePresence>
