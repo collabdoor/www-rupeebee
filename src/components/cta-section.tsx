@@ -1,5 +1,4 @@
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
-import Image from "next/image";
 
 export default function CTASection() {
   return (
