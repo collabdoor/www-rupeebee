@@ -43,6 +43,56 @@ const Circle = forwardRef<
 
 Circle.displayName = "Circle";
 
+// Description Card Component
+const DescriptionCard = forwardRef<
+  HTMLDivElement,
+  {
+    title: string;
+    description: string;
+    iconUrl: string;
+    className?: string;
+  }
+>(({ title, description, iconUrl, className = "" }, ref) => (
+  <div 
+    ref={ref}
+    className={cn(
+      "bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden",
+      className
+    )}
+  >
+    <div 
+      className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
+      style={{
+        backgroundImage: `url('${iconUrl}')`,
+        backgroundSize: '80px 80px',
+        backgroundPosition: 'right 10px center',
+      }}
+    />
+    <div className="relative z-10">
+      <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
+      <p className="text-sm text-gray-600">{description}</p>
+    </div>
+  </div>
+));
+
+DescriptionCard.displayName = "DescriptionCard";
+
+// Tech data for description cards
+const techData = [
+  { title: "Flutter", description: "Cross-platform framework for beautiful apps", iconUrl: "/technologies/flutter.svg", icon: "flutter" },
+  { title: "Dart", description: "Object-oriented language for UI development", iconUrl: "/technologies/dart.svg", icon: "dart" },
+  { title: "Riverpod", description: "Provider pattern with compile-time safety", iconUrl: "/technologies/riverpod.svg", icon: "riverpod" },
+  { title: "Hive", description: "NoSQL database with encryption", iconUrl: "/technologies/hive.svg", icon: "hive" },
+  { title: "Supabase", description: "Open-source Firebase alternative", iconUrl: "/technologies/supabase.svg", icon: "supabase" },
+  { title: "Lottie", description: "Lightweight, scalable animations", iconUrl: "/technologies/lottie.svg", icon: "lottie" },
+];
+
+// Animation constants
+const BEAM_GRADIENT = {
+  start: "#10B981",
+  stop: "#F59E0B"
+};
+
 const comparisonData = {
   flutter: {
     name: "Flutter",
@@ -255,21 +305,13 @@ export default function TechStackAndComparison() {
   // Refs for tech stack animation
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Description card refs
-  const desc1Ref = useRef<HTMLDivElement>(null);
-  const desc2Ref = useRef<HTMLDivElement>(null);
-  const desc3Ref = useRef<HTMLDivElement>(null);
-  const desc4Ref = useRef<HTMLDivElement>(null);
-  const desc5Ref = useRef<HTMLDivElement>(null);
-  const desc6Ref = useRef<HTMLDivElement>(null);
+  // Create refs arrays for cleaner code
+  const descRefs = Array.from({ length: 6 }, () => useRef<HTMLDivElement>(null));
+  const iconRefs = Array.from({ length: 6 }, () => useRef<HTMLDivElement>(null));
   
-  // Tech icon refs
-  const icon1Ref = useRef<HTMLDivElement>(null);
-  const icon2Ref = useRef<HTMLDivElement>(null);
-  const icon3Ref = useRef<HTMLDivElement>(null);
-  const icon4Ref = useRef<HTMLDivElement>(null);
-  const icon5Ref = useRef<HTMLDivElement>(null);
-  const icon6Ref = useRef<HTMLDivElement>(null);
+  // Individual refs for destructuring (for compatibility)
+  const [desc1Ref, desc2Ref, desc3Ref, desc4Ref, desc5Ref, desc6Ref] = descRefs;
+  const [icon1Ref, icon2Ref, icon3Ref, icon4Ref, icon5Ref, icon6Ref] = iconRefs;
   
   // Center refs
   const rupeebeeRef = useRef<HTMLDivElement>(null);
@@ -432,135 +474,31 @@ export default function TechStackAndComparison() {
                   
                   {/* Description Cards - Left Side */}
                   <div className="flex flex-col gap-6 w-1/3">
-                    <div 
-                      ref={desc1Ref}
-                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden"
-                    >
-                      <div 
-                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
-                        style={{
-                          backgroundImage: `url('/technologies/flutter.svg')`,
-                          backgroundSize: '80px 80px',
-                          backgroundPosition: 'right 10px center',
-                        }}
+                    {descRefs.map((ref, index) => (
+                      <DescriptionCard
+                        key={index}
+                        ref={ref}
+                        title={techData[index].title}
+                        description={techData[index].description}
+                        iconUrl={techData[index].iconUrl}
+                        className={
+                          index === 1 ? "transform translate-x-4" :
+                          index === 2 ? "transform -translate-x-2" :
+                          index === 3 ? "transform translate-x-6" :
+                          index === 5 ? "transform translate-x-3" : ""
+                        }
                       />
-                      <div className="relative z-10">
-                        <h3 className="font-semibold text-gray-900 mb-2">Flutter</h3>
-                        <p className="text-sm text-gray-600">Cross-platform framework for beautiful apps</p>
-                      </div>
-                    </div>
-
-                    <div 
-                      ref={desc2Ref}
-                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform translate-x-4"
-                    >
-                      <div 
-                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
-                        style={{
-                          backgroundImage: `url('/technologies/dart.svg')`,
-                          backgroundSize: '80px 80px',
-                          backgroundPosition: 'right 10px center',
-                        }}
-                      />
-                      <div className="relative z-10">
-                        <h3 className="font-semibold text-gray-900 mb-2">Dart</h3>
-                        <p className="text-sm text-gray-600">Object-oriented language for UI development</p>
-                      </div>
-                    </div>
-
-                    <div 
-                      ref={desc3Ref}
-                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform -translate-x-2"
-                    >
-                      <div 
-                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
-                        style={{
-                          backgroundImage: `url('/technologies/riverpod.svg')`,
-                          backgroundSize: '80px 80px',
-                          backgroundPosition: 'right 10px center',
-                        }}
-                      />
-                      <div className="relative z-10">
-                        <h3 className="font-semibold text-gray-900 mb-2">Riverpod</h3>
-                        <p className="text-sm text-gray-600">Provider pattern with compile-time safety</p>
-                      </div>
-                    </div>
-
-                    <div 
-                      ref={desc4Ref}
-                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform translate-x-6"
-                    >
-                      <div 
-                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
-                        style={{
-                          backgroundImage: `url('/technologies/hive.svg')`,
-                          backgroundSize: '80px 80px',
-                          backgroundPosition: 'right 10px center',
-                        }}
-                      />
-                      <div className="relative z-10">
-                        <h3 className="font-semibold text-gray-900 mb-2">Hive</h3>
-                        <p className="text-sm text-gray-600">NoSQL database with encryption</p>
-                      </div>
-                    </div>
-
-                    <div 
-                      ref={desc5Ref}
-                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden"
-                    >
-                      <div 
-                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
-                        style={{
-                          backgroundImage: `url('/technologies/supabase.svg')`,
-                          backgroundSize: '80px 80px',
-                          backgroundPosition: 'right 10px center',
-                        }}
-                      />
-                      <div className="relative z-10">
-                        <h3 className="font-semibold text-gray-900 mb-2">Supabase</h3>
-                        <p className="text-sm text-gray-600">Open-source Firebase alternative</p>
-                      </div>
-                    </div>
-
-                    <div 
-                      ref={desc6Ref}
-                      className="bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-white/20 relative overflow-hidden transform translate-x-3"
-                    >
-                      <div 
-                        className="absolute inset-0 opacity-10 bg-no-repeat bg-right bg-contain"
-                        style={{
-                          backgroundImage: `url('/technologies/lottie.svg')`,
-                          backgroundSize: '80px 80px',
-                          backgroundPosition: 'right 10px center',
-                        }}
-                      />
-                      <div className="relative z-10">
-                        <h3 className="font-semibold text-gray-900 mb-2">Lottie</h3>
-                        <p className="text-sm text-gray-600">Lightweight, scalable animations</p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
 
                   {/* Tech Stack Icons - Center */}
                   <div className="flex flex-col items-center justify-center gap-4 w-1/3">
-                    <Circle ref={icon1Ref} className="size-16 sm:size-20 md:size-24">
-                      <Icons.flutter />
-                    </Circle>
-                    <Circle ref={icon2Ref} className="size-16 sm:size-20 md:size-24">
-                      <Icons.dart />
-                    </Circle>
-                    <Circle ref={icon3Ref} className="size-16 sm:size-20 md:size-24">
-                      <Icons.riverpod />
-                    </Circle>
-                    <Circle ref={icon4Ref} className="size-16 sm:size-20 md:size-24">
-                      <Icons.hive />
-                    </Circle>
-                    <Circle ref={icon5Ref} className="size-16 sm:size-20 md:size-24">
-                      <Icons.supabase />
-                    </Circle>
-                    <Circle ref={icon6Ref} className="size-16 sm:size-20 md:size-24">
-                      <Icons.lottie />
-                    </Circle>
+                    {iconRefs.map((ref, index) => (
+                      <Circle key={index} ref={ref} className="size-16 sm:size-20 md:size-24">
+                        {/* @ts-ignore - Dynamic icon access */}
+                        {Icons[techData[index].icon as keyof typeof Icons]()}
+                      </Circle>
+                    ))}
                   </div>
 
                   {/* RupeeBee & Users - Right Side */}
@@ -575,100 +513,36 @@ export default function TechStackAndComparison() {
                 </div>
 
                 {/* Animated Beams - Description Cards to Icons */}
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={desc1Ref}
-                  toRef={icon1Ref}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={desc2Ref}
-                  toRef={icon2Ref}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={desc3Ref}
-                  toRef={icon3Ref}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={desc4Ref}
-                  toRef={icon4Ref}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={desc5Ref}
-                  toRef={icon5Ref}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={desc6Ref}
-                  toRef={icon6Ref}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
+                {descRefs.map((descRef, index) => (
+                  <AnimatedBeam
+                    key={`desc-to-icon-${index}`}
+                    containerRef={containerRef}
+                    fromRef={descRef}
+                    toRef={iconRefs[index]}
+                    gradientStartColor={BEAM_GRADIENT.start}
+                    gradientStopColor={BEAM_GRADIENT.stop}
+                  />
+                ))}
                 
                 {/* Icons to RupeeBee */}
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={icon1Ref}
-                  toRef={rupeebeeRef}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={icon2Ref}
-                  toRef={rupeebeeRef}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={icon3Ref}
-                  toRef={rupeebeeRef}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={icon4Ref}
-                  toRef={rupeebeeRef}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={icon5Ref}
-                  toRef={rupeebeeRef}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={icon6Ref}
-                  toRef={rupeebeeRef}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
-                />
+                {iconRefs.map((iconRef, index) => (
+                  <AnimatedBeam
+                    key={`icon-to-rupeebee-${index}`}
+                    containerRef={containerRef}
+                    fromRef={iconRef}
+                    toRef={rupeebeeRef}
+                    gradientStartColor={BEAM_GRADIENT.start}
+                    gradientStopColor={BEAM_GRADIENT.stop}
+                  />
+                ))}
                 
                 {/* RupeeBee to Users */}
                 <AnimatedBeam
                   containerRef={containerRef}
                   fromRef={rupeebeeRef}
                   toRef={usersRef}
-                  gradientStartColor="#10B981"
-                  gradientStopColor="#F59E0B"
+                  gradientStartColor={BEAM_GRADIENT.start}
+                  gradientStopColor={BEAM_GRADIENT.stop}
                 />
               </div>
             </motion.div>
