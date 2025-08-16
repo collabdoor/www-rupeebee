@@ -25,11 +25,11 @@ export default function Credits() {
               {/* Header Section */}
               <div className="text-center max-w-4xl mx-auto space-y-6">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                  <span className="block">
+                  <span className="block">Acknowledgments & {" "}
                     <Highlighter action="highlight" color="#87CEFA">
                       Credits
                     </Highlighter>{" "}
-                    & <PointerHighlight containerClassName="inline">Acknowledgments</PointerHighlight>
+                    
                   </span>
                 </h1>
 
@@ -51,7 +51,7 @@ export default function Credits() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-gray-900">
-                  Building for a <Highlighter action="highlight" color="#4ade80">SAFE</Highlighter> Financial Future
+                  Building for a SAFE Financial Future
                 </h2>
               </div>
             </div>
@@ -103,37 +103,8 @@ export default function Credits() {
             <div>
               <h2 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
                 
-                <Highlighter action="highlight" >Important Links</Highlighter>
+                Important Links
               </h2>
-              <p className="text-gray-600 mt-3">
-                Quick access to project resources and information
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {importantLinks.map((link, index) => (
-                <div key={index} className="text-center space-y-4 p-6 rounded-xl bg-white/30 backdrop-blur-sm border border-white/20 hover:bg-white/40 transition-all duration-300 group">
-                  <div className="text-gray-700 group-hover:text-purple-600 transition-colors flex justify-center">
-                    {link.icon}
-                  </div>
-                  <div>
-                    <div className="flex flex-col items-center gap-2 mb-3">
-                      <h3 className="font-semibold text-gray-900 group-hover:text-purple-600 transition-colors text-lg">
-                        {link.title}
-                      </h3>
-                      <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">
-                        {link.category}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600 leading-relaxed">{link.description}</p>
-                    <div className="mt-4">
-                      <div className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                        {link.url !== "#" ? link.url : "Coming Soon"}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
