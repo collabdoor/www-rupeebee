@@ -2,6 +2,7 @@ import {
   HeroSection,
   FeaturesSection,
   TechStackAndComparison,
+  ForIndiaSection,
 } from "@/components";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <main className="">
         <HeroSection />
         <FeaturesSection />
+        <ForIndiaSection />
         <TechStackAndComparison />
       </main>
     </div>
