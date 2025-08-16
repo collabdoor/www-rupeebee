@@ -64,12 +64,12 @@ export default function Header() {
           <NavItems items={navItems} />
           
           <div className="flex items-center gap-3">
-            <NavbarButton 
-              variant="primary"
-              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+            <Link 
+              href="/credits"
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white text-sm font-bold relative cursor-pointer transition duration-200 inline-block text-center shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             >
               Credits
-            </NavbarButton>
+            </Link>
           </div>
         </NavBody>
 
@@ -111,13 +111,13 @@ export default function Header() {
               </Link>
             ))}
             <div className="flex w-full flex-col gap-4 mt-6">
-              <NavbarButton
+              <Link
+                href="/credits"
                 onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full hover:text-green-500 bg-gradient-to-r rounded-full from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
+                className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white text-sm font-bold relative cursor-pointer transition duration-200 inline-block text-center shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
               >
                 Credits
-              </NavbarButton>
+              </Link>
             </div>
           </MobileNavMenu>
         </MobileNav>
