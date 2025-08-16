@@ -19,9 +19,9 @@ import { PointerHighlight } from "./ui/pointer-highlight";
 
 const features = [
   {
-    title: "Financial Security",
+    title: "Global but make it local - Multilingual Support",
     description:
-      "Learn to protect yourself from fraud and secure your financial future",
+      "App supports multiple languages to cater to a diverse user base",
     icon: ShieldIcon,
     image: "/bee-props/security.png",
     gradient: "from-green-100 to-emerald-100",
@@ -29,7 +29,7 @@ const features = [
     isApp: true,
   },
   {
-    title: "Smart Savings",
+    title: "Spend smart and not hard! - Intelligent Tips",
     description:
       "Grow your money with intelligent planning and investment strategies",
     icon: TrendingUpIcon,
@@ -39,18 +39,18 @@ const features = [
     isApp: true,
   },
   {
-    title: "Financial Tools",
+    title: "Ganit Ki Dukaan for your Paisa - Calculators",
     description:
-      "Use our calculators and planning tools to make informed decisions",
+      "Use our calculators and planning tools to make informed decisions. With 38+ designed specifically for Indian income, tax, and investment needs. ",
     icon: CalculatorIcon,
     image: "/bee-props/calculator-tools.png",
     gradient: "from-yellow-100 to-amber-100",
     iconColor: "text-yellow-600",
   },
   {
-    title: "Download RupeeBee",
+    title: "Learn by clicking, not yawning - Quizes & Quests",
     description:
-      "Get the complete financial literacy app on your mobile device",
+      "Offering 20+ localized language-specific videos and quizzes that are interactive make learning fun and engaging.",
     icon: PhoneIcon,
     image: "/bee-props/welcome-rupeebee.png",
     gradient: "from-purple-100 to-violet-100",
@@ -63,7 +63,6 @@ const features = [
     icon: UsersIcon,
     gradient: "from-pink-100 to-rose-100",
     iconColor: "text-pink-600",
-    isCommunity: true,
   },
 ];
 
