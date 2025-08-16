@@ -5,7 +5,7 @@ export default function ForIndiaSection() {
   return (
     <section className="relative py-20 bg-gradient-to-tr from-green-50 via-white to-yellow-50">
       <div className="container-responsive relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
           {/* Content */}
           <div className="flex-1 text-center lg:text-left space-y-6">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
@@ -27,13 +27,13 @@ export default function ForIndiaSection() {
           </div>
 
           {/* GIF */}
-          <div className="flex-1 flex justify-center lg:justify-end">
-            <div className="relative w-80 h-80 sm:w-96 sm:h-96">
+          <div className="flex justify-center">
+            <div className="relative w-[500px] h-auto sm:w-96 sm:h-96 border border-pink-400 bg-blue-100 rounded-full">
               <Image
                 src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/gifs/india.gif"
                 alt="Made in India"
                 fill
-                className="object-contain rounded-2xl"
+                className="object-contain"
                 unoptimized
               />
             </div>
