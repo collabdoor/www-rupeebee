@@ -3,9 +3,8 @@
 import StackingCards, {
   StackingCardItem,
 } from "@/components/fancy/blocks/stacking-cards";
-import { DotPattern } from "@/components/magicui/dot-pattern";
-import Image from "next/image";
 import Android from "@/components/magicui/android";
+import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { cn } from "@/lib/utils";
 import {
   ShieldIcon,
@@ -13,9 +12,10 @@ import {
   CalculatorIcon,
   PhoneIcon,
   UsersIcon,
+  Pointer,
 } from "lucide-react";
 import { Highlighter } from "./magicui/highlighter";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { PointerHighlight } from "./ui/pointer-highlight";
 
 const features = [
   {
@@ -26,6 +26,7 @@ const features = [
     image: "/bee-props/security.png",
     gradient: "from-green-100 to-emerald-100",
     iconColor: "text-green-600",
+    isApp: true,
   },
   {
     title: "Smart Savings",
@@ -35,6 +36,7 @@ const features = [
     image: "/bee-props/grow-and-save.png",
     gradient: "from-blue-100 to-cyan-100",
     iconColor: "text-blue-600",
+    isApp: true,
   },
   {
     title: "Financial Tools",
@@ -68,7 +70,7 @@ const features = [
 export default function FeaturesSection() {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50">
+      <section className="relative bg-gradient-to-tr from-green-50 via-white to-yellow-50">
         <StackingCards totalCards={features.length} className="h-[500vh]">
           {features.map((feature, index) => (
             <StackingCardItem
@@ -79,24 +81,32 @@ export default function FeaturesSection() {
               <div className="h-full flex flex-col items-center justify-center px-2 sm:px-4">
                 {index === 0 && (
                   <div className="text-center mb-8 sm:mb-14 px-4">
-                    <h1 className="text-base sm:text-lg md:text-xl text-gray-600 mx-auto max-w-2xl leading-relaxed">
-                      From fraud protection to smart savings, we've got you covered
+                    <h1 className=" sm:text-lg md:text-3xl mx-auto max-w-3xl">
+                      From fraud{" "}
+                      <PointerHighlight
+                        rectangleClassName="bg-blue-100 border-green-300 leading-loose"
+                        pointerClassName="text-green-500 h-3 w-3"
+                        containerClassName="inline-block ml-1"
+                      >
+                        <span className="p-2 pb-2 relative z-10">protection</span>
+                      </PointerHighlight>{" "}
+                      to smart{" "}
+                      <Highlighter action="underline">savings</Highlighter>,
+                      we've got you covered
                     </h1>
                   </div>
                 )}
-                
+
                 <div className="container mx-auto px-2 sm:px-4">
                   <div
                     className={cn(
-                      "relative min-h-[300px] sm:min-h-[350px] md:h-[400px] w-full max-w-xs sm:max-w-2xl md:max-w-4xl mx-auto rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl border border-white/20",
+                      "relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px] w-full max-w-xs sm:max-w-2xl md:max-w-5xl lg:max-w-6xl mx-auto rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl border border-white/20",
                       `bg-gradient-to-br ${feature.gradient}`,
                       "backdrop-blur-sm"
                     )}
                   >
-                    {/* Card Content */}
-                    <div className="flex flex-col md:flex-row items-center justify-between h-full gap-4 md:gap-0">
-                      {/* Left Content */}
-                      <div className="flex-1 text-center md:text-left md:pr-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between h-full gap-6 md:gap-8">
+                      <div className="flex-1 text-center md:text-left md:pr-6 lg:pr-8 max-w-md lg:max-w-lg">
                         <div className="flex items-center justify-center md:justify-start mb-3 sm:mb-4">
                           <div
                             className={cn(
@@ -114,45 +124,24 @@ export default function FeaturesSection() {
                         <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed max-w-sm md:max-w-none mx-auto md:mx-0">
                           {feature.description}
                         </p>
-                        <ShimmerButton className="bg-green-600 hover:bg-green-700 text-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base">
-                          {feature.title === "Download RupeeBee"
-                            ? "Download Now"
-                            : "Learn More"}
-                        </ShimmerButton>
                       </div>
 
-                      {/* Right Visual */}
-                      <div className="flex-shrink-0 mt-4 md:mt-0">
+                      <div className="flex-shrink-0 mt-4 md:mt-0 flex items-center justify-center">
                         {feature.isApp ? (
                           <div className="relative">
                             <Android
-                              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 mx-auto"
+                              className="w-40 h-80 sm:w-48 sm:h-96 md:w-56 md:h-[28rem] lg:w-64 lg:h-[32rem] mx-auto"
                               src={feature.image}
                             />
                           </div>
-                        ) : feature.isCommunity ? (
-                          <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 bg-white/50 rounded-lg sm:rounded-xl max-w-xs sm:max-w-sm mx-auto">
-                            {Array.from({ length: 9 }).map((_, i) => (
-                              <Image
-                                key={i}
-                                src={`/bee-props/${
-                                  [10, 11, 12, 13, 14, 15, 16, 17, 18][i]
-                                }.png`}
-                                alt=""
-                                width={40}
-                                height={40}
-                                className="object-contain rounded-full bg-white/80 p-1 sm:p-2 w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14"
-                              />
-                            ))}
-                          </div>
                         ) : (
                           <div className="relative">
-                            <Image
-                              src={feature.image!}
-                              alt={feature.title}
-                              width={120}
-                              height={120}
-                              className="object-contain drop-shadow-lg mx-auto sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-56 lg:h-56"
+                            <Iphone15Pro
+                              className="w-40 h-80 sm:w-48 sm:h-96 md:w-56 md:h-[28rem] lg:w-64 lg:h-[32rem] mx-auto"
+                              src={
+                                feature.image ||
+                                "/bee-props/welcome-rupeebee.png"
+                              }
                             />
                           </div>
                         )}

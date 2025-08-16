@@ -10,7 +10,7 @@ import { Highlighter } from "./magicui/highlighter";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-yellow-50">
+    <section className="relative min-h-screen flex items-center justify-center pt-32 bg-gradient-to-br from-green-50 via-white to-yellow-50">
       <div className="container-responsive relative z-10">
         {/* Background Pattern */}
         <div className="absolute inset-0 -z-10">

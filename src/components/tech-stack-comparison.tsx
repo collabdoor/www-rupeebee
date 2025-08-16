@@ -82,7 +82,6 @@ const techData = [
   { title: "Flutter", description: "Cross-platform framework for beautiful apps", iconUrl: "/technologies/flutter.svg", icon: "flutter" },
   { title: "Dart", description: "Object-oriented language for UI development", iconUrl: "/technologies/dart.svg", icon: "dart" },
   { title: "Riverpod", description: "Provider pattern with compile-time safety", iconUrl: "/technologies/riverpod.svg", icon: "riverpod" },
-  { title: "Hive", description: "NoSQL database with encryption", iconUrl: "/technologies/hive.svg", icon: "hive" },
   { title: "Supabase", description: "Open-source Firebase alternative", iconUrl: "/technologies/supabase.svg", icon: "supabase" },
   { title: "Lottie", description: "Lightweight, scalable animations", iconUrl: "/technologies/lottie.svg", icon: "lottie" },
 ];
@@ -205,15 +204,6 @@ const Icons = {
       className="w-8 h-8"
     />
   ),
-  hive: () => (
-    <Image
-      src="/technologies/hive.svg"
-      alt="Hive"
-      width={32}
-      height={32}
-      className="w-8 h-8"
-    />
-  ),
   supabase: () => (
     <Image
       src="/technologies/supabase.svg"
@@ -252,51 +242,6 @@ const Icons = {
   ),
 };
 
-const FeatureCard = ({ feature, index }: { feature: any; index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    className={cn(
-      "p-4 rounded-xl border backdrop-blur-sm transition-all duration-300",
-      feature.advantage
-        ? "bg-green-50/80 border-green-200 hover:bg-green-100/80"
-        : "bg-red-50/80 border-red-200 hover:bg-red-100/80"
-    )}
-  >
-    <div className="flex items-start gap-3">
-      <div
-        className={cn(
-          "p-2 rounded-lg flex-shrink-0",
-          feature.advantage ? "bg-green-100" : "bg-red-100"
-        )}
-      >
-        <feature.icon
-          className={cn(
-            "w-5 h-5",
-            feature.advantage ? "text-green-600" : "text-red-600"
-          )}
-        />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
-          <h4 className="font-semibold text-gray-900 text-sm">
-            {feature.title}
-          </h4>
-          {feature.advantage ? (
-            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-          ) : (
-            <XCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
-          )}
-        </div>
-        <p className="text-xs text-gray-600 leading-relaxed">
-          {feature.description}
-        </p>
-      </div>
-    </div>
-  </motion.div>
-);
-
 export default function TechStackAndComparison() {
   const [activeTab, setActiveTab] = useState<"overview" | "technologies">(
     "technologies"
@@ -305,13 +250,13 @@ export default function TechStackAndComparison() {
   // Refs for tech stack animation
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Create refs arrays for cleaner code
-  const descRefs = Array.from({ length: 6 }, () => useRef<HTMLDivElement>(null));
-  const iconRefs = Array.from({ length: 6 }, () => useRef<HTMLDivElement>(null));
+  // Create refs arrays for cleaner code (reduced from 6 to 5 items)
+  const descRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
+  const iconRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
   
   // Individual refs for destructuring (for compatibility)
-  const [desc1Ref, desc2Ref, desc3Ref, desc4Ref, desc5Ref, desc6Ref] = descRefs;
-  const [icon1Ref, icon2Ref, icon3Ref, icon4Ref, icon5Ref, icon6Ref] = iconRefs;
+  const [desc1Ref, desc2Ref, desc3Ref, desc4Ref, desc5Ref] = descRefs;
+  const [icon1Ref, icon2Ref, icon3Ref, icon4Ref, icon5Ref] = iconRefs;
   
   // Center refs
   const rupeebeeRef = useRef<HTMLDivElement>(null);
@@ -327,7 +272,7 @@ export default function TechStackAndComparison() {
             <Highlighter action="highlight" color="#87CEFA">
               Flutter
             </Highlighter>{" "}
-            Powers <span className="text-green-700">RupeeBee</span>
+            Powers <span className="text-blue-400">RupeeBee</span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Built with modern technology for the best financial experience
@@ -347,7 +292,7 @@ export default function TechStackAndComparison() {
                 className={cn(
                   "px-6 py-3 rounded-full text-md font-semibold transition-all duration-300",
                   activeTab === tab.key
-                    ? "bg-green-600 text-white shadow-md"
+                    ? "bg-cyan-600/80 text-white"
                     : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 )}
               >
@@ -470,7 +415,8 @@ export default function TechStackAndComparison() {
                 className="relative flex min-h-[500px] w-full items-center justify-center overflow-hidden p-6"
                 ref={containerRef}
               >
-                <div className="flex size-full items-center justify-between gap-8">
+                {/* Desktop Layout */}
+                <div className="hidden md:flex size-full items-center justify-between gap-8">
                   
                   {/* Description Cards - Left Side */}
                   <div className="flex flex-col gap-6 w-1/3">
@@ -484,8 +430,7 @@ export default function TechStackAndComparison() {
                         className={
                           index === 1 ? "transform translate-x-4" :
                           index === 2 ? "transform -translate-x-2" :
-                          index === 3 ? "transform translate-x-6" :
-                          index === 5 ? "transform translate-x-3" : ""
+                          index === 4 ? "transform translate-x-3" : ""
                         }
                       />
                     ))}
@@ -501,14 +446,68 @@ export default function TechStackAndComparison() {
                     ))}
                   </div>
 
-                  {/* RupeeBee & Users - Right Side */}
-                  <div className="flex flex-col items-center gap-8 w-1/3">
+                  {/* RupeeBee & Users - Right Side (Horizontal) */}
+                  <div className="flex items-center gap-8 w-1/3 justify-center">
                     <Circle ref={rupeebeeRef} className="size-20 sm:size-24 md:size-28">
                       <Icons.rupeebee />
                     </Circle>
                     <Circle ref={usersRef} className="size-16 sm:size-20 md:size-24">
-                      <Users2 className="w-8 h-8" />
+                      <Image
+                        src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/13.webp"
+                        alt="Users"
+                        width={32}
+                        height={32}
+                        className="w-14 pb-1 h-auto"
+                      />
                     </Circle>
+                  </div>
+                </div>
+
+                {/* Mobile Layout */}
+                <div className="md:hidden flex flex-col items-center justify-center gap-8 w-full">
+                  
+                  {/* Users - Top */}
+                  <div className="flex justify-center">
+                    <Circle ref={usersRef} className="size-16">
+                      <Image
+                        src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/13.webp"
+                        alt="Users"
+                        width={32}
+                        height={32}
+                        className="w-8 h-auto rounded-full"
+                      />
+                    </Circle>
+                  </div>
+
+                  {/* RupeeBee - Second */}
+                  <div className="flex justify-center">
+                    <Circle ref={rupeebeeRef} className="size-20">
+                      <Icons.rupeebee />
+                    </Circle>
+                  </div>
+
+                  {/* Tech Stack Icons - Third */}
+                  <div className="flex flex-wrap items-center justify-center gap-4">
+                    {iconRefs.map((ref, index) => (
+                      <Circle key={index} ref={ref} className="size-16">
+                        {/* @ts-ignore - Dynamic icon access */}
+                        {Icons[techData[index].icon as keyof typeof Icons]()}
+                      </Circle>
+                    ))}
+                  </div>
+
+                  {/* Description Cards - Bottom (2 grid cols) */}
+                  <div className="grid grid-cols-2 gap-3 w-full max-w-lg px-4">
+                    {descRefs.map((ref, index) => (
+                      <DescriptionCard
+                        key={index}
+                        ref={ref}
+                        title={techData[index].title}
+                        description={techData[index].description}
+                        iconUrl={techData[index].iconUrl}
+                        className="text-xs"
+                      />
+                    ))}
                   </div>
                 </div>
 

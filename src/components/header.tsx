@@ -55,18 +55,18 @@ export default function Header() {
               />
             </div>
             <div className="hidden sm:block">
-              <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+              {/* <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
                 RupeeBee
-              </span>
+              </span> */}
             </div>
           </Link>
           
-          <NavItems items={navItems} />
+          <NavItems items={navItems} className="text-md"/>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3  hover:bg-blue-700">
             <Link 
               href="/credits"
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white text-sm font-bold relative cursor-pointer transition duration-200 inline-block text-center shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+              className="px-6 py-3 rounded-full text-md bg-blue-500 text-white"
             >
               Credits
             </Link>
