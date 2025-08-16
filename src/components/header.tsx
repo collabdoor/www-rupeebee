@@ -5,8 +5,6 @@ import {
   NavBody,
   NavItems,
   MobileNav,
-  NavbarLogo,
-  NavbarButton,
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
@@ -63,10 +61,10 @@ export default function Header() {
           
           <NavItems items={navItems} className="text-md"/>
           
-          <div className="flex items-center gap-3  hover:bg-blue-700">
+          <div className="flex items-center gap-3">
             <Link 
               href="/credits"
-              className="px-6 py-3 rounded-full text-md bg-blue-500 text-white"
+              className="px-6 py-3 rounded-full text-md bg-blue-500 hover:bg-blue-700 text-white transition-colors duration-200"
             >
               Credits
             </Link>

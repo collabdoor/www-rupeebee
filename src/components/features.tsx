@@ -12,7 +12,6 @@ import {
   CalculatorIcon,
   PhoneIcon,
   UsersIcon,
-  Pointer,
 } from "lucide-react";
 import { Highlighter } from "./magicui/highlighter";
 import { PointerHighlight } from "./ui/pointer-highlight";
@@ -91,7 +90,7 @@ export default function FeaturesSection() {
                       </PointerHighlight>{" "}
                       to smart{" "}
                       <Highlighter action="underline">savings</Highlighter>,
-                      we've got you covered
+                      we&apos;ve got you covered
                     </h1>
                   </div>
                 )}

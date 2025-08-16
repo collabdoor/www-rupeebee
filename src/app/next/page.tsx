@@ -9,12 +9,12 @@ export default function WhatsNextPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-6xl mx-auto mt-32">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-            What's Next for
+            What&apos;s Next for
             <span className="bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent"> RupeeBee</span>
           </h1>
           
           <p className="text-xl text-gray-600 leading-relaxed mb-12 max-w-4xl mx-auto">
-            Born from the SAFE Hackathon 2025, RupeeBee is more than just an app—it's a movement towards 
+            Born from the SAFE Hackathon 2025, RupeeBee is more than just an app&mdash;it&apos;s a movement towards 
             financial literacy for all. Our vision extends far beyond profit, aiming to create a 
             financially aware and secure society.
           </p>
@@ -70,7 +70,7 @@ export default function WhatsNextPage() {
             Our Vision for the Future
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            RupeeBee is built for public good, not profit. Here's how we plan to expand our impact 
+            RupeeBee is built for public good, not profit. Here&apos;s how we plan to expand our impact 
             and create a financially literate world.
           </p>
 
@@ -88,7 +88,7 @@ export default function WhatsNextPage() {
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-4">Global Financial Literacy</h3>
               <p className="text-gray-600 mb-4">
-                Expand RupeeBee's reach to developing nations worldwide, partnering with local banks 
+                Expand RupeeBee&apos;s reach to developing nations worldwide, partnering with local banks 
                 and governments to create region-specific fraud awareness programs.
               </p>
               <div className="flex items-center text-green-600 font-medium">
@@ -176,7 +176,7 @@ export default function WhatsNextPage() {
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-4">Open Source Platform</h3>
               <p className="text-gray-600 mb-4">
-                Make RupeeBee's core technology open source, allowing developers worldwide to contribute 
+                Make RupeeBee&apos;s core technology open source, allowing developers worldwide to contribute 
                 and adapt the platform for their local financial ecosystems.
               </p>
               <div className="flex items-center text-yellow-600 font-medium">
@@ -225,10 +225,10 @@ export default function WhatsNextPage() {
               <h3 className="text-3xl font-bold">Our Commitment</h3>
             </div>
             <p className="text-xl text-green-100 leading-relaxed mb-8">
-              "RupeeBee will always remain free, open, and focused on public good. 
+              &ldquo;RupeeBee will always remain free, open, and focused on public good. 
               We believe financial literacy is a fundamental right, not a privilege. 
               Our success is measured not in profits, but in the number of people 
-              we protect from financial fraud and empower with knowledge."
+              we protect from financial fraud and empower with knowledge.&rdquo;
             </p>
             <div className="grid md:grid-cols-3 gap-8 mt-8">
               <div className="text-center">

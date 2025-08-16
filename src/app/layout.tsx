@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
-import { ClientLayout } from "@/components/client-layout";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";

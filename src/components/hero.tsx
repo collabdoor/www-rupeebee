@@ -1,11 +1,7 @@
-import { WordRotate } from "@/components/magicui/word-rotate";
-import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { NumberTicker } from "@/components/magicui/number-ticker";
-import { DotPattern } from "@/components/magicui/dot-pattern";
 import Android from "@/components/magicui/android";
 import Iphone15Pro from "@/components/magicui/iphone-15-pro";
-import { cn } from "@/lib/utils";
 import { Highlighter } from "./magicui/highlighter";
 
 export default function HeroSection() {

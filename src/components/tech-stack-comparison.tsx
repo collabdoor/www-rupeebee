@@ -214,14 +214,6 @@ const comparisonData = {
   },
 };
 
-// Utility function to create refs
-const createLayoutRefs = (): LayoutRefs => ({
-  descRefs: Array.from({ length: TECH_DATA.length }, () => useRef<HTMLDivElement>(null)),
-  iconRefs: Array.from({ length: TECH_DATA.length }, () => useRef<HTMLDivElement>(null)),
-  rupeebeeRef: useRef<HTMLDivElement>(null),
-  usersRef: useRef<HTMLDivElement>(null),
-});
-
 // Components
 const Circle = forwardRef<
   HTMLDivElement,
@@ -434,8 +426,52 @@ export default function TechStackAndComparison() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Create separate refs for desktop and mobile layouts
-  const desktopRefs = createLayoutRefs();
-  const mobileRefs = createLayoutRefs();
+  const desktopDescRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ];
+  const desktopIconRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ];
+  const desktopRupeebeeRef = useRef<HTMLDivElement>(null);
+  const desktopUsersRef = useRef<HTMLDivElement>(null);
+  
+  const mobileDescRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ];
+  const mobileIconRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ];
+  const mobileRupeebeeRef = useRef<HTMLDivElement>(null);
+  const mobileUsersRef = useRef<HTMLDivElement>(null);
+
+  const desktopRefs = {
+    descRefs: desktopDescRefs,
+    iconRefs: desktopIconRefs,
+    rupeebeeRef: desktopRupeebeeRef,
+    usersRef: desktopUsersRef,
+  };
+  const mobileRefs = {
+    descRefs: mobileDescRefs,
+    iconRefs: mobileIconRefs,
+    rupeebeeRef: mobileRupeebeeRef,
+    usersRef: mobileUsersRef,
+  };
 
   return (
     <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50 py-16 sm:py-24">
@@ -460,7 +496,7 @@ export default function TechStackAndComparison() {
             {TAB_CONFIG.map((tab) => (
               <button
                 key={tab.key}
-                onClick={() => setActiveTab(tab.key as any)}
+                onClick={() => setActiveTab(tab.key)}
                 className={cn(
                   "px-6 py-3 rounded-full text-md font-semibold transition-all duration-300",
                   activeTab === tab.key
@@ -503,7 +539,7 @@ export default function TechStackAndComparison() {
                     </div>
                   </div>
                   <p className="text-gray-600 mb-6 leading-relaxed">
-                    Google's UI toolkit that delivers exceptional performance
+                    Google&apos;s UI toolkit that delivers exceptional performance
                     for financial apps with custom widgets perfect for charts,
                     calculators, and secure transactions.
                   </p>
@@ -544,7 +580,7 @@ export default function TechStackAndComparison() {
                     </div>
                   </div>
                   <p className="text-gray-600 mb-6 leading-relaxed">
-                    Facebook's framework that uses native components but relies
+                    Facebook&apos;s framework that uses native components but relies
                     on JavaScript bridge, limiting custom financial UI and
                     causing performance overhead.
                   </p>

@@ -4,14 +4,12 @@ import React from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { Highlighter } from "@/components/magicui/highlighter";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import {
   ExternalLink,
   Award,
   Users,
   Building2,
   Trophy,
-  Heart,
   Link as LinkIcon,
 } from "lucide-react";
 
@@ -148,7 +146,7 @@ export default function Credits() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {importantLinks.map((link, index) => (
-              <div className="flex items-start gap-3">
+              <div key={index} className="flex items-start gap-3">
                 <div className="text-green-600 group-hover:text-green-700 transition-colors">
                   {link.icon}
                 </div>
@@ -171,16 +169,6 @@ export default function Credits() {
     </div>
   );
 }
-
-const teamMembers = [
-  {
-    name: "Team RupeeBee",
-    role: "Financial Literacy App Development",
-    image: "/bee-props/welcome-rupeebee.png",
-    description:
-      "Developing innovative solutions for financial education and awareness",
-  },
-];
 
 const organizations = [
   {

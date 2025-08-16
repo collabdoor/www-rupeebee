@@ -2,7 +2,6 @@ import {
   HeroSection,
   FeaturesSection,
   TechStackAndComparison,
-  CTASection,
 } from "@/components";
 
 export default function Home() {
