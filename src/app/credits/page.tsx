@@ -57,7 +57,7 @@ export default function Credits() {
             </div>
             <div className="pt-24 pb-16 space-y-20">
           <div className="text-center space-y-8">
-            <h2 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
+            <h2 className="text-3xl font-bold flex text-gray-600 items-center justify-center gap-3">
               <PointerHighlight>Partner Organizations</PointerHighlight>
             </h2>
 
@@ -96,31 +96,6 @@ export default function Credits() {
             <h2 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
               <Highlighter action="underline" color="#4ade80">Our Team</Highlighter>
             </h2>
-
-            <div className="max-w-md mx-auto">
-              <div className="text-center space-y-6 p-8 rounded-xl bg-white/30 backdrop-blur-sm border border-white/20">
-                <div className="w-32 h-32 mx-auto relative rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-yellow-100 p-4">
-                  <Image
-                    src="/bee-props/welcome-rupeebee.png"
-                    alt="Team RupeeBee"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-
-                <div>
-                  <h3 className="font-bold text-xl text-gray-900">
-                    <PointerHighlight>Team RupeeBee</PointerHighlight>
-                  </h3>
-                  <p className="text-blue-600 font-medium mt-2">
-                    Financial Literacy App Development
-                  </p>
-                  <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-                    Developing innovative solutions for financial education and awareness
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Important Links Section */}
