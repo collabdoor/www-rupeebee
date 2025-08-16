@@ -52,6 +52,7 @@ export default function Credits() {
                     width={380}
                     height={180}
                     className="object-contain"
+                    unoptimized
                   />
                 </div>
 
@@ -78,7 +79,7 @@ export default function Credits() {
                           alt={org.name}
                           height={org.height}
                           width={org.width}
-                          className=""
+                          unoptimized
                         />
                       </div>
                     </div>
