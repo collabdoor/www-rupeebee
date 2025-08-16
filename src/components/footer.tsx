@@ -18,21 +18,21 @@ export default function Footer() {
             <div className="mt-12 pt-8">
               <div className="flex flex-wrap items-center justify-start gap-8">
                 <Image
-                  src="/assets/logo.png"
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/logo-variants/green-dark-logo.webp"
                   alt="RupeeBee Logo"
                   width={100}
                   height={100}
                   className="object-contain  opacity-80 hover:opacity-100 duration-200"
                 />
                 <Image
-                  src="/ikgptu.png"
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/credits/ikgptu.webp"
                   alt="IKGPTU"
                   width={80}
                   height={40}
                   className="object-contain  opacity-80 hover:opacity-100 duration-200"
                 />
                 <Image
-                  src="/bottom-psb.png"
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/credits/bottom-psb.webp"
                   alt="Punjab & Sind Bank"
                   width={200}
                   height={200}
