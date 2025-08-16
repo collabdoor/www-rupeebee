@@ -7,6 +7,7 @@ import {
   AccordionContent,
 } from "../../components/motion-primitives/accordion";
 import { financialTips, type Tip } from "./tips";
+import { PointerHighlight } from "@/components/ui/pointer-highlight";
 
 interface TipCardProps {
   tip: Tip;
@@ -92,7 +93,14 @@ export default function LearnPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-4xl mx-auto mb-16 mt-32">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-            Financial Do&apos;s &amp; Don&apos;ts
+            <PointerHighlight
+              rectangleClassName="bg-blue-100 border-green-300 leading-loose"
+              pointerClassName="text-green-500 h-3 w-3"
+              containerClassName="inline-block ml-1"
+            >
+              <span className="relative z-10 p-2">Financial</span>
+            </PointerHighlight>{" "}
+            Do&apos;s &amp; Don&apos;ts
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed">
             Master essential financial safety practices to protect yourself from

@@ -52,6 +52,7 @@ export default function Header() {
                 height={48}
                 className="object-contain transition-transform duration-300 group-hover:scale-105"
                 priority
+                unoptimized
               />
             </div>
             <div className="hidden sm:block">
@@ -75,6 +76,7 @@ export default function Header() {
                 height={52}
                 className="object-contain transition-transform duration-300 group-hover:scale-105 rounded-full"
                 priority
+                unoptimized
               />
             </div>
           </Link>
@@ -95,6 +97,7 @@ export default function Header() {
                 height={40}
                 className="object-contain"
                 priority
+                unoptimized
               />
               {/* <span className="text-lg font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
                 RupeeBee
@@ -132,6 +135,7 @@ export default function Header() {
                   height={52}
                   className="object-contain transition-transform duration-300 group-hover:scale-105 rounded-full"
                   priority
+                  unoptimized
                 />
               </div>
             </Link>

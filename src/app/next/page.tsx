@@ -1,6 +1,7 @@
 import Image from "next/image";
 import WorldMap from "@/components/ui/world-map";
 import { ArrowRight, Users, Shield, BookOpen, Globe as GlobeIcon } from "lucide-react";
+import { Highlighter } from "@/components/magicui/highlighter";
 
 export default function WhatsNextPage() {
   return (
@@ -9,8 +10,8 @@ export default function WhatsNextPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-6xl mx-auto mt-32">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-            What&apos;s Next for
-            <span className="bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent"> RupeeBee</span>
+            What&apos;s Next for {" "}
+            <Highlighter action="box" color="#FF9800"><span className="text-violet-500">RupeeBee</span></Highlighter> {" "}?
           </h1>
           
           <p className="text-xl text-gray-600 leading-relaxed mb-12 max-w-4xl mx-auto">
