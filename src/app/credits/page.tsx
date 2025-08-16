@@ -10,7 +10,6 @@ import {
   ExternalLink,
   Award,
   Users,
-  Building2,
   Trophy,
   Link as LinkIcon,
   Github,

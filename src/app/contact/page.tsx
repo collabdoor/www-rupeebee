@@ -103,7 +103,7 @@ export default function Contact() {
                     Get in Touch
                   </h2>
                   <p className="text-gray-600">
-                    Let's discuss how we can collaborate
+                    Let&apos;s discuss how we can collaborate
                   </p>
                 </div>
 
