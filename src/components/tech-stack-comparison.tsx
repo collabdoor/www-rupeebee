@@ -250,17 +250,16 @@ export default function TechStackAndComparison() {
   // Refs for tech stack animation
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Create refs arrays for cleaner code (reduced from 6 to 5 items)
-  const descRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
-  const iconRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
+  // Create separate refs for desktop and mobile layouts
+  const desktopDescRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
+  const desktopIconRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
+  const desktopRupeebeeRef = useRef<HTMLDivElement>(null);
+  const desktopUsersRef = useRef<HTMLDivElement>(null);
   
-  // Individual refs for destructuring (for compatibility)
-  const [desc1Ref, desc2Ref, desc3Ref, desc4Ref, desc5Ref] = descRefs;
-  const [icon1Ref, icon2Ref, icon3Ref, icon4Ref, icon5Ref] = iconRefs;
-  
-  // Center refs
-  const rupeebeeRef = useRef<HTMLDivElement>(null);
-  const usersRef = useRef<HTMLDivElement>(null);
+  const mobileDescRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
+  const mobileIconRefs = Array.from({ length: 5 }, () => useRef<HTMLDivElement>(null));
+  const mobileRupeebeeRef = useRef<HTMLDivElement>(null);
+  const mobileUsersRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50 py-16 sm:py-24">
@@ -420,7 +419,7 @@ export default function TechStackAndComparison() {
                   
                   {/* Description Cards - Left Side */}
                   <div className="flex flex-col gap-6 w-1/3">
-                    {descRefs.map((ref, index) => (
+                    {desktopDescRefs.map((ref, index) => (
                       <DescriptionCard
                         key={index}
                         ref={ref}
@@ -438,7 +437,7 @@ export default function TechStackAndComparison() {
 
                   {/* Tech Stack Icons - Center */}
                   <div className="flex flex-col items-center justify-center gap-4 w-1/3">
-                    {iconRefs.map((ref, index) => (
+                    {desktopIconRefs.map((ref, index) => (
                       <Circle key={index} ref={ref} className="size-16 sm:size-20 md:size-24">
                         {/* @ts-ignore - Dynamic icon access */}
                         {Icons[techData[index].icon as keyof typeof Icons]()}
@@ -448,10 +447,10 @@ export default function TechStackAndComparison() {
 
                   {/* RupeeBee & Users - Right Side (Horizontal) */}
                   <div className="flex items-center gap-8 w-1/3 justify-center">
-                    <Circle ref={rupeebeeRef} className="size-20 sm:size-24 md:size-28">
+                    <Circle ref={desktopRupeebeeRef} className="size-20 sm:size-24 md:size-28">
                       <Icons.rupeebee />
                     </Circle>
-                    <Circle ref={usersRef} className="size-16 sm:size-20 md:size-24">
+                    <Circle ref={desktopUsersRef} className="size-16 sm:size-20 md:size-24">
                       <Image
                         src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/13.webp"
                         alt="Users"
@@ -468,7 +467,7 @@ export default function TechStackAndComparison() {
                   
                   {/* Users - Top */}
                   <div className="flex justify-center">
-                    <Circle ref={usersRef} className="size-16">
+                    <Circle ref={mobileUsersRef} className="size-16">
                       <Image
                         src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/13.webp"
                         alt="Users"
@@ -481,14 +480,14 @@ export default function TechStackAndComparison() {
 
                   {/* RupeeBee - Second */}
                   <div className="flex justify-center">
-                    <Circle ref={rupeebeeRef} className="size-20">
+                    <Circle ref={mobileRupeebeeRef} className="size-20">
                       <Icons.rupeebee />
                     </Circle>
                   </div>
 
                   {/* Tech Stack Icons - Third */}
                   <div className="flex flex-wrap items-center justify-center gap-4">
-                    {iconRefs.map((ref, index) => (
+                    {mobileIconRefs.map((ref, index) => (
                       <Circle key={index} ref={ref} className="size-16">
                         {/* @ts-ignore - Dynamic icon access */}
                         {Icons[techData[index].icon as keyof typeof Icons]()}
@@ -498,7 +497,7 @@ export default function TechStackAndComparison() {
 
                   {/* Description Cards - Bottom (2 grid cols) */}
                   <div className="grid grid-cols-2 gap-3 w-full max-w-lg px-4">
-                    {descRefs.map((ref, index) => (
+                    {mobileDescRefs.map((ref, index) => (
                       <DescriptionCard
                         key={index}
                         ref={ref}
@@ -511,38 +510,79 @@ export default function TechStackAndComparison() {
                   </div>
                 </div>
 
-                {/* Animated Beams - Description Cards to Icons */}
-                {descRefs.map((descRef, index) => (
+                {/* Desktop Animated Beams */}
+                <div className="hidden md:block">
+                  {/* Description Cards to Icons */}
+                  {desktopDescRefs.map((descRef, index) => (
+                    <AnimatedBeam
+                      key={`desktop-desc-to-icon-${index}`}
+                      containerRef={containerRef}
+                      fromRef={descRef}
+                      toRef={desktopIconRefs[index]}
+                      gradientStartColor={BEAM_GRADIENT.start}
+                      gradientStopColor={BEAM_GRADIENT.stop}
+                    />
+                  ))}
+                  
+                  {/* Icons to RupeeBee */}
+                  {desktopIconRefs.map((iconRef, index) => (
+                    <AnimatedBeam
+                      key={`desktop-icon-to-rupeebee-${index}`}
+                      containerRef={containerRef}
+                      fromRef={iconRef}
+                      toRef={desktopRupeebeeRef}
+                      gradientStartColor={BEAM_GRADIENT.start}
+                      gradientStopColor={BEAM_GRADIENT.stop}
+                    />
+                  ))}
+                  
+                  {/* RupeeBee to Users */}
                   <AnimatedBeam
-                    key={`desc-to-icon-${index}`}
+                    key="desktop-rupeebee-to-users"
                     containerRef={containerRef}
-                    fromRef={descRef}
-                    toRef={iconRefs[index]}
+                    fromRef={desktopRupeebeeRef}
+                    toRef={desktopUsersRef}
                     gradientStartColor={BEAM_GRADIENT.start}
                     gradientStopColor={BEAM_GRADIENT.stop}
                   />
-                ))}
-                
-                {/* Icons to RupeeBee */}
-                {iconRefs.map((iconRef, index) => (
+                </div>
+
+                {/* Mobile Animated Beams */}
+                <div className="md:hidden">
+                  {/* Description Cards to Icons */}
+                  {mobileDescRefs.map((descRef, index) => (
+                    <AnimatedBeam
+                      key={`mobile-desc-to-icon-${index}`}
+                      containerRef={containerRef}
+                      fromRef={descRef}
+                      toRef={mobileIconRefs[index]}
+                      gradientStartColor={BEAM_GRADIENT.start}
+                      gradientStopColor={BEAM_GRADIENT.stop}
+                    />
+                  ))}
+                  
+                  {/* Icons to RupeeBee */}
+                  {mobileIconRefs.map((iconRef, index) => (
+                    <AnimatedBeam
+                      key={`mobile-icon-to-rupeebee-${index}`}
+                      containerRef={containerRef}
+                      fromRef={iconRef}
+                      toRef={mobileRupeebeeRef}
+                      gradientStartColor={BEAM_GRADIENT.start}
+                      gradientStopColor={BEAM_GRADIENT.stop}
+                    />
+                  ))}
+                  
+                  {/* RupeeBee to Users */}
                   <AnimatedBeam
-                    key={`icon-to-rupeebee-${index}`}
+                    key="mobile-rupeebee-to-users"
                     containerRef={containerRef}
-                    fromRef={iconRef}
-                    toRef={rupeebeeRef}
+                    fromRef={mobileRupeebeeRef}
+                    toRef={mobileUsersRef}
                     gradientStartColor={BEAM_GRADIENT.start}
                     gradientStopColor={BEAM_GRADIENT.stop}
                   />
-                ))}
-                
-                {/* RupeeBee to Users */}
-                <AnimatedBeam
-                  containerRef={containerRef}
-                  fromRef={rupeebeeRef}
-                  toRef={usersRef}
-                  gradientStartColor={BEAM_GRADIENT.start}
-                  gradientStopColor={BEAM_GRADIENT.stop}
-                />
+                </div>
               </div>
             </motion.div>
           )}
