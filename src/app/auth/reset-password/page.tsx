@@ -25,8 +25,8 @@ function ResetPasswordContent() {
           return
         }
 
-        // Verify the recovery token
-        const { error } = await supabase.auth.verifyOtp({
+        // Verify the recovery token and establish a session
+        const { data, error } = await supabase.auth.verifyOtp({
           token_hash: token,
           type: 'recovery',
         })
@@ -38,7 +38,18 @@ function ResetPasswordContent() {
           return
         }
 
-        // Token is valid, show reset form
+        console.log('Verification successful:', data)
+
+        // Check if we have a valid session
+        if (!data.session || !data.user) {
+          console.error('No session established:', data)
+          setStatus('error')
+          setErrorMessage('Failed to establish session')
+          return
+        }
+
+        console.log('Session established for user:', data.user.email)
+        // Token is valid and session is established, show reset form
         setStatus('reset-form')
       } catch (err) {
         console.error('Unexpected error:', err)
@@ -67,7 +78,17 @@ function ResetPasswordContent() {
     setErrorMessage('')
 
     try {
-      const { error } = await supabase.auth.updateUser({
+      // Double-check that we have a valid session
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (!session) {
+        setErrorMessage('Session expired. Please request a new password reset.')
+        setIsLoading(false)
+        return
+      }
+
+      // Update the user's password
+      const { data, error } = await supabase.auth.updateUser({
         password: password
       })
 
@@ -77,11 +98,25 @@ function ResetPasswordContent() {
         return
       }
 
+      if (!data.user) {
+        setErrorMessage('Failed to update password')
+        setIsLoading(false)
+        return
+      }
+
+      // Sign out after password update for security
+      await supabase.auth.signOut()
+
       setStatus('success')
       
       // Redirect to app after 3 seconds
       setTimeout(() => {
-        window.location.href = 'com.rupeebee://auth/callback'
+        const redirectTo = searchParams.get('redirect_to')
+        if (redirectTo && redirectTo.startsWith('com.rupeebee://')) {
+          window.location.href = redirectTo
+        } else {
+          window.location.href = 'com.rupeebee://auth/callback'
+        }
       }, 3000)
     } catch (err) {
       console.error('Password update error:', err)
