@@ -14,7 +14,7 @@ export interface Tip {
 }
 
 export const financialTips: Tip[] = [
-  // DO's
+  // Alternating DO's and DON'Ts
   {
     id: 'verify-sender',
     type: 'do',
@@ -28,6 +28,20 @@ export const financialTips: Tip[] = [
     },
     tip: 'Contact your bank directly using official phone numbers to verify any suspicious messages.',
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/10.webp'
+  },
+  {
+    id: 'dont-share-otp',
+    type: 'dont',
+    title: 'Share OTP or PIN with anyone',
+    description: 'Never share your OTP (One-Time Password) or PIN with anyone, including people claiming to be bank representatives. These are confidential and meant only for you.',
+    details: 'Your OTP and PIN are like keys to your bank account. Sharing them is equivalent to handing over your money to strangers.',
+    example: {
+      type: 'warning',
+      title: 'Common Scam:',
+      content: 'Fraudsters call pretending to be from your bank and ask for OTP to "verify your account" or "update KYC details." Banks NEVER ask for OTP over phone calls.'
+    },
+    tip: 'OTP is like giving someone the key to your bank account. Keep it secret!',
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/25.webp'
   },
   {
     id: 'strong-passwords',
@@ -44,106 +58,6 @@ export const financialTips: Tip[] = [
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/17.webp'
   },
   {
-    id: 'transaction-alerts',
-    type: 'do',
-    title: 'Set up app notifications for all transactions',
-    description: 'Enable instant notifications for all transactions, no matter how small. This helps you track your spending and quickly identify any unauthorized transactions.',
-    details: 'Real-time transaction alerts are one of the most effective ways to detect fraud early and protect your money.',
-    example: {
-      type: 'success',
-      title: 'Smart Move:',
-      content: 'Set up both SMS and app notifications. If you receive a transaction alert for something you didn\'t do, contact your bank immediately to block the card and report fraud.'
-    },
-    tip: 'Review your transaction history weekly to spot any unusual activity early.',
-    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/9.webp'
-  },
-  {
-    id: 'official-apps',
-    type: 'do',
-    title: 'Use official banking apps and websites only',
-    description: 'Always download banking apps from official app stores and visit bank websites by typing the URL directly. Avoid clicking links in emails or messages.',
-    details: 'Fake banking apps and websites are common tools used by fraudsters to steal your login credentials and personal information.',
-    example: {
-      type: 'success',
-      title: 'Safety Check:',
-      content: 'Verify the app developer name matches your bank exactly. Look for official verification badges in app stores and check user reviews for authenticity.'
-    },
-    tip: 'Bookmark your bank\'s official website to avoid typing the wrong URL accidentally.',
-    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/20.webp'
-  },
-  {
-    id: 'budget-tracking',
-    type: 'do',
-    title: 'Track your expenses regularly',
-    description: 'Monitor your spending patterns and create a monthly budget to understand where your money goes. This helps identify unnecessary expenses and fraud.',
-    details: 'Regular expense tracking helps you build financial discipline and catch unauthorized transactions quickly.',
-    example: {
-      type: 'success',
-      title: 'Best Practice:',
-      content: 'Use budgeting apps or maintain a simple expense diary. Categorize expenses like food, transport, entertainment to see spending patterns clearly.'
-    },
-    tip: 'Follow the 50-30-20 rule: 50% needs, 30% wants, 20% savings and debt payment.',
-    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/18.webp'
-  },
-  {
-    id: 'emergency-fund',
-    type: 'do',
-    title: 'Build an emergency fund',
-    description: 'Save at least 3-6 months of expenses in a separate, easily accessible account for unexpected situations like job loss or medical emergencies.',
-    details: 'An emergency fund protects you from financial stress and prevents you from falling into debt during tough times.',
-    example: {
-      type: 'success',
-      title: 'Smart Strategy:',
-      content: 'Start small - even ₹500 per month can build a substantial emergency fund over time. Keep it in a separate savings account that earns interest.'
-    },
-    tip: 'Automate your emergency fund contributions so you save consistently without thinking about it.',
-    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/10.webp'
-  },
-  {
-    id: 'investment-research',
-    type: 'do',
-    title: 'Research before investing',
-    description: 'Never invest in schemes that promise guaranteed high returns. Always research the company, read reviews, and understand the risks involved.',
-    details: 'Legitimate investments carry risk, and higher returns usually mean higher risk. Be skeptical of "guaranteed" returns.',
-    example: {
-      type: 'success',
-      title: 'Due Diligence:',
-      content: 'Check if investment companies are registered with SEBI. Read offer documents carefully and consult financial advisors for major investments.'
-    },
-    tip: 'Diversify your investments across different asset classes to reduce risk.',
-    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/21.webp'
-  },
-  {
-    id: 'tax-planning',
-    type: 'do',
-    title: 'Plan your taxes in advance',
-    description: 'Keep track of tax-saving investments and deductions throughout the year. Don\'t wait until the last minute to file your returns.',
-    details: 'Proper tax planning can save you thousands of rupees and help you avoid penalties for late filing.',
-    example: {
-      type: 'success',
-      title: 'Tax Strategy:',
-      content: 'Use 80C deductions like PPF, ELSS, and life insurance. Keep all receipts organized and consider digital tax filing for faster processing.'
-    },
-    tip: 'Start tax planning at the beginning of the financial year for maximum benefits.',
-    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/27.webp'
-  },
-
-  // DON'Ts
-  {
-    id: 'dont-share-otp',
-    type: 'dont',
-    title: 'Share OTP or PIN with anyone',
-    description: 'Never share your OTP (One-Time Password) or PIN with anyone, including people claiming to be bank representatives. These are confidential and meant only for you.',
-    details: 'Your OTP and PIN are like keys to your bank account. Sharing them is equivalent to handing over your money to strangers.',
-    example: {
-      type: 'warning',
-      title: 'Common Scam:',
-      content: 'Fraudsters call pretending to be from your bank and ask for OTP to "verify your account" or "update KYC details." Banks NEVER ask for OTP over phone calls.'
-    },
-    tip: 'OTP is like giving someone the key to your bank account. Keep it secret!',
-    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/25.webp'
-  },
-  {
     id: 'no-public-wifi',
     type: 'dont',
     title: 'Use public Wi-Fi for banking',
@@ -156,6 +70,20 @@ export const financialTips: Tip[] = [
     },
     tip: 'Use your mobile data or a secure VPN if you must access banking services while out.',
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/24.webp'
+  },
+  {
+    id: 'transaction-alerts',
+    type: 'do',
+    title: 'Set up app notifications for all transactions',
+    description: 'Enable instant notifications for all transactions, no matter how small. This helps you track your spending and quickly identify any unauthorized transactions.',
+    details: 'Real-time transaction alerts are one of the most effective ways to detect fraud early and protect your money.',
+    example: {
+      type: 'success',
+      title: 'Smart Move:',
+      content: 'Set up both SMS and app notifications. If you receive a transaction alert for something you didn\'t do, contact your bank immediately to block the card and report fraud.'
+    },
+    tip: 'Review your transaction history weekly to spot any unusual activity early.',
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/9.webp'
   },
   {
     id: 'no-urgent-response',
@@ -172,6 +100,20 @@ export const financialTips: Tip[] = [
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/18.webp'
   },
   {
+    id: 'official-apps',
+    type: 'do',
+    title: 'Use official banking apps and websites only',
+    description: 'Always download banking apps from official app stores and visit bank websites by typing the URL directly. Avoid clicking links in emails or messages.',
+    details: 'Fake banking apps and websites are common tools used by fraudsters to steal your login credentials and personal information.',
+    example: {
+      type: 'success',
+      title: 'Safety Check:',
+      content: 'Verify the app developer name matches your bank exactly. Look for official verification badges in app stores and check user reviews for authenticity.'
+    },
+    tip: 'Bookmark your bank\'s official website to avoid typing the wrong URL accidentally.',
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/20.webp'
+  },
+  {
     id: 'no-loan-guarantees',
     type: 'dont',
     title: 'Fall for instant loan approval scams',
@@ -184,6 +126,20 @@ export const financialTips: Tip[] = [
     },
     tip: 'Only approach registered lenders and always read loan terms carefully before signing.',
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/28.webp'
+  },
+  {
+    id: 'budget-tracking',
+    type: 'do',
+    title: 'Track your expenses regularly',
+    description: 'Monitor your spending patterns and create a monthly budget to understand where your money goes. This helps identify unnecessary expenses and fraud.',
+    details: 'Regular expense tracking helps you build financial discipline and catch unauthorized transactions quickly.',
+    example: {
+      type: 'success',
+      title: 'Best Practice:',
+      content: 'Use budgeting apps or maintain a simple expense diary. Categorize expenses like food, transport, entertainment to see spending patterns clearly.'
+    },
+    tip: 'Follow the 50-30-20 rule: 50% needs, 30% wants, 20% savings and debt payment.',
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/18.webp'
   },
   {
     id: 'no-investment-pressure',
@@ -200,6 +156,20 @@ export const financialTips: Tip[] = [
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/30.webp'
   },
   {
+    id: 'emergency-fund',
+    type: 'do',
+    title: 'Build an emergency fund',
+    description: 'Save at least 3-6 months of expenses in a separate, easily accessible account for unexpected situations like job loss or medical emergencies.',
+    details: 'An emergency fund protects you from financial stress and prevents you from falling into debt during tough times.',
+    example: {
+      type: 'success',
+      title: 'Smart Strategy:',
+      content: 'Start small - even ₹500 per month can build a substantial emergency fund over time. Keep it in a separate savings account that earns interest.'
+    },
+    tip: 'Automate your emergency fund contributions so you save consistently without thinking about it.',
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/10.webp'
+  },
+  {
     id: 'no-overspending',
     type: 'dont',
     title: 'Spend more than you earn',
@@ -214,6 +184,20 @@ export const financialTips: Tip[] = [
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/14.webp'
   },
   {
+    id: 'investment-research',
+    type: 'do',
+    title: 'Research before investing',
+    description: 'Never invest in schemes that promise guaranteed high returns. Always research the company, read reviews, and understand the risks involved.',
+    details: 'Legitimate investments carry risk, and higher returns usually mean higher risk. Be skeptical of "guaranteed" returns.',
+    example: {
+      type: 'success',
+      title: 'Due Diligence:',
+      content: 'Check if investment companies are registered with SEBI. Read offer documents carefully and consult financial advisors for major investments.'
+    },
+    tip: 'Diversify your investments across different asset classes to reduce risk.',
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/21.webp'
+  },
+  {
     id: 'no-insurance-skip',
     type: 'dont',
     title: 'Skip health and life insurance',
@@ -226,6 +210,20 @@ export const financialTips: Tip[] = [
     },
     tip: 'Buy term life insurance when young for lower premiums and ensure health coverage for your entire family.',
     icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/6.webp'
+  },
+  {
+    id: 'tax-planning',
+    type: 'do',
+    title: 'Plan your taxes in advance',
+    description: 'Keep track of tax-saving investments and deductions throughout the year. Don\'t wait until the last minute to file your returns.',
+    details: 'Proper tax planning can save you thousands of rupees and help you avoid penalties for late filing.',
+    example: {
+      type: 'success',
+      title: 'Tax Strategy:',
+      content: 'Use 80C deductions like PPF, ELSS, and life insurance. Keep all receipts organized and consider digital tax filing for faster processing.'
+    },
+    tip: 'Start tax planning at the beginning of the financial year for maximum benefits.',
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/27.webp'
   },
   {
     id: 'no-emotional-decisions',

@@ -240,12 +240,12 @@ const organizations = [
 const teamAvatars = [
   {
     imageUrl:
-      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/imresizer-1705421255920.jpg",
-    profileUrl: "https://github.com/tomonarifeehan",
+      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/priyam.jpg",
+    profileUrl: "https://portfolio-priyam-srivastavas-projects-a9e142b7.vercel.app/",
   },
   {
     imageUrl:
-      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/1712564766583.jpg",
+      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/navneet.jpg",
     profileUrl: "https://nav9v.me",
   },
   {
@@ -255,8 +255,8 @@ const teamAvatars = [
   },
   {
     imageUrl:
-      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/logo-variants/purple-dark.webp",
-    profileUrl: "https://github.com/safethecode",
+      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/nikita.webp",
+    profileUrl: "http://iamnikitaa.github.io/",
   },
 ];
 
