@@ -27,7 +27,7 @@ export const financialTips: Tip[] = [
       content: 'You receive an SMS saying "Your account will be blocked. Click here to verify immediately." A legitimate bank will never ask you to verify through suspicious links.'
     },
     tip: 'Contact your bank directly using official phone numbers to verify any suspicious messages.',
-    icon: '/bee-props/13.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/10.webp'
   },
   {
     id: 'strong-passwords',
@@ -41,7 +41,7 @@ export const financialTips: Tip[] = [
       content: 'Use passwords like "MyBank@2025!" instead of simple ones like "123456" or "password". Consider using a password manager to generate and store unique passwords.'
     },
     tip: 'Change your banking passwords every 3-6 months and never reuse them across different platforms.',
-    icon: '/bee-props/20.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/17.webp'
   },
   {
     id: 'transaction-alerts',
@@ -55,7 +55,7 @@ export const financialTips: Tip[] = [
       content: 'Set up both SMS and app notifications. If you receive a transaction alert for something you didn\'t do, contact your bank immediately to block the card and report fraud.'
     },
     tip: 'Review your transaction history weekly to spot any unusual activity early.',
-    icon: '/bee-props/30.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/9.webp'
   },
   {
     id: 'official-apps',
@@ -69,7 +69,7 @@ export const financialTips: Tip[] = [
       content: 'Verify the app developer name matches your bank exactly. Look for official verification badges in app stores and check user reviews for authenticity.'
     },
     tip: 'Bookmark your bank\'s official website to avoid typing the wrong URL accidentally.',
-    icon: '/bee-props/calculator-tools.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/20.webp'
   },
   {
     id: 'budget-tracking',
@@ -83,7 +83,7 @@ export const financialTips: Tip[] = [
       content: 'Use budgeting apps or maintain a simple expense diary. Categorize expenses like food, transport, entertainment to see spending patterns clearly.'
     },
     tip: 'Follow the 50-30-20 rule: 50% needs, 30% wants, 20% savings and debt payment.',
-    icon: '/bee-props/calculator-tools.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/18.webp'
   },
   {
     id: 'emergency-fund',
@@ -97,7 +97,7 @@ export const financialTips: Tip[] = [
       content: 'Start small - even ₹500 per month can build a substantial emergency fund over time. Keep it in a separate savings account that earns interest.'
     },
     tip: 'Automate your emergency fund contributions so you save consistently without thinking about it.',
-    icon: '/bee-props/grow-and-save.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/10.webp'
   },
   {
     id: 'investment-research',
@@ -111,7 +111,7 @@ export const financialTips: Tip[] = [
       content: 'Check if investment companies are registered with SEBI. Read offer documents carefully and consult financial advisors for major investments.'
     },
     tip: 'Diversify your investments across different asset classes to reduce risk.',
-    icon: '/bee-props/security.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/21.webp'
   },
   {
     id: 'tax-planning',
@@ -125,7 +125,7 @@ export const financialTips: Tip[] = [
       content: 'Use 80C deductions like PPF, ELSS, and life insurance. Keep all receipts organized and consider digital tax filing for faster processing.'
     },
     tip: 'Start tax planning at the beginning of the financial year for maximum benefits.',
-    icon: '/bee-props/calculator-tools.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/27.webp'
   },
 
   // DON'Ts
@@ -141,7 +141,7 @@ export const financialTips: Tip[] = [
       content: 'Fraudsters call pretending to be from your bank and ask for OTP to "verify your account" or "update KYC details." Banks NEVER ask for OTP over phone calls.'
     },
     tip: 'OTP is like giving someone the key to your bank account. Keep it secret!',
-    icon: '/bee-props/15.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/25.webp'
   },
   {
     id: 'no-public-wifi',
@@ -155,7 +155,7 @@ export const financialTips: Tip[] = [
       content: 'Hackers can easily intercept data transmitted over public Wi-Fi, including your login credentials and transaction details. This puts your account at serious risk.'
     },
     tip: 'Use your mobile data or a secure VPN if you must access banking services while out.',
-    icon: '/bee-props/25.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/24.webp'
   },
   {
     id: 'no-urgent-response',
@@ -169,7 +169,7 @@ export const financialTips: Tip[] = [
       content: '"Your account has been compromised! Click here within 10 minutes to secure it." Real banks give you proper time and alternative contact methods to resolve issues.'
     },
     tip: 'Take time to verify. If it\'s truly urgent, your bank will have multiple ways to reach you.',
-    icon: '/bee-props/35.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/18.webp'
   },
   {
     id: 'no-loan-guarantees',
@@ -183,7 +183,7 @@ export const financialTips: Tip[] = [
       content: '"Get ₹5 lakh loan in 5 minutes! No documents needed!" Real banks and NBFCs always require proper documentation and credit verification.'
     },
     tip: 'Only approach registered lenders and always read loan terms carefully before signing.',
-    icon: '/bee-props/15.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/28.webp'
   },
   {
     id: 'no-investment-pressure',
@@ -197,7 +197,7 @@ export const financialTips: Tip[] = [
       content: '"This offer expires today! My friend made 50% returns in one month!" Legitimate investments don\'t require immediate decisions or promise unrealistic returns.'
     },
     tip: 'Sleep on major investment decisions and consult multiple sources before investing large amounts.',
-    icon: '/bee-props/25.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/30.webp'
   },
   {
     id: 'no-overspending',
@@ -211,7 +211,7 @@ export const financialTips: Tip[] = [
       content: 'Using credit cards to fund lifestyle expenses without ability to pay full amount leads to high interest charges and debt spiral.'
     },
     tip: 'Follow the pay-yourself-first principle: save money before spending on wants.',
-    icon: '/bee-props/35.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/14.webp'
   },
   {
     id: 'no-insurance-skip',
@@ -225,7 +225,7 @@ export const financialTips: Tip[] = [
       content: 'A major medical emergency without insurance can cost ₹5-10 lakhs, wiping out years of savings in a few days.'
     },
     tip: 'Buy term life insurance when young for lower premiums and ensure health coverage for your entire family.',
-    icon: '/bee-props/security.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/6.webp'
   },
   {
     id: 'no-emotional-decisions',
@@ -239,7 +239,7 @@ export const financialTips: Tip[] = [
       content: 'Panic selling stocks during market crashes or making large purchases when emotionally high often results in financial losses.'
     },
     tip: 'Take a 24-hour cooling-off period before making any major financial decision.',
-    icon: '/bee-props/15.png'
+    icon: 'https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/14.webp'
   }
 ];
 
