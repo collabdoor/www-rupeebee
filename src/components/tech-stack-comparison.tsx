@@ -75,7 +75,7 @@ const TAB_CONFIG = [
 const Icons = {
   flutter: () => (
     <Image
-      src="/technologies/flutter.svg"
+      src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/tech-logos/flutter.svg"
       alt="Flutter"
       width={32}
       height={32}
@@ -84,7 +84,7 @@ const Icons = {
   ),
   dart: () => (
     <Image
-      src="/technologies/dart.svg"
+      src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/tech-logos/dart.svg"
       alt="Dart"
       width={32}
       height={32}
@@ -93,7 +93,7 @@ const Icons = {
   ),
   riverpod: () => (
     <Image
-      src="/technologies/riverpod.svg"
+      src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/tech-logos/riverpod.svg"
       alt="Riverpod"
       width={32}
       height={32}
@@ -102,7 +102,7 @@ const Icons = {
   ),
   supabase: () => (
     <Image
-      src="/technologies/supabase.svg"
+      src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/tech-logos/supabase.svg"
       alt="Supabase"
       width={32}
       height={32}
@@ -111,7 +111,7 @@ const Icons = {
   ),
   lottie: () => (
     <Image
-      src="/technologies/lottie.svg"
+      src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/tech-logos/lottie.svg"
       alt="Lottie"
       width={32}
       height={32}
@@ -120,7 +120,7 @@ const Icons = {
   ),
   react: () => (
     <Image
-      src="/technologies/react-native.svg"
+      src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/tech-logos/react-native.svg"
       alt="React Native"
       width={32}
       height={32}
@@ -129,7 +129,7 @@ const Icons = {
   ),
   rupeebee: () => (
     <Image
-      src="/assets/logo.png"
+      src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/logo-variants/green-dark-logo.webp"
       alt="RupeeBee"
       width={64}
       height={64}

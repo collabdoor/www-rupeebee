@@ -31,7 +31,7 @@ export default function Header() {
     },
     {
       name: "Contact",
-      link: "#contact",
+      link: "/contact",
     },
   ];
 
