@@ -275,6 +275,7 @@ const UserImage: React.FC<{ className?: string }> = ({ className }) => (
     width={32}
     height={32}
     className={className}
+    unoptimized
   />
 );
 

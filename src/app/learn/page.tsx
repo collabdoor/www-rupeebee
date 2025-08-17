@@ -120,28 +120,7 @@ export default function LearnPage() {
             ))}
           </Accordion>
 
-          {/* Call to Action */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-2xl p-8">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <Image
-                  src="/bee-props/grow-and-save.png"
-                  alt="Grow and Save"
-                  width={60}
-                  height={60}
-                  className="object-contain"
-                />
-                <h3 className="text-2xl font-bold">Stay Safe, Stay Smart!</h3>
-              </div>
-              <p className="text-green-100 mb-6">
-                Download RupeeBee to get personalized financial safety tips and
-                fraud alerts tailored just for you.
-              </p>
-              <button className="bg-white text-green-600 px-8 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors">
-                Download RupeeBee App
-              </button>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
