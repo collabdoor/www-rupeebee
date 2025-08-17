@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import Image from 'next/image'
 
 function VerifyContent() {
   const searchParams = useSearchParams()
@@ -67,74 +68,81 @@ function VerifyContent() {
   }, [searchParams, router])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
-        {/* RupeeBee Logo/Branding */}
-        <div className="mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-yellow-500 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-xl">🐝</span>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">RupeeBee</h1>
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* RupeeBee Logo */}
+        <div className="text-center mb-8">
+          <Image
+            src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/logo-variants/green-dark-logo.webp"
+            alt="RupeeBee"
+            width={80}
+            height={80}
+            className="mx-auto mb-4"
+          />
+          <h1 className="text-2xl font-bold text-gray-800">RupeeBee</h1>
         </div>
 
-        {/* Status Content */}
-        {status === 'verifying' && (
-          <div>
-            <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Verifying your email...</h2>
-            <p className="text-gray-600">Please wait while we confirm your email address.</p>
-          </div>
-        )}
+        <div className="bg-white border border-gray-100 rounded-lg p-8 shadow-sm">
+          {/* Status Content */}
+          {status === 'verifying' && (
+            <div className="text-center">
+              <div className="w-8 h-8 border-2 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">Verifying your email</h2>
+              <p className="text-gray-600">Please wait while we confirm your email address.</p>
+            </div>
+          )}
 
-        {status === 'success' && (
-          <div>
-            <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-              <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+          {status === 'success' && (
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-green-50 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">Email verified successfully!</h2>
+              <p className="text-gray-600 mb-6">Your email has been successfully verified.</p>
+              <div className="bg-green-50 border border-green-100 rounded-lg p-4">
+                <p className="text-green-800 text-sm">
+                  <span className="font-medium">Redirecting to RupeeBee app...</span>
+                  <br />
+                  <span className="text-green-700">You&apos;ll be automatically redirected in 2 seconds.</span>
+                </p>
+              </div>
             </div>
-            <h2 className="text-xl font-semibold text-green-800 mb-2">Email Verified!</h2>
-            <p className="text-gray-600 mb-4">Your email has been successfully verified.</p>
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p className="text-sm text-blue-700">
-                <span className="font-medium">Redirecting to RupeeBee app...</span>
-                <br />
-                <span className="text-blue-600">You&apos;ll be automatically redirected in 2 seconds.</span>
-              </p>
-            </div>
-          </div>
-        )}
+          )}
 
-        {status === 'error' && (
-          <div>
-            <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
-              <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+          {status === 'error' && (
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-red-50 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">Verification failed</h2>
+              <p className="text-gray-600 mb-6">{errorMessage}</p>
+              <div className="bg-red-50 border border-red-100 rounded-lg p-4 mb-6">
+                <p className="text-red-800 text-sm">
+                  Please try signing up again or contact support if the problem persists.
+                </p>
+              </div>
+              <button
+                onClick={() => router.push('/')}
+                className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+              >
+                Go to Home
+              </button>
             </div>
-            <h2 className="text-xl font-semibold text-red-800 mb-2">Verification Failed</h2>
-            <p className="text-gray-600 mb-4">{errorMessage}</p>
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-sm text-red-700">
-                Please try signing up again or contact support if the problem persists.
-              </p>
-            </div>
-            <button
-              onClick={() => router.push('/')}
-              className="mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
-            >
-              Go to Home
-            </button>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Footer */}
-        <div className="mt-8 pt-6 border-t border-gray-200">            <p className="text-xs text-gray-500">
-              Having trouble? Contact us at{' '}
-              <a href="mailto:support@rupeebee.com" className="text-blue-500 hover:underline">
-                support@rupeebee.com
-              </a>
-            </p>
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-500">
+            Need help?{' '}
+            <a href="mailto:official.collabdoor@gmail.com" className="text-green-600 hover:text-green-700 font-medium">
+              Contact Support
+            </a>
+          </p>
         </div>
       </div>
     </div>
@@ -143,9 +151,11 @@ function VerifyContent() {
 
 export default function VerifyPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center">
-      <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-    </div>}>
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
       <VerifyContent />
     </Suspense>
   )
