@@ -11,7 +11,7 @@ function VerifyContent() {
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    const verifyEmail = async () => {
+    const verifyToken = async () => {
       try {
         const token = searchParams.get('token')
         const type = searchParams.get('type')
@@ -23,7 +23,14 @@ function VerifyContent() {
           return
         }
 
-        // Verify the OTP token
+        // Handle password recovery - redirect to reset password page
+        if (type === 'recovery') {
+          const resetUrl = `/auth/reset-password?token=${token}&type=${type}&redirect_to=${redirectTo || 'com.rupeebee://auth/callback'}`
+          router.push(resetUrl)
+          return
+        }
+
+        // Verify the OTP token (for signup, email_change, etc.)
         const { error } = await supabase.auth.verifyOtp({
           token_hash: token,
           type: type as 'signup' | 'email_change' | 'recovery' | 'invite' | 'magiclink',
@@ -56,7 +63,7 @@ function VerifyContent() {
       }
     }
 
-    verifyEmail()
+    verifyToken()
   }, [searchParams, router])
 
   return (
