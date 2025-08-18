@@ -411,7 +411,7 @@ function ResetPasswordContent() {
                     Go to Home
                   </button>
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-left">
-                    <p className="text-sm text-gray-700 font-medium mb-1">Can't find the app?</p>
+                    <p className="text-sm text-gray-700 font-medium mb-1">Can&apos;t find the app?</p>
                     <p className="text-sm text-gray-600">Download RupeeBee from the App Store or Google Play Store, then try the button above.</p>
                   </div>
                 </div>
