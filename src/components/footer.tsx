@@ -46,6 +46,11 @@ export default function Footer() {
           <p className="text-gray-500 text-sm">
             Copyright © RupeeBee - 2025 All rights reserved.
           </p>
+          <div className="flex gap-4 text-sm text-gray-500">
+            <a href="/terms" className="hover:text-gray-700 hover:underline">
+              Terms & Conditions
+            </a>
+          </div>
         </div>
       </div>
     </footer>
