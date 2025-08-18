@@ -25,24 +25,22 @@ const features = [
     image: "/bee-props/security.png",
     gradient: "from-green-100 to-emerald-100",
     iconColor: "text-green-600",
-    isApp: true,
   },
   {
     title: "Spend smart and not hard! - Intelligent Tips",
     description:
       "Grow your money with intelligent planning and investment strategies",
     icon: TrendingUpIcon,
-    image: "/bee-props/grow-and-save.png",
+    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/26.webp",
     gradient: "from-blue-100 to-cyan-100",
     iconColor: "text-blue-600",
-    isApp: true,
   },
   {
     title: "Ganit Ki Dukaan for your Paisa - Calculators",
     description:
       "Use our calculators and planning tools to make informed decisions. With 38+ designed specifically for Indian income, tax, and investment needs. ",
     icon: CalculatorIcon,
-    image: "/bee-props/calculator-tools.png",
+    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/12.webp",
     gradient: "from-yellow-100 to-amber-100",
     iconColor: "text-yellow-600",
   },
@@ -51,15 +49,15 @@ const features = [
     description:
       "Offering 20+ localized language-specific videos and quizzes that are interactive make learning fun and engaging.",
     icon: PhoneIcon,
-    image: "/bee-props/welcome-rupeebee.png",
+    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/10.jpg",
     gradient: "from-purple-100 to-violet-100",
     iconColor: "text-purple-600",
-    isApp: true,
   },
   {
-    title: "Join Community",
-    description: "Connect with like-minded savers and learn from each other",
+    title: "Stay Secure with Secure Scanner",
+    description: "Keep your financial data safe with our advanced security features.",
     icon: UsersIcon,
+    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/19.webp",
     gradient: "from-pink-100 to-rose-100",
     iconColor: "text-pink-600",
   },
@@ -125,14 +123,7 @@ export default function FeaturesSection() {
                       </div>
 
                       <div className="flex-shrink-0 mt-4 md:mt-0 flex items-center justify-center">
-                        {feature.isApp ? (
-                          <div className="relative">
-                            <Android
-                              className="w-40 h-80 sm:w-48 sm:h-96 md:w-56 md:h-[28rem] lg:w-64 lg:h-[32rem] mx-auto"
-                              src={feature.image}
-                            />
-                          </div>
-                        ) : (
+                        
                           <div className="relative">
                             <Iphone15Pro
                               className="w-40 h-80 sm:w-48 sm:h-96 md:w-56 md:h-[28rem] lg:w-64 lg:h-[32rem] mx-auto"
@@ -142,7 +133,7 @@ export default function FeaturesSection() {
                               }
                             />
                           </div>
-                        )}
+                        
                       </div>
                     </div>
 

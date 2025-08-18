@@ -44,7 +44,7 @@ export default function HeroSection() {
               <div className="absolute -left-24 sm:-left-32 top-8 transform rotate-12 z-10">
                 <Android
                   className="size-[240px] sm:size-[280px] opacity-90"
-                  src="/bee-props/welcome-rupeebee.png"
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/4.webp"
                 />
               </div>
 
@@ -52,7 +52,7 @@ export default function HeroSection() {
               <div className="relative z-20">
                 <Iphone15Pro
                   className="size-[300px] sm:size-[350px]"
-                  src="/bee-props/welcome-rupeebee.png"
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/3.webp"
                 />
               </div>
             </div>
