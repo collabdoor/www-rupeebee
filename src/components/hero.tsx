@@ -1,8 +1,10 @@
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
-import { NumberTicker } from "@/components/magicui/number-ticker";
+"use client"
+
+import { LayoutGroup, motion } from "motion/react"
 import Android from "@/components/magicui/android";
 import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { Highlighter } from "./magicui/highlighter";
+import TextRotate from "@/components/fancy/text/text-rotate";
 
 export default function HeroSection() {
   return (
@@ -11,9 +13,8 @@ export default function HeroSection() {
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
       </div>
       <div className="container-responsive relative">
-
         {/* Content with proper spacing */}
-        <div className="pb-16 space-y-16">
+        <div className="py-4 space-y-16">
           {/* Main Heading Section */}
           <div className="text-center max-w-4xl mx-auto space-y-6">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
@@ -56,7 +57,41 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-          
+
+          {/* Rotating Text Section */}
+          <div className="mt-10 flex justify-center">
+            <LayoutGroup>
+              <motion.div className="text-2xl sm:text-3xl md:text-4xl flex flex-row items-center justify-center font-light">
+                <TextRotate
+                  texts={[
+                    "Hello",
+                    "नमस्ते", // Hindi
+                    "வணக்கம்", // Tamil
+                    "নমস্কার", // Bengali
+                    "ನಮಸ್ಕಾರ", // Kannada
+                    "നമസ്കാരം", // Malayalam
+                    "नमस्कार", // Marathi
+                    "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", // Punjabi
+                    "અસલામ વાલેકુમ", // Gujarati
+                  ]}
+                  mainClassName="text-white px-3 sm:px-4 md:px-5 bg-orange-400 overflow-hidden text-extrabold py-1 sm:py-2 md:py-2 justify-center rounded-lg mx-2"
+                  staggerFrom={"last"}
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "-120%" }}
+                  staggerDuration={0.025}
+                  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                  rotationInterval={2500}
+                />
+                <span
+                  className="text-gray-700 text-extrabold"
+                >
+                  RupeeBee!
+                </span>
+              </motion.div>
+            </LayoutGroup>
+          </div>
         </div>
       </div>
     </section>
