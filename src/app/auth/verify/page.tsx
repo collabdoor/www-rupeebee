@@ -101,12 +101,28 @@ function VerifyContent() {
               </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-3">Email verified successfully!</h2>
               <p className="text-gray-600 mb-6">Your email has been successfully verified.</p>
-              <div className="bg-green-50 border border-green-100 rounded-lg p-4">
+              <div className="bg-green-50 border border-green-100 rounded-lg p-4 mb-6">
                 <p className="text-green-800 text-sm">
                   <span className="font-medium">Redirecting to RupeeBee app...</span>
                   <br />
                   <span className="text-green-700">You&apos;ll be automatically redirected in 2 seconds.</span>
                 </p>
+              </div>
+              
+              {/* Manual redirect section */}
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <p className="text-gray-700 text-sm mb-3">
+                  If the automatic redirect doesn&apos;t work:
+                </p>
+                <a
+                  href={searchParams.get('redirect_to') || 'com.rupeebee://auth/callback'}
+                  className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors"
+                >
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Open RupeeBee App 
+                </a>
               </div>
             </div>
           )}
