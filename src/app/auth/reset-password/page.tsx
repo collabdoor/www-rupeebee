@@ -118,33 +118,11 @@ function ResetPasswordContent() {
 
       console.log('Password updated successfully, user data:', data)
 
-      // Get fresh session data after password update
-      const { data: sessionData } = await supabase.auth.getSession()
-      
-      // Extract authentication session data
-      const extractAuthSession = () => {
-        const authParams = new URLSearchParams()
-        
-        if (sessionData.session?.access_token) {
-          authParams.set('access_token', sessionData.session.access_token)
-        }
-        if (sessionData.session?.refresh_token) {
-          authParams.set('refresh_token', sessionData.session.refresh_token)
-        }
-        authParams.set('type', 'recovery')
-        authParams.set('user_id', data.user.id)
-        
-        return authParams.toString()
-      }
-
-      const authParams = extractAuthSession()
-      console.log('Auth parameters for deep link:', authParams)
-
       setStatus('success')
-      
-      // Redirect to app after 2 seconds with auth parameters
+
+      // Redirect to app after 2 seconds with success indicator
       setTimeout(() => {
-        const deepLink = `com.rupeebee://auth/callback#${authParams}`
+        const deepLink = `com.rupeebee://auth/callback?reset=success&type=recovery`
         console.log('Redirecting to:', deepLink)
         
         window.location.href = deepLink
@@ -333,19 +311,8 @@ function ResetPasswordContent() {
               
               {/* Manual redirect button */}
               <button
-                onClick={async () => {
-                  const { data: sessionData } = await supabase.auth.getSession()
-                  const authParams = new URLSearchParams()
-                  
-                  if (sessionData.session?.access_token) {
-                    authParams.set('access_token', sessionData.session.access_token)
-                  }
-                  if (sessionData.session?.refresh_token) {
-                    authParams.set('refresh_token', sessionData.session.refresh_token)
-                  }
-                  authParams.set('type', 'recovery')
-                  
-                  window.location.href = `com.rupeebee://auth/callback#${authParams.toString()}`
+                onClick={() => {
+                  window.location.href = `com.rupeebee://auth/callback?reset=success&type=recovery`
                 }}
                 className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors mb-4"
               >
@@ -386,19 +353,8 @@ function ResetPasswordContent() {
               {errorMessage.includes('App did not open') ? (
                 <div className="space-y-3">
                   <button
-                    onClick={async () => {
-                      const { data: sessionData } = await supabase.auth.getSession()
-                      const authParams = new URLSearchParams()
-                      
-                      if (sessionData.session?.access_token) {
-                        authParams.set('access_token', sessionData.session.access_token)
-                      }
-                      if (sessionData.session?.refresh_token) {
-                        authParams.set('refresh_token', sessionData.session.refresh_token)
-                      }
-                      authParams.set('type', 'recovery')
-                      
-                      window.location.href = `com.rupeebee://auth/callback#${authParams.toString()}`
+                    onClick={() => {
+                      window.location.href = `com.rupeebee://auth/callback?reset=success&type=recovery`
                     }}
                     className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
                   >

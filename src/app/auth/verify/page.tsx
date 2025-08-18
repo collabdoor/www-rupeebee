@@ -49,7 +49,7 @@ function VerifyContent() {
 
         // Handle password recovery - redirect to reset password page
         if (type === 'recovery') {
-          const resetUrl = `/auth/reset-password?token=${token}&type=${type}&redirect_to=${redirectTo || 'com.rupeebee://auth/callback'}`
+          const resetUrl = `/auth/reset-password?token=${token}&type=${type}&redirect_to=${redirectTo || 'com.rupeebee://auth/callback?reset=success&type=recovery'}`
           router.push(resetUrl)
           return
         }
@@ -70,18 +70,8 @@ function VerifyContent() {
         // Success! Show success message and redirect
         setStatus('success')
 
-        // Prepare auth parameters for mobile app
-        const authParams = new URLSearchParams()
-        
-        // Add essential auth parameters (exclude redirect_to to avoid circular references)
-        allParams.forEach((value, key) => {
-          if (key !== 'redirect_to') {
-            authParams.set(key, value)
-          }
-        })
-
-        // Construct deep link with auth parameters as hash fragment
-        const deepLink = `com.rupeebee://auth/callback#${authParams.toString()}`
+        // Construct deep link with success indicator (no tokens)
+        const deepLink = `com.rupeebee://auth/callback?verification=success&type=${type}`
         
         console.log('Redirecting to:', deepLink)
 
@@ -155,18 +145,20 @@ function VerifyContent() {
                   const currentUrl = window.location.href
                   const urlObj = new URL(currentUrl)
                   
+                  // Get type from URL parameters
+                  let type = 'signup' // default
                   urlObj.searchParams.forEach((value, key) => {
-                    if (key !== 'redirect_to') allParams.set(key, value)
+                    if (key === 'type') type = value
                   })
                   
                   if (urlObj.hash) {
                     const hashParams = new URLSearchParams(urlObj.hash.substring(1))
                     hashParams.forEach((value, key) => {
-                      if (key !== 'redirect_to') allParams.set(key, value)
+                      if (key === 'type') type = value
                     })
                   }
                   
-                  window.location.href = `com.rupeebee://auth/callback#${allParams.toString()}`
+                  window.location.href = `com.rupeebee://auth/callback?verification=success&type=${type}`
                 }}
                 className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors mb-4"
               >
@@ -210,18 +202,20 @@ function VerifyContent() {
                       const currentUrl = window.location.href
                       const urlObj = new URL(currentUrl)
                       
+                      // Get type from URL parameters
+                      let type = 'signup' // default
                       urlObj.searchParams.forEach((value, key) => {
-                        if (key !== 'redirect_to') allParams.set(key, value)
+                        if (key === 'type') type = value
                       })
                       
                       if (urlObj.hash) {
                         const hashParams = new URLSearchParams(urlObj.hash.substring(1))
                         hashParams.forEach((value, key) => {
-                          if (key !== 'redirect_to') allParams.set(key, value)
+                          if (key === 'type') type = value
                         })
                       }
                       
-                      window.location.href = `com.rupeebee://auth/callback#${allParams.toString()}`
+                      window.location.href = `com.rupeebee://auth/callback?verification=success&type=${type}`
                     }}
                     className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
                   >
