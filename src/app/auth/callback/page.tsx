@@ -15,7 +15,7 @@ export default function AuthCallbackPage() {
         if (prev <= 1) {
           clearInterval(timer)
           // Try to open the app, fallback to home
-          window.location.href = 'com.rupeebee://auth/callback'
+          window.location.href = 'com.rupeebee://auth/callback?verification=success&type=callback'
           setTimeout(() => {
             router.push('/')
           }, 1000)
@@ -65,7 +65,7 @@ export default function AuthCallbackPage() {
           <div className="space-y-3">
             <button
               onClick={() => {
-                window.location.href = 'com.rupeebee://auth/callback'
+                window.location.href = 'com.rupeebee://auth/callback?verification=success&type=callback'
               }}
               className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
             >

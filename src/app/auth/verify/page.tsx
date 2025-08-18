@@ -14,9 +14,32 @@ function VerifyContent() {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const token = searchParams.get('token')
-        const type = searchParams.get('type')
-        const redirectTo = searchParams.get('redirect_to')
+        // Extract all parameters from both query and hash
+        const extractAllParameters = () => {
+          const currentUrl = window.location.href
+          const urlObj = new URL(currentUrl)
+          const allParams = new URLSearchParams()
+
+          // Add query parameters
+          urlObj.searchParams.forEach((value, key) => {
+            allParams.set(key, value)
+          })
+
+          // Add hash parameters (if any)
+          if (urlObj.hash) {
+            const hashParams = new URLSearchParams(urlObj.hash.substring(1))
+            hashParams.forEach((value, key) => {
+              allParams.set(key, value)
+            })
+          }
+
+          return allParams
+        }
+
+        const allParams = extractAllParameters()
+        const token = allParams.get('token')
+        const type = allParams.get('type')
+        const redirectTo = allParams.get('redirect_to')
 
         if (!token || !type) {
           setStatus('error')
@@ -26,7 +49,7 @@ function VerifyContent() {
 
         // Handle password recovery - redirect to reset password page
         if (type === 'recovery') {
-          const resetUrl = `/auth/reset-password?token=${token}&type=${type}&redirect_to=${redirectTo || 'com.rupeebee://auth/callback'}`
+          const resetUrl = `/auth/reset-password?token=${token}&type=${type}&redirect_to=${redirectTo || 'com.rupeebee://auth/callback?reset=success&type=recovery'}`
           router.push(resetUrl)
           return
         }
@@ -47,16 +70,22 @@ function VerifyContent() {
         // Success! Show success message and redirect
         setStatus('success')
 
-        // Redirect after 2 seconds
+        // Construct deep link with success indicator (no tokens)
+        const deepLink = `com.rupeebee://auth/callback?verification=success&type=${type}`
+        
+        console.log('Redirecting to:', deepLink)
+
+        // Redirect after 1.5 seconds to show success message
         setTimeout(() => {
-          if (redirectTo && redirectTo.startsWith('com.rupeebee://')) {
-            // Deep link back to the app
-            window.location.href = redirectTo
-          } else {
-            // Fallback redirect (shouldn't happen in normal flow)
-            router.push('/')
-          }
-        }, 2000)
+          window.location.href = deepLink
+          
+          // Fallback message after 3 seconds if app doesn't open
+          setTimeout(() => {
+            setStatus('error')
+            setErrorMessage('App did not open automatically. Please open RupeeBee manually to complete authentication.')
+          }, 3000)
+        }, 1500)
+
       } catch (err) {
         console.error('Unexpected error:', err)
         setStatus('error')
@@ -100,30 +129,48 @@ function VerifyContent() {
                 </svg>
               </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-3">Email verified successfully!</h2>
-              <p className="text-gray-600 mb-6">Your email has been successfully verified.</p>
+              <p className="text-gray-600 mb-6">Your email has been successfully verified. Opening RupeeBee app...</p>
               <div className="bg-green-50 border border-green-100 rounded-lg p-4 mb-6">
                 <p className="text-green-800 text-sm">
-                  <span className="font-medium">Redirecting to RupeeBee app...</span>
+                  <span className="font-medium">Authentication complete!</span>
                   <br />
-                  <span className="text-green-700">You&apos;ll be automatically redirected in 2 seconds.</span>
+                  <span className="text-green-700">Redirecting to RupeeBee with your login credentials...</span>
                 </p>
               </div>
               
-              {/* Manual redirect section */}
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                <p className="text-gray-700 text-sm mb-3">
-                  If the automatic redirect doesn&apos;t work:
-                </p>
-                <a
-                  href={searchParams.get('redirect_to') || 'com.rupeebee://auth/callback'}
-                  className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  Open RupeeBee App 
-                </a>
-              </div>
+              {/* Manual redirect button */}
+              <button
+                onClick={() => {
+                  const allParams = new URLSearchParams()
+                  const currentUrl = window.location.href
+                  const urlObj = new URL(currentUrl)
+                  
+                  // Get type from URL parameters
+                  let type = 'signup' // default
+                  urlObj.searchParams.forEach((value, key) => {
+                    if (key === 'type') type = value
+                  })
+                  
+                  if (urlObj.hash) {
+                    const hashParams = new URLSearchParams(urlObj.hash.substring(1))
+                    hashParams.forEach((value, key) => {
+                      if (key === 'type') type = value
+                    })
+                  }
+                  
+                  window.location.href = `com.rupeebee://auth/callback?verification=success&type=${type}`
+                }}
+                className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors mb-4"
+              >
+                Open RupeeBee App
+              </button>
+              
+              <button
+                onClick={() => router.push('/')}
+                className="w-full px-6 py-3 text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 rounded-lg font-medium transition-colors"
+              >
+                Go to Home
+              </button>
             </div>
           )}
 
@@ -134,19 +181,61 @@ function VerifyContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">Verification failed</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                {errorMessage.includes('App did not open') ? 'App Launch Required' : 'Verification Failed'}
+              </h2>
               <p className="text-gray-600 mb-6">{errorMessage}</p>
-              <div className="bg-red-50 border border-red-100 rounded-lg p-4 mb-6">
-                <p className="text-red-800 text-sm">
-                  Please try signing up again or contact support if the problem persists.
+              <div className={`${errorMessage.includes('App did not open') ? 'bg-yellow-50 border-yellow-100' : 'bg-red-50 border-red-100'} border rounded-lg p-4 mb-6`}>
+                <p className={`${errorMessage.includes('App did not open') ? 'text-yellow-800' : 'text-red-800'} text-sm`}>
+                  {errorMessage.includes('App did not open') 
+                    ? 'Your email is verified! Please manually open the RupeeBee app to complete authentication.' 
+                    : 'Please try signing up again or contact support if the problem persists.'
+                  }
                 </p>
               </div>
-              <button
-                onClick={() => router.push('/')}
-                className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
-              >
-                Go to Home
-              </button>
+              
+              {errorMessage.includes('App did not open') ? (
+                <div className="space-y-3">
+                  <button
+                    onClick={() => {
+                      const allParams = new URLSearchParams()
+                      const currentUrl = window.location.href
+                      const urlObj = new URL(currentUrl)
+                      
+                      // Get type from URL parameters
+                      let type = 'signup' // default
+                      urlObj.searchParams.forEach((value, key) => {
+                        if (key === 'type') type = value
+                      })
+                      
+                      if (urlObj.hash) {
+                        const hashParams = new URLSearchParams(urlObj.hash.substring(1))
+                        hashParams.forEach((value, key) => {
+                          if (key === 'type') type = value
+                        })
+                      }
+                      
+                      window.location.href = `com.rupeebee://auth/callback?verification=success&type=${type}`
+                    }}
+                    className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+                  >
+                    Try Opening RupeeBee Again
+                  </button>
+                  <button
+                    onClick={() => router.push('/')}
+                    className="w-full px-6 py-3 text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 rounded-lg font-medium transition-colors"
+                  >
+                    Go to Home
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => router.push('/')}
+                  className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+                >
+                  Go to Home
+                </button>
+              )}
             </div>
           )}
         </div>

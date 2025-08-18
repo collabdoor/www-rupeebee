@@ -62,6 +62,17 @@ function ResetPasswordContent() {
     verifyResetToken()
   }, [searchParams])
 
+  const getPasswordStrength = (pwd: string) => {
+    if (pwd.length < 6) return { strength: 0, text: 'Too short', color: 'text-red-600' }
+    if (pwd.length < 8) return { strength: 1, text: 'Weak', color: 'text-orange-600' }
+    if (pwd.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)) return { strength: 3, text: 'Strong', color: 'text-green-600' }
+    if (pwd.match(/^(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*\d)|(?=.*[A-Z])(?=.*\d)/)) return { strength: 2, text: 'Medium', color: 'text-yellow-600' }
+    return { strength: 1, text: 'Weak', color: 'text-orange-600' }
+  }
+
+  const passwordStrength = getPasswordStrength(password)
+  const isFormValid = password.length >= 6 && password === confirmPassword
+
   const handlePasswordReset = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -105,20 +116,23 @@ function ResetPasswordContent() {
         return
       }
 
-      // Sign out after password update for security
-      await supabase.auth.signOut()
+      console.log('Password updated successfully, user data:', data)
 
       setStatus('success')
-      
-      // Redirect to app after 3 seconds
+
+      // Redirect to app after 2 seconds with success indicator
       setTimeout(() => {
-        const redirectTo = searchParams.get('redirect_to')
-        if (redirectTo && redirectTo.startsWith('com.rupeebee://')) {
-          window.location.href = redirectTo
-        } else {
-          window.location.href = 'com.rupeebee://auth/callback'
-        }
-      }, 3000)
+        const deepLink = `com.rupeebee://auth/callback?reset=success&type=recovery`
+        console.log('Redirecting to:', deepLink)
+        
+        window.location.href = deepLink
+        
+        // Fallback message if app doesn't open after 3 seconds
+        setTimeout(() => {
+          setStatus('error')
+          setErrorMessage('App did not open automatically. Please open RupeeBee manually to complete login.')
+        }, 3000)
+      }, 2000)
     } catch (err) {
       console.error('Password update error:', err)
       setErrorMessage('Failed to update password')
@@ -173,11 +187,36 @@ function ResetPasswordContent() {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
-                    placeholder="Enter new password"
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
+                      password && password.length < 6 
+                        ? 'border-red-200 focus:ring-red-500 focus:border-transparent' 
+                        : 'border-gray-200 focus:ring-green-500 focus:border-transparent'
+                    }`}
+                    placeholder="Enter new password (minimum 6 characters)"
                     required
                     minLength={6}
                   />
+                  
+                  {password && (
+                    <div className="mt-2">
+                      <div className="flex items-center justify-between text-sm mb-1">
+                        <span className={passwordStrength.color}>
+                          Password strength: {passwordStrength.text}
+                        </span>
+                        <span className="text-gray-500">{password.length}/∞</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div 
+                          className={`h-2 rounded-full transition-all duration-300 ${
+                            passwordStrength.strength === 0 ? 'bg-red-500 w-1/4' :
+                            passwordStrength.strength === 1 ? 'bg-orange-500 w-2/4' :
+                            passwordStrength.strength === 2 ? 'bg-yellow-500 w-3/4' :
+                            'bg-green-500 w-full'
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 <div>
@@ -189,11 +228,44 @@ function ResetPasswordContent() {
                     id="confirmPassword"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
+                      confirmPassword && password !== confirmPassword
+                        ? 'border-red-200 focus:ring-red-500 focus:border-transparent'
+                        : 'border-gray-200 focus:ring-green-500 focus:border-transparent'
+                    }`}
                     placeholder="Confirm new password"
                     required
                     minLength={6}
                   />
+                  {confirmPassword && password !== confirmPassword && (
+                    <p className="mt-1 text-sm text-red-600">Passwords do not match</p>
+                  )}
+                  {confirmPassword && password === confirmPassword && password.length >= 6 && (
+                    <p className="mt-1 text-sm text-green-600">✓ Passwords match</p>
+                  )}
+                </div>
+
+                {/* Password Requirements */}
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                  <p className="text-sm text-gray-700 font-medium mb-2">Password requirements:</p>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    <li className={`flex items-center ${password.length >= 6 ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="mr-2">{password.length >= 6 ? '✓' : '○'}</span>
+                      At least 6 characters long
+                    </li>
+                    <li className={`flex items-center ${password.length >= 8 ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="mr-2">{password.length >= 8 ? '✓' : '○'}</span>
+                      8+ characters recommended
+                    </li>
+                    <li className={`flex items-center ${password.match(/[A-Z]/) ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="mr-2">{password.match(/[A-Z]/) ? '✓' : '○'}</span>
+                      Include uppercase letter (recommended)
+                    </li>
+                    <li className={`flex items-center ${password.match(/\d/) ? 'text-green-600' : 'text-gray-500'}`}>
+                      <span className="mr-2">{password.match(/\d/) ? '✓' : '○'}</span>
+                      Include number (recommended)
+                    </li>
+                  </ul>
                 </div>
 
                 {errorMessage && (
@@ -204,10 +276,17 @@ function ResetPasswordContent() {
 
                 <button
                   type="submit"
-                  disabled={isLoading}
-                  className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white rounded-lg font-medium transition-colors"
+                  disabled={isLoading || !isFormValid}
+                  className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg font-medium transition-colors"
                 >
-                  {isLoading ? 'Updating password...' : 'Update password'}
+                  {isLoading ? (
+                    <span className="flex items-center justify-center">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Updating password...
+                    </span>
+                  ) : (
+                    'Update password'
+                  )}
                 </button>
               </form>
             </div>
@@ -220,15 +299,32 @@ function ResetPasswordContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">Password updated successfully!</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">Password reset successful!</h2>
               <p className="text-gray-600 mb-6">Your password has been successfully updated.</p>
-              <div className="bg-green-50 border border-green-100 rounded-lg p-4">
+              <div className="bg-green-50 border border-green-100 rounded-lg p-4 mb-6">
                 <p className="text-green-800 text-sm">
-                  <span className="font-medium">Redirecting to RupeeBee app...</span>
+                  <span className="font-medium">Logging you in...</span>
                   <br />
-                  <span className="text-green-700">You&apos;ll be automatically redirected in 3 seconds.</span>
+                  <span className="text-green-700">Redirecting to RupeeBee with your new credentials...</span>
                 </p>
               </div>
+              
+              {/* Manual redirect button */}
+              <button
+                onClick={() => {
+                  window.location.href = `com.rupeebee://auth/callback?reset=success&type=recovery`
+                }}
+                className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors mb-4"
+              >
+                Open RupeeBee App
+              </button>
+              
+              <button
+                onClick={() => router.push('/')}
+                className="w-full px-6 py-3 text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 rounded-lg font-medium transition-colors"
+              >
+                Go to Home
+              </button>
             </div>
           )}
 
@@ -239,19 +335,73 @@ function ResetPasswordContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-3">Reset failed</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-3">
+                {errorMessage.includes('App did not open') ? 'Login Ready!' : 'Reset Failed'}
+              </h2>
               <p className="text-gray-600 mb-6">{errorMessage}</p>
-              <div className="bg-red-50 border border-red-100 rounded-lg p-4 mb-6">
-                <p className="text-red-800 text-sm">
-                  Please try requesting a new password reset or contact support if the problem persists.
+              <div className={`${errorMessage.includes('App did not open') ? 'bg-yellow-50 border-yellow-100' : 'bg-red-50 border-red-100'} border rounded-lg p-4 mb-6`}>
+                <p className={`${errorMessage.includes('App did not open') ? 'text-yellow-800' : 'text-red-800'} text-sm`}>
+                  {errorMessage.includes('App did not open') 
+                    ? 'Your password was successfully reset! Please manually open the RupeeBee app to complete login.' 
+                    : errorMessage.includes('expired') || errorMessage.includes('Invalid')
+                      ? 'Please request a new password reset link from the app or website.'
+                      : 'Please try again or contact support if the problem persists.'
+                  }
                 </p>
               </div>
-              <button
-                onClick={() => router.push('/')}
-                className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
-              >
-                Go to Home
-              </button>
+              
+              {errorMessage.includes('App did not open') ? (
+                <div className="space-y-3">
+                  <button
+                    onClick={() => {
+                      window.location.href = `com.rupeebee://auth/callback?reset=success&type=recovery`
+                    }}
+                    className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+                  >
+                    Try Opening RupeeBee Again
+                  </button>
+                  <button
+                    onClick={() => router.push('/')}
+                    className="w-full px-6 py-3 text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 rounded-lg font-medium transition-colors"
+                  >
+                    Go to Home
+                  </button>
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-left">
+                    <p className="text-sm text-gray-700 font-medium mb-1">Can&apos;t find the app?</p>
+                    <p className="text-sm text-gray-600">Download RupeeBee from the App Store or Google Play Store, then try the button above.</p>
+                  </div>
+                </div>
+              ) : errorMessage.includes('expired') || errorMessage.includes('Invalid') ? (
+                <div className="space-y-3">
+                  <button
+                    onClick={() => window.location.href = 'com.rupeebee://auth/reset-password'}
+                    className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+                  >
+                    Request New Password Reset
+                  </button>
+                  <button
+                    onClick={() => router.push('/')}
+                    className="w-full px-6 py-3 text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 rounded-lg font-medium transition-colors"
+                  >
+                    Go to Home
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="w-full px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+                  >
+                    Try Again
+                  </button>
+                  <button
+                    onClick={() => router.push('/')}
+                    className="w-full px-6 py-3 text-gray-600 hover:text-gray-800 border border-gray-200 hover:border-gray-300 rounded-lg font-medium transition-colors"
+                  >
+                    Go to Home
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
