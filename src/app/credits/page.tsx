@@ -8,7 +8,6 @@ import { BackgroundLines } from "@/components/ui/background-lines";
 import { AvatarCircles } from "@/components/magicui/avatar-circles";
 import {
   ExternalLink,
-  Award,
   Users,
   Trophy,
   Link as LinkIcon,
@@ -91,7 +90,7 @@ export default function Credits() {
       </BackgroundLines>
 
       <main className="container-responsive relative z-10">
-        <div className="pt-24 pb-16 space-y-20">
+        <div className="pt-72 pb-16 space-y-40">
           <div className="text-center space-y-8">
             <h2 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
               <Highlighter action="underline" color="#4ade80">
@@ -122,12 +121,6 @@ export default function Credits() {
                       <tr>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
                           <div className="flex items-center gap-2">
-                            <Award className="w-4 h-4" />
-                            Category
-                          </div>
-                        </th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
-                          <div className="flex items-center gap-2">
                             <Globe className="w-4 h-4" />
                             Link
                           </div>
@@ -146,11 +139,6 @@ export default function Credits() {
                           key={index}
                           className="hover:bg-white/40 transition-all duration-200 group"
                         >
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-green-100 to-green-200 text-green-800 group-hover:from-green-200 group-hover:to-green-300 transition-all duration-200">
-                              {link.category}
-                            </span>
-                          </td>
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-3">
                               <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-200">
@@ -241,7 +229,8 @@ const teamAvatars = [
   {
     imageUrl:
       "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/priyam.jpg",
-    profileUrl: "https://portfolio-priyam-srivastavas-projects-a9e142b7.vercel.app/",
+    profileUrl:
+      "https://portfolio-priyam-srivastavas-projects-a9e142b7.vercel.app/",
   },
   {
     imageUrl:
@@ -255,7 +244,7 @@ const teamAvatars = [
   },
   {
     imageUrl:
-      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/nikita.webp",
+      "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/nikita.png",
     profileUrl: "http://iamnikitaa.github.io/",
   },
 ];
@@ -267,41 +256,35 @@ const importantLinks = [
     description: "View the source code and contribute to the project",
     url: "https://github.com/collabdoor/www-rupeebee",
     icon: <Github className="w-5 h-5 text-gray-600" />,
-    category: "Development",
   },
   {
     title: "Live Demo",
     description: "Try the RupeeBee application live",
     url: "https://rupeebee.com",
     icon: <Globe className="w-5 h-5 text-blue-600" />,
-    category: "Demo",
   },
   {
     title: "Documentation",
     description: "Read the comprehensive project documentation",
     url: "#",
     icon: <Book className="w-5 h-5 text-green-600" />,
-    category: "Resources",
   },
   {
     title: "PSB Hackathon",
     description: "Learn more about the PSB Hackathon Series",
     url: "https://psb.ac.in",
     icon: <Trophy className="w-5 h-5 text-yellow-600" />,
-    category: "Event",
   },
   {
     title: "API Documentation",
     description: "Explore the API endpoints and integration guides",
     url: "#",
     icon: <LinkIcon className="w-5 h-5 text-purple-600" />,
-    category: "Development",
   },
   {
     title: "Support & Contact",
     description: "Get help and contact the development team",
     url: "#",
     icon: <Users className="w-5 h-5 text-red-600" />,
-    category: "Support",
   },
 ];
