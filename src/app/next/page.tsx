@@ -9,9 +9,9 @@ export default function WhatsNextPage() {
       {/* Hero Section with Globe */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-6xl mx-auto mt-32">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-600 mb-6">
             What&apos;s Next for {" "}
-            <Highlighter action="box" color="#FF9800"><span className="text-violet-500">RupeeBee</span></Highlighter> {" "}?
+            <Highlighter action="box" color="#FF9800"><span className="text-yellow-600">RupeeBee</span></Highlighter> {" "}?
           </h1>
           
           <p className="text-xl text-gray-600 leading-relaxed mb-12 max-w-4xl mx-auto">
@@ -80,7 +80,7 @@ export default function WhatsNextPage() {
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 group">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/bee-props/welcome-rupeebee.png" 
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/onboarding/welcome-rupeebee.webp" 
                   alt="Global Reach" 
                   width={40} 
                   height={40}
@@ -102,7 +102,7 @@ export default function WhatsNextPage() {
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 group">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/bee-props/grow-and-save.png" 
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/onboarding/grow-and-save.webp" 
                   alt="Education" 
                   width={40} 
                   height={40}
@@ -124,7 +124,7 @@ export default function WhatsNextPage() {
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 group">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/bee-props/security.png" 
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/onboarding/security.webp" 
                   alt="Community" 
                   width={40} 
                   height={40}
@@ -146,7 +146,7 @@ export default function WhatsNextPage() {
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 group">
               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/bee-props/calculator-tools.png" 
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/onboarding/calculator-tools.webp" 
                   alt="AI Protection" 
                   width={40} 
                   height={40}
@@ -168,7 +168,7 @@ export default function WhatsNextPage() {
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 group">
               <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/bee-props/3.png" 
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/onboarding/orange-fire-480.png" 
                   alt="Open Source" 
                   width={40} 
                   height={40}
@@ -190,7 +190,7 @@ export default function WhatsNextPage() {
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 group">
               <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Image 
-                  src="/bee-props/6.png" 
+                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/bee-props/31.webp" 
                   alt="Research" 
                   width={40} 
                   height={40}
@@ -214,36 +214,16 @@ export default function WhatsNextPage() {
       {/* Mission Statement */}
       <div className="container mx-auto px-4 pb-16">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-3xl p-12 text-center">
-            <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-3xl p-6 text-center">
+            <div className="flex items-center justify-center gap-4">
               <Image 
-                src="/assets/logo.png" 
+                src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/logo-variants/golden.webp" 
                 alt="RupeeBee Logo" 
                 width={60} 
                 height={60}
                 className="object-contain filter brightness-0 invert"
               />
               <h3 className="text-3xl font-bold">Our Commitment</h3>
-            </div>
-            <p className="text-xl text-green-100 leading-relaxed mb-8">
-              &ldquo;RupeeBee will always remain free, open, and focused on public good. 
-              We believe financial literacy is a fundamental right, not a privilege. 
-              Our success is measured not in profits, but in the number of people 
-              we protect from financial fraud and empower with knowledge.&rdquo;
-            </p>
-            <div className="grid md:grid-cols-3 gap-8 mt-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white">0%</div>
-                <div className="text-green-200">Profit Motive</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white">100%</div>
-                <div className="text-green-200">Public Good</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white">∞</div>
-                <div className="text-green-200">Impact Potential</div>
-              </div>
             </div>
           </div>
         </div>
@@ -252,10 +232,6 @@ export default function WhatsNextPage() {
       {/* Roadmap Timeline */}
       <div className="container mx-auto px-4 pb-20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-            Our Roadmap
-          </h2>
-          
           <div className="space-y-8">
             <div className="flex items-start gap-6">
               <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
