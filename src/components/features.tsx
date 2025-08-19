@@ -22,7 +22,7 @@ const features = [
     description:
       "App supports multiple languages to cater to a diverse user base",
     icon: ShieldIcon,
-    image: "/bee-props/security.png",
+    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/4.webp",
     gradient: "from-green-100 to-emerald-100",
     iconColor: "text-green-600",
   },
@@ -49,7 +49,7 @@ const features = [
     description:
       "Offering 20+ localized language-specific videos and quizzes that are interactive make learning fun and engaging.",
     icon: PhoneIcon,
-    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/10.jpg",
+    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/18.webp",
     gradient: "from-purple-100 to-violet-100",
     iconColor: "text-purple-600",
   },

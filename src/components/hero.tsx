@@ -42,7 +42,7 @@ export default function HeroSection() {
             <div className="relative">
               {/* Android Phone - Behind and smaller */}
               <div className="absolute -left-24 sm:-left-32 top-8 transform rotate-12 z-10">
-                <Android
+                <Iphone15Pro
                   className="size-[240px] sm:size-[280px] opacity-90"
                   src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/4.webp"
                 />
