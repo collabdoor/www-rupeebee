@@ -3,7 +3,6 @@
 import StackingCards, {
   StackingCardItem,
 } from "@/components/fancy/blocks/stacking-cards";
-import Android from "@/components/magicui/android";
 import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { cn } from "@/lib/utils";
 import {

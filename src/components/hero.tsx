@@ -1,7 +1,6 @@
 "use client"
 
 import { LayoutGroup, motion } from "motion/react"
-import Android from "@/components/magicui/android";
 import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { Highlighter } from "./magicui/highlighter";
 import TextRotate from "@/components/fancy/text/text-rotate";
@@ -98,7 +97,7 @@ export default function HeroSection() {
           {/* Download Button */}
           <div className="flex justify-center relative text-white z-50">
             <Link
-              href="/"
+              href="https://github.com/collabdoor/rupeebee/releases/download/v1.0.0/app-release.apk"
               className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 text-white cursor-pointer text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
             >
               <Download className="w-5 h-5" />
