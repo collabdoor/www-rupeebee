@@ -5,14 +5,16 @@ import Android from "@/components/magicui/android";
 import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { Highlighter } from "./magicui/highlighter";
 import TextRotate from "@/components/fancy/text/text-rotate";
+import Link from "next/link";
+import { Download } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-white to-yellow-50">
-      <div className="absolute inset-0 z-10">
+    <section className="relative flex items-center py-32 justify-center bg-gradient-to-br from-green-50 via-white to-yellow-50">
+      <div className="absolute inset-0 z-0">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
       </div>
-      <div className="container-responsive relative">
+      <div className="container-responsive relative z-10">
         {/* Content with proper spacing */}
         <div className="py-4 space-y-16">
           {/* Main Heading Section */}
@@ -91,6 +93,17 @@ export default function HeroSection() {
                 </span>
               </motion.div>
             </LayoutGroup>
+          </div>
+
+          {/* Download Button */}
+          <div className="flex justify-center relative text-white z-50">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 text-white cursor-pointer text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
+            >
+              <Download className="w-5 h-5" />
+              Download RupeeBee
+            </Link>
           </div>
         </div>
       </div>

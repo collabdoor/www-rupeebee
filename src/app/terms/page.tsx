@@ -8,7 +8,7 @@ export default function Terms() {
   return (
     <main className="min-h-screen bg-gradient-to-tr from-green-50 via-white to-yellow-50">
       <TermsBackgroundLines>
-        <div className="container mx-auto px-4 py-16 relative z-10">
+        <div className="container mx-auto px-4 pt-32 relative z-10">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-8 leading-tight">
               <span className="block">
@@ -23,7 +23,7 @@ export default function Terms() {
             <div className="prose prose-lg max-w-none">
               <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
               <p>
-                Welcome to RupeBeeApp ("the App"), your comprehensive digital
+                Welcome to RupeBeeApp (&ldquo;the App&rdquo;), your comprehensive digital
                 platform for financial tools, literacy, calculators, fraud
                 protection, and personalized support. By using the App, you
                 agree to the following Terms and Conditions, which govern access
@@ -134,7 +134,7 @@ export default function Terms() {
                 7. Intellectual Property
               </h2>
               <p>
-                All content, designs, workflows, and code (including the app's
+                All content, designs, workflows, and code (including the app&apos;s
                 organization, calculators, educational material, illustrations,
                 and UI elements) are the intellectual property of RupeBeeApp or
                 its licensors.
@@ -145,7 +145,7 @@ export default function Terms() {
                 8. Limitation of Liability
               </h2>
               <p>
-                RupeBeeApp is provided "as is" without warranties of any kind.
+                RupeBeeApp is provided &ldquo;as is&rdquo; without warranties of any kind.
                 Use of calculators, educational content, security features, and
                 support modules is at your own risk.
               </p>
@@ -172,7 +172,7 @@ export default function Terms() {
               </p>
               <p>
                 You agree not to attempt unauthorized access, reverse
-                engineering, or disrupt the App's operation.
+                engineering, or disrupt the App&apos;s operation.
               </p>
 
               <h2 className="text-2xl font-semibold mt-8 mb-4">
@@ -198,7 +198,7 @@ export default function Terms() {
               </p>
               <p>
                 For complaints related to security, fraud, or grievances, use
-                the Shield module's complaint filing feature.
+                the Shield module&apos;s complaint filing feature.
               </p>
 
               <h2 className="text-2xl font-semibold mt-8 mb-4">
