@@ -141,7 +141,6 @@ function VerifyContent() {
               {/* Manual redirect button */}
               <button
                 onClick={() => {
-                  const allParams = new URLSearchParams()
                   const currentUrl = window.location.href
                   const urlObj = new URL(currentUrl)
                   
@@ -198,7 +197,6 @@ function VerifyContent() {
                 <div className="space-y-3">
                   <button
                     onClick={() => {
-                      const allParams = new URLSearchParams()
                       const currentUrl = window.location.href
                       const urlObj = new URL(currentUrl)
                       

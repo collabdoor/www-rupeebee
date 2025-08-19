@@ -33,6 +33,10 @@ export default function Header() {
       name: "Contact",
       link: "/contact",
     },
+    {
+      name: "Terms",
+      link: "/terms",
+    }
   ];
 
   return (
