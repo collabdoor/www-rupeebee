@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { LayoutGroup, motion } from "motion/react"
+import { LayoutGroup, motion } from "motion/react";
 import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { Highlighter } from "./magicui/highlighter";
 import TextRotate from "@/components/fancy/text/text-rotate";
@@ -39,12 +39,11 @@ export default function HeroSection() {
           </div>
 
           {/* Phone Mockups Section */}
-          <div className="flex justify-center items-center relative">
-            <div className="relative">
-              {/* Android Phone - Behind and smaller */}
-              <div className="absolute -left-24 sm:-left-32 top-8 transform rotate-12 z-10">
+          <div className="flex justify-center items-center relative pointer-events-none">
+            <div className="relative flex justify-center items-center">
+              <div className="absolute -left-28 md:-left-28 top-14 z-10">
                 <Iphone15Pro
-                  className="size-[240px] sm:size-[280px] opacity-90"
+                  className="size-[290px] opacity-90"
                   src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/4.webp"
                 />
               </div>
@@ -52,7 +51,7 @@ export default function HeroSection() {
               {/* iPhone - Front and center */}
               <div className="relative z-20">
                 <Iphone15Pro
-                  className="size-[300px] sm:size-[350px]"
+                  className="size-[350px]"
                   src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/3.webp"
                 />
               </div>
@@ -85,11 +84,7 @@ export default function HeroSection() {
                   transition={{ type: "spring", damping: 30, stiffness: 400 }}
                   rotationInterval={2500}
                 />
-                <span
-                  className="text-gray-700 text-extrabold"
-                >
-                  RupeeBee!
-                </span>
+                <span className="text-gray-700 text-extrabold">RupeeBee!</span>
               </motion.div>
             </LayoutGroup>
           </div>
@@ -97,8 +92,8 @@ export default function HeroSection() {
           {/* Download Button */}
           <div className="flex justify-center relative text-white z-50">
             <Link
-              href="https://github.com/collabdoor/rupeebee/releases/download/v1.0.0/app-release.apk"
-              className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 text-white cursor-pointer text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
+              href=""
+              className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 hover:bg-blue-500 text-white cursor-pointer text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
             >
               <Download className="w-5 h-5" />
               Download RupeeBee

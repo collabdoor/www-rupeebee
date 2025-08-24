@@ -6,9 +6,9 @@ import { TermsBackgroundLines } from "@/components/ui/simple-background";
 
 export default function Terms() {
   return (
-    <main className="min-h-screen bg-gradient-to-tr from-green-50 via-white to-yellow-50">
+    <main className="min-h-screen bg-gradient-to-tr from-blue-100 via-white to-indigo-100">
       <TermsBackgroundLines>
-        <div className="container mx-auto px-4 pt-32 relative z-10">
+        <div className="container mx-auto px-4 py-32 relative z-10">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-8 leading-tight">
               <span className="block">
