@@ -91,13 +91,13 @@ export default function HeroSection() {
 
           {/* Download Button */}
           <div className="flex justify-center relative text-white z-50">
-            <Link
-              href=""
-              className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 hover:bg-blue-500 text-white cursor-pointer text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
+            <button
+              className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 hover:bg-blue-500 text-white text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
+              disabled
             >
               <Download className="w-5 h-5" />
-              Download RupeeBee
-            </Link>
+              Coming Soon!
+            </button>
           </div>
         </div>
       </div>

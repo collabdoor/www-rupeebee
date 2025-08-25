@@ -13,11 +13,11 @@ export default function CTASection() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ShimmerButton className="bg-white text-green-700 hover:bg-gray-100">
-              <span className="font-medium">Download for Android</span>
+            <ShimmerButton className="bg-white text-green-700 hover:bg-gray-100" disabled>
+              <span className="font-medium">Coming Soon!</span>
             </ShimmerButton>
-            <ShimmerButton className="bg-yellow-400 text-green-800 hover:bg-yellow-300">
-              <span className="font-medium">Download for iOS</span>
+            <ShimmerButton className="bg-yellow-400 text-green-800 hover:bg-yellow-300" disabled>
+              <span className="font-medium">Coming Soon!</span>
             </ShimmerButton>
           </div>
         </div>
