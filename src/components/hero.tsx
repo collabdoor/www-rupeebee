@@ -41,7 +41,7 @@ export default function HeroSection() {
           {/* Phone Mockups Section */}
           <div className="flex justify-center items-center relative pointer-events-none">
             <div className="relative flex justify-center items-center">
-              <div className="absolute -left-28 md:-left-28 top-14 z-10">
+              <div className="absolute -left-12 md:-left-28 top-14 z-10">
                 <Iphone15Pro
                   className="size-[290px] opacity-90"
                   src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/4.webp"
