@@ -3,6 +3,7 @@ import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { AuthProvider } from "@/lib/auth-context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,9 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${roboto.variable} antialiased`}>
-        {/* <ClientLayout> */}
-        <Header /> {children} <Footer />
-        {/* </ClientLayout> */}
+        <AuthProvider>
+          <Header /> 
+          {children} 
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

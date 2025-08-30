@@ -16,6 +16,17 @@ module.exports = {
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+  			rupeebee: {
+  				'dark-green': '#0F5E1B',
+  				'medium-green': '#2E7D32',
+  				'purple': '#5B2D9D',
+  				'lime': '#8BC700',
+  				'light-beige': '#F2F6E9',
+  				'light-gray': '#E6E8E3',
+  				'dark-text': '#303030',
+  				'medium-text': '#565656',
+  				'outline': '#74796D'
+  			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

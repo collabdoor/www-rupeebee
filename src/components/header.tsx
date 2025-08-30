@@ -26,6 +26,10 @@ export default function Header() {
       link: "/next",
     },
     {
+      name: "Reviews",
+      link: "/reviews",
+    },
+    {
       name: "Credits",
       link: "/credits",
     },

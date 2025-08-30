@@ -4,7 +4,6 @@ import { LayoutGroup, motion } from "motion/react";
 import Iphone15Pro from "@/components/magicui/iphone-15-pro";
 import { Highlighter } from "./magicui/highlighter";
 import TextRotate from "@/components/fancy/text/text-rotate";
-import Link from "next/link";
 import { Download } from "lucide-react";
 
 export default function HeroSection() {
