@@ -56,10 +56,10 @@ function AuthPrompt() {
       setIsLoading(true);
       setAuthError(null);
       await signInWithGoogle();
+      // The redirect will happen automatically
     } catch (error) {
       console.error('Google sign in error:', error);
       setAuthError(error instanceof Error ? error.message : 'Failed to sign in with Google');
-    } finally {
       setIsLoading(false);
     }
   };
@@ -92,7 +92,7 @@ function AuthPrompt() {
             Sign in to Write a Review
           </h2>
           <p className="text-rupeebee-medium-text text-sm">
-            Only verified RupeeBee users can write reviews. Choose your sign-in method.
+            Only verified RupeeBee app users can write reviews. Please use the same account you created in the mobile app.
           </p>
         </div>
 
@@ -124,7 +124,7 @@ function AuthPrompt() {
             >
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
-                Sign in with Email (Mobile App Users)
+                Sign in with RupeeBee Account
               </div>
             </Button>
           </div>
@@ -140,7 +140,7 @@ function AuthPrompt() {
               {isLoading ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Signing in...
+                  Redirecting to Google...
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
@@ -149,10 +149,21 @@ function AuthPrompt() {
                 </div>
               )}
             </Button>
+            
+            {isLoading && (
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-blue-700 text-sm">
+                <p className="font-medium">Redirecting to Google...</p>
+                <p className="text-blue-600 text-xs mt-1">
+                  You&apos;ll be redirected back here after signing in with Google.
+                </p>
+              </div>
+            )}
+            
             <Button
               onClick={() => setLoginMethod('choose')}
               variant="ghost"
               className="w-full text-gray-600"
+              disabled={isLoading}
             >
               ← Back to options
             </Button>
@@ -229,13 +240,14 @@ function AuthPrompt() {
 
         <div className="mt-5 text-sm text-gray-500 text-center">
           <p>
-            Don&apos;t have an account?{' '}
+            Don&apos;t have the RupeeBee app?{' '}
             <a 
               href="/download" 
               className="text-rupeebee-medium-green hover:text-rupeebee-dark-green font-medium"
             >
-              Download the RupeeBee app
-            </a>
+              Download it here
+            </a>{' '}
+            and sign up to write reviews.
           </p>
         </div>
       </div>
@@ -244,7 +256,7 @@ function AuthPrompt() {
 }
 
 function WriteReviewForm() {
-  const { user, signOut } = useAuth();
+  const { user, isVerifiedAppUser, signOut } = useAuth();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [reviewData, setReviewData] = useState<ReviewSubmission>({
     rating: 0,
@@ -258,6 +270,67 @@ function WriteReviewForm() {
     type: 'success' | 'error' | null;
     message: string;
   }>({ type: null, message: '' });
+
+  // Show verification warning if user is not a verified app user
+  if (!isVerifiedAppUser) {
+    return (
+      <div className="max-w-xl mx-auto">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 mx-auto mb-4 bg-yellow-50 rounded-full flex items-center justify-center">
+              <AlertCircle className="w-8 h-8 text-yellow-600" />
+            </div>
+            <h2 className="text-xl font-bold text-rupeebee-dark-text mb-3">
+              RupeeBee App Required
+            </h2>
+            <p className="text-rupeebee-medium-text">
+              Only verified RupeeBee app users can write reviews. Please download and sign up through the mobile app first.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h3 className="font-medium text-blue-800 mb-2">How to get verified:</h3>
+              <ol className="text-sm text-blue-700 space-y-1">
+                <li>1. Download the RupeeBee mobile app</li>
+                <li>2. Sign up with the same Google account</li>
+                <li>3. Complete your profile in the app</li>
+                <li>4. Come back here to write your review</li>
+              </ol>
+            </div>
+
+            <div className="flex gap-3">
+              <Link href="/download" className="flex-1">
+                <Button className="w-full bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white">
+                  Download RupeeBee App
+                </Button>
+              </Link>
+              <Button
+                onClick={signOut}
+                variant="outline"
+                className="flex-1 border-gray-300 text-rupeebee-medium-text hover:bg-gray-50"
+              >
+                Sign Out
+              </Button>
+            </div>
+
+            <div className="text-center">
+              <p className="text-sm text-rupeebee-medium-text">
+                Already have the app?{' '}
+                <button
+                  onClick={() => window.location.reload()}
+                  className="text-rupeebee-medium-green hover:text-rupeebee-dark-green font-medium"
+                >
+                  Refresh this page
+                </button>{' '}
+                after signing up in the app.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleRatingChange = (rating: number) => {
     setReviewData(prev => ({ ...prev, rating }));
@@ -336,10 +409,22 @@ function WriteReviewForm() {
         // Reset reCAPTCHA
         recaptchaRef.current?.reset();
       } else {
-        setSubmitStatus({
-          type: 'error',
-          message: result.message || 'Failed to submit review. Please try again.'
-        });
+        // Handle specific error codes
+        if (result.error_code === 'NOT_APP_USER') {
+          setSubmitStatus({
+            type: 'error',
+            message: 'Please download the RupeeBee app and complete your registration first.'
+          });
+          // Sign out the user so they see the verification prompt
+          setTimeout(() => {
+            signOut();
+          }, 3000);
+        } else {
+          setSubmitStatus({
+            type: 'error',
+            message: result.message || 'Failed to submit review. Please try again.'
+          });
+        }
         // Reset reCAPTCHA on error
         recaptchaRef.current?.reset();
       }

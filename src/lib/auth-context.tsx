@@ -7,6 +7,7 @@ import type { User } from '@supabase/supabase-js';
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  isVerifiedAppUser: boolean;
   signInWithGoogle: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -17,6 +18,7 @@ import { createContext, useContext } from 'react';
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
+  isVerifiedAppUser: false,
   signInWithGoogle: async () => {},
   signInWithEmail: async () => {},
   signOut: async () => {},
@@ -33,6 +35,9 @@ export const useAuth = () => {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Check if the current user is a verified RupeeBee app user
+  const isVerifiedAppUser = Boolean(user?.user_metadata?.rupeebee_user_id);
 
   useEffect(() => {
     // Get initial session
@@ -56,10 +61,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
+    // Store the current page URL to redirect back after auth
+    const returnUrl = window.location.pathname + window.location.search;
+    localStorage.setItem('auth_return_url', returnUrl);
+    
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/oauth-callback`,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
@@ -94,6 +103,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const value = {
     user,
     loading,
+    isVerifiedAppUser,
     signInWithGoogle,
     signInWithEmail,
     signOut,

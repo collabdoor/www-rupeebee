@@ -53,6 +53,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if user is a verified RupeeBee app user
+    const rupeebeeUserId = user.user_metadata?.rupeebee_user_id;
+    const isVerifiedAppUser = Boolean(rupeebeeUserId);
+
+    if (!isVerifiedAppUser) {
+      return NextResponse.json(
+        { 
+          message: 'Only verified RupeeBee app users can write reviews. Please download and sign up through the RupeeBee mobile app first.',
+          error_code: 'NOT_APP_USER'
+        },
+        { status: 403 }
+      );
+    }
+
     // Validate required fields
     if (!submission.rating || !submission.review_text || !submission.recaptcha_token) {
       return NextResponse.json(
@@ -103,7 +117,7 @@ export async function POST(request: NextRequest) {
     const authenticatedSubmission = {
       ...submission,
       email_phone: user.email || '',
-      is_app_user: true,
+      is_app_user: isVerifiedAppUser, // Only true if user has app ID
       user: user // Pass the full user object to get display name
     };
 
