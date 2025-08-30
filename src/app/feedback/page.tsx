@@ -104,23 +104,23 @@ export default function FeedbackPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige">
-      <div className="container mx-auto px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-24">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-rupeebee-medium-green rounded-full mb-6 mx-auto">
-            <MessageSquare className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-rupeebee-medium-green rounded-full mb-4 mx-auto">
+            <MessageSquare className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-rupeebee-dark-text mb-4">
+          <h1 className="text-3xl font-bold text-rupeebee-dark-text mb-3">
             Share Your Feedback
           </h1>
-          <p className="text-xl text-rupeebee-medium-text max-w-2xl mx-auto">
-            We value your input! Help us improve RupeeBee by sharing your thoughts, suggestions, or reporting any issues you&apos;ve encountered.
+          <p className="text-lg text-rupeebee-medium-text max-w-xl mx-auto">
+            Help us improve RupeeBee by sharing your thoughts, suggestions, or reporting issues.
           </p>
         </motion.div>
 
@@ -129,20 +129,20 @@ export default function FeedbackPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-2xl mx-auto"
+          className="max-w-xl mx-auto"
         >
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {/* Category Selection */}
               <div>
-                <Label htmlFor="category" className="text-lg font-medium text-rupeebee-dark-text mb-3 block">
+                <Label htmlFor="category" className="text-base font-medium text-rupeebee-dark-text mb-2 block">
                   Feedback Category
                 </Label>
                 <select
                   id="category"
                   value={feedbackData.category}
                   onChange={(e) => handleInputChange('category', e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent text-rupeebee-dark-text"
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-rupeebee-dark-text text-sm focus:outline-none focus:border-gray-400"
                   required
                   aria-label="Select feedback category"
                 >
@@ -156,39 +156,39 @@ export default function FeedbackPage() {
 
               {/* Message */}
               <div>
-                <Label htmlFor="message" className="text-lg font-medium text-rupeebee-dark-text mb-3 block">
+                <Label htmlFor="message" className="text-base font-medium text-rupeebee-dark-text mb-2 block">
                   Your Message
                 </Label>
                 <textarea
                   id="message"
                   value={feedbackData.message}
                   onChange={(e) => handleInputChange('message', e.target.value)}
-                  placeholder="Please share your feedback, suggestions, or report any issues you've experienced..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent text-rupeebee-dark-text resize-none"
-                  rows={6}
+                  placeholder="Please share your feedback, suggestions, or report any issues..."
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-rupeebee-dark-text resize-none text-sm focus:outline-none focus:border-gray-400"
+                  rows={4}
                   maxLength={1000}
                   required
                 />
-                <p className="text-sm text-rupeebee-medium-text mt-2">
+                <p className="text-xs text-rupeebee-medium-text mt-1">
                   {feedbackData.message.length}/1000 characters
                 </p>
               </div>
 
               {/* Contact Information (Optional) */}
               <div>
-                <Label htmlFor="contact" className="text-lg font-medium text-rupeebee-dark-text mb-3 block">
-                  Contact Information <span className="text-rupeebee-medium-text font-normal">(Optional)</span>
+                <Label htmlFor="contact" className="text-base font-medium text-rupeebee-dark-text mb-2 block">
+                  Contact Email <span className="text-rupeebee-medium-text font-normal text-sm">(Optional)</span>
                 </Label>
                 <Input
                   id="contact"
                   type="email"
                   value={feedbackData.contact_info}
                   onChange={(e) => handleInputChange('contact_info', e.target.value)}
-                  placeholder="your.email@example.com (for follow-up if needed)"
-                  className="focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                  placeholder="your.email@example.com"
+                  className="text-sm focus:outline-none focus:border-gray-400"
                 />
-                <p className="text-sm text-rupeebee-medium-text mt-2">
-                  We&apos;ll only use this to follow up on your feedback if necessary.
+                <p className="text-xs text-rupeebee-medium-text mt-1">
+                  For follow-up if needed
                 </p>
               </div>
 
@@ -197,46 +197,48 @@ export default function FeedbackPage() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`p-4 rounded-lg border ${
+                  className={`p-3 rounded-lg border ${
                     submitStatus.type === 'success'
                       ? 'bg-green-50 border-green-200 text-green-800'
                       : 'bg-red-50 border-red-200 text-red-800'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     {submitStatus.type === 'success' ? (
-                      <CheckCircle className="w-5 h-5 text-green-600" />
+                      <CheckCircle className="w-4 h-4 text-green-600" />
                     ) : (
-                      <AlertCircle className="w-5 h-5 text-red-600" />
+                      <AlertCircle className="w-4 h-4 text-red-600" />
                     )}
-                    <span>{submitStatus.message}</span>
+                    <span className="text-sm">{submitStatus.message}</span>
                   </div>
                 </motion.div>
               )}
 
               {/* reCAPTCHA */}
               <div className="flex justify-center">
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
-                  theme="light"
-                />
+                <div className="transform scale-90">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+                    theme="light"
+                  />
+                </div>
               </div>
 
               {/* Submit Button */}
               <Button
                 type="submit"
                 disabled={isSubmitting || feedbackData.message.length < 10}
-                className="w-full bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white py-3 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white py-2.5 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     Submitting...
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <Send className="w-5 h-5" />
+                    <Send className="w-4 h-4" />
                     Submit Feedback
                   </div>
                 )}
@@ -250,28 +252,28 @@ export default function FeedbackPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="max-w-2xl mx-auto mt-12"
+          className="max-w-xl mx-auto mt-8"
         >
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-rupeebee-dark-text mb-3">
-              What happens after you submit?
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <h3 className="text-base font-semibold text-rupeebee-dark-text mb-2">
+              What happens next?
             </h3>
-            <ul className="space-y-2 text-rupeebee-medium-text">
+            <ul className="space-y-1.5 text-rupeebee-medium-text text-sm">
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-rupeebee-medium-green rounded-full mt-2 flex-shrink-0"></div>
-                <span>Your feedback is reviewed by our team within 24-48 hours</span>
+                <div className="w-1.5 h-1.5 bg-rupeebee-medium-green rounded-full mt-1.5 flex-shrink-0"></div>
+                <span>Reviewed within 24-48 hours</span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-rupeebee-medium-green rounded-full mt-2 flex-shrink-0"></div>
-                <span>Bug reports are prioritized based on severity and impact</span>
+                <div className="w-1.5 h-1.5 bg-rupeebee-medium-green rounded-full mt-1.5 flex-shrink-0"></div>
+                <span>Bug reports prioritized by severity</span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-rupeebee-medium-green rounded-full mt-2 flex-shrink-0"></div>
-                <span>Feature suggestions are evaluated for future releases</span>
+                <div className="w-1.5 h-1.5 bg-rupeebee-medium-green rounded-full mt-1.5 flex-shrink-0"></div>
+                <span>Feature suggestions evaluated for releases</span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="w-2 h-2 bg-rupeebee-medium-green rounded-full mt-2 flex-shrink-0"></div>
-                <span>If you provided contact info, we may reach out for clarification</span>
+                <div className="w-1.5 h-1.5 bg-rupeebee-medium-green rounded-full mt-1.5 flex-shrink-0"></div>
+                <span>Follow-up via email if provided</span>
               </li>
             </ul>
           </div>

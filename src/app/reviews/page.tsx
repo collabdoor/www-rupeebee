@@ -255,7 +255,7 @@ export default function ReviewsPage() {
                     <select
                       value={ratingFilter || ''}
                       onChange={(e) => setRatingFilter(e.target.value ? parseInt(e.target.value) : null)}
-                      className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-rupeebee-medium-green"
+                      className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-400"
                       aria-label="Filter by rating"
                     >
                       <option value="">All Ratings</option>
@@ -269,7 +269,7 @@ export default function ReviewsPage() {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'rating_high' | 'rating_low')}
-                      className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-rupeebee-medium-green"
+                      className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-gray-400"
                       aria-label="Sort reviews"
                     >
                       <option value="newest">Newest First</option>

@@ -172,7 +172,7 @@ function DetailModal({ item, onClose, onUpdate }: DetailModalProps) {
                     id="status-select"
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent"
+                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-400"
                     aria-label="Update item status"
                   >
                     {availableStatuses.map((s) => (
@@ -193,7 +193,7 @@ function DetailModal({ item, onClose, onUpdate }: DetailModalProps) {
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Add internal notes..."
-                      className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent resize-none"
+                      className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-400 resize-none"
                       rows={3}
                     />
                   </div>
@@ -455,16 +455,17 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-rupeebee-light-beige pt-20">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+      <header className="bg-transparent px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex-1"></div>
+          <div className="flex items-center gap-3 justify-center">
             <Shield className="w-8 h-8 text-rupeebee-medium-green" />
             <h1 className="text-2xl font-bold text-rupeebee-dark-text">
               RupeeBee Admin Dashboard
             </h1>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-1 justify-end">
             <div className="flex items-center gap-2 text-sm text-rupeebee-medium-text">
               <Clock className="w-4 h-4" />
               <span>Session expires in {Math.floor((parseInt(localStorage.getItem('admin_expires') || '0') - Date.now()) / (1000 * 60 * 60))}h</span>
@@ -563,7 +564,7 @@ export default function AdminDashboard() {
                   placeholder="Search by content, email, category..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                  className="pl-10 focus:outline-none focus:border-gray-400"
                 />
               </div>
             </div>
@@ -574,7 +575,7 @@ export default function AdminDashboard() {
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value as 'all' | 'review' | 'feedback')}
-                  className="ml-2 px-3 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-rupeebee-medium-green"
+                  className="ml-2 px-3 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:border-gray-400"
                   aria-label="Filter by type"
                 >
                   <option value="all">All</option>
@@ -588,7 +589,7 @@ export default function AdminDashboard() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="ml-2 px-3 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-rupeebee-medium-green"
+                  className="ml-2 px-3 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:border-gray-400"
                   aria-label="Filter by status"
                 >
                   <option value="all">All</option>

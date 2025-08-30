@@ -85,13 +85,13 @@ function AuthPrompt() {
 
   return (
     <div className="max-w-md mx-auto">
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-        <div className="text-center mb-6">
-          <LogIn className="w-16 h-16 text-rupeebee-medium-green mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-rupeebee-dark-text mb-4">
+      <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+        <div className="text-center mb-5">
+          <LogIn className="w-12 h-12 text-rupeebee-medium-green mx-auto mb-3" />
+          <h2 className="text-xl font-bold text-rupeebee-dark-text mb-3">
             Sign in to Write a Review
           </h2>
-          <p className="text-rupeebee-medium-text">
+          <p className="text-rupeebee-medium-text text-sm">
             Only verified RupeeBee users can write reviews. Choose your sign-in method.
           </p>
         </div>
@@ -171,7 +171,7 @@ function AuthPrompt() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
-                className="mt-1 focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                className="mt-1 focus:outline-none focus:border-gray-400"
                 required
               />
             </div>
@@ -186,7 +186,7 @@ function AuthPrompt() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="mt-1 focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                className="mt-1 focus:outline-none focus:border-gray-400"
                 required
               />
             </div>
@@ -227,7 +227,7 @@ function AuthPrompt() {
           </motion.div>
         )}
 
-        <div className="mt-6 text-sm text-gray-500 text-center">
+        <div className="mt-5 text-sm text-gray-500 text-center">
           <p>
             Don&apos;t have an account?{' '}
             <a 
@@ -356,10 +356,10 @@ function WriteReviewForm() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-rupeebee-dark-text">
+    <div className="max-w-xl mx-auto">
+      <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-rupeebee-dark-text">
             Write Your Review
           </h2>
           <div className="flex items-center gap-3">
@@ -380,19 +380,19 @@ function WriteReviewForm() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Rating */}
           <div>
-            <Label className="text-lg font-medium text-rupeebee-dark-text mb-3 block">
+            <Label className="text-base font-medium text-rupeebee-dark-text mb-2 block">
               Rating *
             </Label>
             <div className="flex items-center gap-3">
               <StarRating
                 rating={reviewData.rating}
                 onChange={handleRatingChange}
-                size="lg"
+                size="md"
               />
-              <span className="text-rupeebee-medium-text">
+              <span className="text-rupeebee-medium-text text-sm">
                 {reviewData.rating > 0 ? `${reviewData.rating} star${reviewData.rating !== 1 ? 's' : ''}` : 'Click to rate'}
               </span>
             </div>
@@ -400,7 +400,7 @@ function WriteReviewForm() {
 
           {/* Review Text */}
           <div>
-            <Label htmlFor="review-text" className="text-lg font-medium text-rupeebee-dark-text mb-3 block">
+            <Label htmlFor="review-text" className="text-base font-medium text-rupeebee-dark-text mb-2 block">
               Your Review *
             </Label>
             <textarea
@@ -408,12 +408,12 @@ function WriteReviewForm() {
               value={reviewData.review_text}
               onChange={(e) => setReviewData(prev => ({ ...prev, review_text: e.target.value }))}
               placeholder="Share your experience with RupeeBee..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent text-rupeebee-dark-text resize-none"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-rupeebee-dark-text resize-none text-sm focus:outline-none focus:border-gray-400"
               rows={4}
               maxLength={500}
               required
             />
-            <p className="text-sm text-rupeebee-medium-text mt-2">
+            <p className="text-xs text-rupeebee-medium-text mt-1">
               {reviewData.review_text.length}/500 characters
             </p>
           </div>
@@ -423,34 +423,36 @@ function WriteReviewForm() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`p-4 rounded-lg border ${
+              className={`p-3 rounded-lg border ${
                 submitStatus.type === 'success'
                   ? 'bg-green-50 border-green-200 text-green-800'
                   : 'bg-red-50 border-red-200 text-red-800'
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 {submitStatus.type === 'success' ? (
-                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <CheckCircle className="w-4 h-4 text-green-600" />
                 ) : (
-                  <AlertCircle className="w-5 h-5 text-red-600" />
+                  <AlertCircle className="w-4 h-4 text-red-600" />
                 )}
-                <span>{submitStatus.message}</span>
+                <span className="text-sm">{submitStatus.message}</span>
               </div>
             </motion.div>
           )}
 
           {/* reCAPTCHA */}
           <div className="flex justify-center">
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
-              theme="light"
-            />
+            <div className="transform scale-90">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+                theme="light"
+              />
+            </div>
           </div>
 
           {/* Submit Button */}
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <Link href="/reviews" className="flex-1">
               <Button
                 type="button"
@@ -464,12 +466,12 @@ function WriteReviewForm() {
             <Button
               type="submit"
               disabled={isSubmitting || reviewData.rating === 0 || reviewData.review_text.length < 10}
-              className="flex-1 bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white py-3 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white py-2.5 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <div className="flex items-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Submitting Review...
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Submitting...
                 </div>
               ) : (
                 'Submit Review'
@@ -487,26 +489,26 @@ export default function WriteReviewPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-20 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-24 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rupeebee-medium-green"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-20">
-      <div className="container mx-auto px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-24">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
-          <h1 className="text-4xl font-bold text-rupeebee-dark-text mb-4">
+          <h1 className="text-3xl font-bold text-rupeebee-dark-text mb-3">
             Write a Review
           </h1>
-          <p className="text-xl text-rupeebee-medium-text max-w-2xl mx-auto">
+          <p className="text-lg text-rupeebee-medium-text max-w-xl mx-auto">
             Share your experience with RupeeBee and help others make informed decisions.
           </p>
         </motion.div>

@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
                   value={adminId}
                   onChange={(e) => setAdminId(e.target.value)}
                   placeholder="Enter admin ID"
-                  className="pl-10 focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                  className="pl-10 focus:outline-none focus:border-gray-400"
                   required
                 />
               </div>
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
                   value={psk}
                   onChange={(e) => setPsk(e.target.value)}
                   placeholder="Enter pre-shared key"
-                  className="pl-10 pr-10 focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                  className="pl-10 pr-10 focus:outline-none focus:border-gray-400"
                   required
                 />
                 <button
