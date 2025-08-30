@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Send, MessageSquare, AlertCircle, CheckCircle } from 'lucide-react';
+import { Send, AlertCircle, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -113,9 +113,6 @@ export default function FeedbackPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-rupeebee-medium-green rounded-full mb-4 mx-auto">
-            <MessageSquare className="w-7 h-7 text-white" />
-          </div>
           <h1 className="text-3xl font-bold text-rupeebee-dark-text mb-3">
             Share Your Feedback
           </h1>

@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { useMotionTemplate, useMotionValue, motion } from "motion/react";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface InputProps
