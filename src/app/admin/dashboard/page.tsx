@@ -14,7 +14,8 @@ import {
   LogOut,
   Shield,
   Bell,
-  AlertCircle
+  AlertCircle,
+  RefreshCw
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -44,7 +45,7 @@ function DetailModal({ item, onClose, onUpdate }: DetailModalProps) {
   useEffect(() => {
     if (item) {
       setStatus(item.status);
-      setNotes('');
+      setNotes(item.admin_notes || '');
     }
   }, [item]);
 
@@ -53,7 +54,9 @@ function DetailModal({ item, onClose, onUpdate }: DetailModalProps) {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      await onUpdate(item.id, item.type, status, notes);
+      // Only pass notes for feedback items
+      const notesToPass = item.type === 'feedback' ? notes : undefined;
+      await onUpdate(item.id, item.type, status, notesToPass);
       onClose();
     } catch (error) {
       console.error('Error updating item:', error);
@@ -147,6 +150,15 @@ function DetailModal({ item, onClose, onUpdate }: DetailModalProps) {
               <p className="text-rupeebee-medium-text capitalize">{item.status}</p>
             </div>
 
+            {!isReview && item.admin_notes && (
+              <div>
+                <Label className="text-sm font-medium text-rupeebee-dark-text">Existing Admin Notes</Label>
+                <div className="mt-1 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <p className="text-rupeebee-dark-text whitespace-pre-wrap">{item.admin_notes}</p>
+                </div>
+              </div>
+            )}
+
             {/* Actions */}
             <div className="border-t pt-4">
               <h3 className="text-lg font-medium text-rupeebee-dark-text mb-4">Admin Actions</h3>
@@ -171,19 +183,21 @@ function DetailModal({ item, onClose, onUpdate }: DetailModalProps) {
                   </select>
                 </div>
 
-                <div>
-                  <Label htmlFor="admin-notes" className="text-sm font-medium text-rupeebee-dark-text">
-                    Admin Notes
-                  </Label>
-                  <textarea
-                    id="admin-notes"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Add internal notes..."
-                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent resize-none"
-                    rows={3}
-                  />
-                </div>
+                {!isReview && (
+                  <div>
+                    <Label htmlFor="admin-notes" className="text-sm font-medium text-rupeebee-dark-text">
+                      Admin Notes
+                    </Label>
+                    <textarea
+                      id="admin-notes"
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      placeholder="Add internal notes..."
+                      className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent resize-none"
+                      rows={3}
+                    />
+                  </div>
+                )}
 
                 <div className="flex gap-3">
                   <Button
@@ -323,6 +337,17 @@ export default function AdminDashboard() {
     }
   }, [page, typeFilter, statusFilter, searchTerm]);
 
+  const handleRefresh = async () => {
+    setPage(1);
+    setData([]);
+    setHasMore(true);
+    // Reload stats and data
+    await Promise.all([
+      loadStats(),
+      loadData(true)
+    ]);
+  };
+
   const filterData = useCallback(() => {
     let filtered = data;
 
@@ -363,7 +388,7 @@ export default function AdminDashboard() {
       if (response.ok) {
         // Update local data
         setData(prev => prev.map(item => 
-          item.id === id ? { ...item, status } : item
+          item.id === id ? { ...item, status, admin_notes: notes } : item
         ));
         loadStats(); // Refresh stats
       }
@@ -428,7 +453,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-rupeebee-light-beige">
+    <div className="min-h-screen bg-rupeebee-light-beige pt-20">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
@@ -444,6 +469,14 @@ export default function AdminDashboard() {
               <Clock className="w-4 h-4" />
               <span>Session expires in {Math.floor((parseInt(localStorage.getItem('admin_expires') || '0') - Date.now()) / (1000 * 60 * 60))}h</span>
             </div>
+            <Button
+              onClick={handleRefresh}
+              variant="outline"
+              className="border-rupeebee-medium-green text-rupeebee-medium-green hover:bg-rupeebee-medium-green hover:text-white"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Refresh
+            </Button>
             <Button
               onClick={handleLogout}
               variant="outline"

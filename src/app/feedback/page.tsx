@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MessageSquare, AlertCircle, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const FEEDBACK_CATEGORIES = [
   'Bug Report',
@@ -16,6 +17,7 @@ const FEEDBACK_CATEGORIES = [
 ];
 
 export default function FeedbackPage() {
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [feedbackData, setFeedbackData] = useState({
     category: 'General Feedback',
     message: '',
@@ -42,6 +44,16 @@ export default function FeedbackPage() {
       return;
     }
 
+    // Verify reCAPTCHA
+    const recaptchaToken = recaptchaRef.current?.getValue();
+    if (!recaptchaToken) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please complete the reCAPTCHA verification.'
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
 
@@ -51,7 +63,10 @@ export default function FeedbackPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(feedbackData),
+        body: JSON.stringify({
+          ...feedbackData,
+          recaptcha_token: recaptchaToken
+        }),
       });
 
       const result = await response.json();
@@ -66,17 +81,23 @@ export default function FeedbackPage() {
           message: '',
           contact_info: ''
         });
+        // Reset reCAPTCHA
+        recaptchaRef.current?.reset();
       } else {
         setSubmitStatus({
           type: 'error',
           message: result.message || 'Failed to submit feedback. Please try again.'
         });
+        // Reset reCAPTCHA on error
+        recaptchaRef.current?.reset();
       }
     } catch {
       setSubmitStatus({
         type: 'error',
         message: 'Network error. Please check your connection and try again.'
       });
+      // Reset reCAPTCHA on error
+      recaptchaRef.current?.reset();
     } finally {
       setIsSubmitting(false);
     }
@@ -192,6 +213,15 @@ export default function FeedbackPage() {
                   </div>
                 </motion.div>
               )}
+
+              {/* reCAPTCHA */}
+              <div className="flex justify-center">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+                  theme="light"
+                />
+              </div>
 
               {/* Submit Button */}
               <Button

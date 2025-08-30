@@ -50,7 +50,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige to-rupeebee-light-gray flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige to-rupeebee-light-gray flex items-center justify-center px-4 pt-20">
       <div className="max-w-md w-full">
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8">
           {/* Header */}

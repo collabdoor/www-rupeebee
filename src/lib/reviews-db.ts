@@ -86,7 +86,18 @@ export async function getReviewsStats(): Promise<ReviewsStats> {
   };
 }
 
-export async function submitReview(submission: ReviewSubmission): Promise<{ success: boolean; message: string; id?: string }> {
+interface UserData {
+  id?: string;
+  email?: string;
+  user_metadata?: {
+    display_name?: string;
+    avatar_url?: string;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+}
+
+export async function submitReview(submission: ReviewSubmission & { user?: UserData }): Promise<{ success: boolean; message: string; id?: string }> {
   try {
     // Always use admin client for review submissions since we verify authentication in the API route
     // This bypasses RLS policies while maintaining security through API-level authentication
@@ -108,10 +119,47 @@ export async function submitReview(submission: ReviewSubmission): Promise<{ succ
       }
     }
 
+    // Extract user display name and avatar from user object
+    let displayName = 'RupeeBee User';
+    let userAvatar = null;
+    let rupeebeeUserId = null;
+
+    if (submission.user) {
+      // Check if user has RupeeBee user ID in metadata
+      rupeebeeUserId = submission.user.user_metadata?.rupeebee_user_id || null;
+      
+      // Get user avatar from Supabase auth
+      userAvatar = submission.user.user_metadata?.avatar_url || 
+                   submission.user.user_metadata?.picture || 
+                   null;
+
+      // Try to get name from user metadata first, then fall back to email
+      const fullName = typeof submission.user.user_metadata?.full_name === 'string' ? submission.user.user_metadata.full_name :
+                       typeof submission.user.user_metadata?.name === 'string' ? submission.user.user_metadata.name :
+                       typeof submission.user.user_metadata?.display_name === 'string' ? submission.user.user_metadata.display_name :
+                       undefined;
+      
+      if (fullName) {
+        displayName = fullName;
+      } else if (submission.user.email) {
+        // Extract first part of email as name
+        displayName = submission.user.email.split('@')[0];
+      }
+      
+      // If user is verified app user and has RupeeBee ID, enhance the display
+      if (submission.is_app_user && rupeebeeUserId) {
+        displayName = fullName || submission.user.email?.split('@')[0] || 'Verified RupeeBee User';
+      } else if (submission.is_app_user) {
+        displayName = fullName || submission.user.email?.split('@')[0] || 'Verified User';
+      }
+    }
+
     // Insert review
     const reviewData = {
       user_identifier: submission.email_phone ? hashIdentifier(submission.email_phone) : null,
-      user_display_name: submission.is_app_user ? 'Verified RupeeBee User' : 'RupeeBee User',
+      user_display_name: displayName,
+      user_avatar: userAvatar,
+      rupeebee_user_id: rupeebeeUserId,
       rating: submission.rating,
       review_text: submission.review_text,
       is_verified: submission.is_app_user,
@@ -148,7 +196,8 @@ export async function submitFeedback(submission: FeedbackSubmission): Promise<{ 
       status: 'new' as const
     };
 
-    const { data, error } = await supabase
+    // Use admin client to bypass RLS policies for public feedback submission
+    const { data, error } = await supabaseAdmin
       .from('feedback')
       .insert([feedbackData])
       .select()
@@ -246,6 +295,7 @@ export async function getAdminData(
             rating: undefined,
             category: item.category,
             status: item.status,
+            admin_notes: item.admin_notes,
             created_at: item.created_at,
             updated_at: item.updated_at
           });
@@ -309,6 +359,7 @@ export async function getAdminData(
               rating: undefined,
               category: item.category,
               status: item.status,
+              admin_notes: item.admin_notes,
               created_at: item.created_at,
               updated_at: item.updated_at
             });

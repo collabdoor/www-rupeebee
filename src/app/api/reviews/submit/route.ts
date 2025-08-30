@@ -2,6 +2,31 @@ import { NextRequest, NextResponse } from 'next/server';
 import { submitReview } from '@/lib/reviews-db';
 import { supabase } from '@/lib/supabase';
 
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+  
+  if (!secretKey) {
+    console.warn('reCAPTCHA secret key not configured');
+    return true; // Allow submission if reCAPTCHA is not configured
+  }
+
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${secretKey}&response=${token}`,
+    });
+
+    const data = await response.json();
+    return data.success;
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const submission = await request.json();
@@ -29,9 +54,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate required fields
-    if (!submission.rating || !submission.review_text) {
+    if (!submission.rating || !submission.review_text || !submission.recaptcha_token) {
       return NextResponse.json(
-        { message: 'Rating and review text are required' },
+        { message: 'Rating, review text, and reCAPTCHA verification are required' },
         { status: 400 }
       );
     }
@@ -48,6 +73,15 @@ export async function POST(request: NextRequest) {
     if (submission.review_text.length < 10 || submission.review_text.length > 500) {
       return NextResponse.json(
         { message: 'Review text must be between 10 and 500 characters' },
+        { status: 400 }
+      );
+    }
+
+    // Verify reCAPTCHA
+    const isValidRecaptcha = await verifyRecaptcha(submission.recaptcha_token);
+    if (!isValidRecaptcha) {
+      return NextResponse.json(
+        { message: 'reCAPTCHA verification failed' },
         { status: 400 }
       );
     }
@@ -69,7 +103,8 @@ export async function POST(request: NextRequest) {
     const authenticatedSubmission = {
       ...submission,
       email_phone: user.email || '',
-      is_app_user: true
+      is_app_user: true,
+      user: user // Pass the full user object to get display name
     };
 
     const result = await submitReview(authenticatedSubmission);

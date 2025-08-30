@@ -1,0 +1,524 @@
+'use client';
+
+import { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Star, User, CheckCircle, LogIn, LogOut, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useAuth } from '@/lib/auth-context';
+import { supabase } from '@/lib/supabase';
+import { ReviewSubmission } from '@/types/reviews';
+import Link from 'next/link';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+interface StarRatingProps {
+  rating: number;
+  onChange?: (rating: number) => void;
+  readonly?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+function StarRating({ rating, onChange, readonly = false, size = 'md' }: StarRatingProps) {
+  const sizeClasses = {
+    sm: 'w-4 h-4',
+    md: 'w-5 h-5',
+    lg: 'w-6 h-6'
+  };
+
+  return (
+    <div className="flex items-center gap-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star
+          key={star}
+          className={`${sizeClasses[size]} ${
+            star <= rating
+              ? 'fill-yellow-400 text-yellow-400'
+              : 'text-gray-300'
+          } ${!readonly ? 'cursor-pointer hover:text-yellow-400' : ''}`}
+          onClick={() => !readonly && onChange?.(star)}
+        />
+      ))}
+    </div>
+  );
+}
+
+function AuthPrompt() {
+  const { signInWithGoogle, signInWithEmail } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginMethod, setLoginMethod] = useState<'choose' | 'google' | 'email'>('choose');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState<string | null>(null);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      setAuthError(null);
+      await signInWithGoogle();
+    } catch (error) {
+      console.error('Google sign in error:', error);
+      setAuthError(error instanceof Error ? error.message : 'Failed to sign in with Google');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEmailSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setAuthError('Please enter both email and password');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      setAuthError(null);
+      await signInWithEmail(email, password);
+    } catch (error) {
+      console.error('Email sign in error:', error);
+      setAuthError(error instanceof Error ? error.message : 'Invalid email or password');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <div className="text-center mb-6">
+          <LogIn className="w-16 h-16 text-rupeebee-medium-green mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-rupeebee-dark-text mb-4">
+            Sign in to Write a Review
+          </h2>
+          <p className="text-rupeebee-medium-text">
+            Only verified RupeeBee users can write reviews. Choose your sign-in method.
+          </p>
+        </div>
+
+        {loginMethod === 'choose' && (
+          <div className="space-y-4">
+            <Button
+              onClick={() => setLoginMethod('google')}
+              className="w-full bg-red-600 hover:bg-red-700 text-white"
+            >
+              <div className="flex items-center gap-2">
+                <LogIn className="w-4 h-4" />
+                Continue with Google
+              </div>
+            </Button>
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="bg-white px-2 text-gray-500">or</span>
+              </div>
+            </div>
+
+            <Button
+              onClick={() => setLoginMethod('email')}
+              variant="outline"
+              className="w-full border-rupeebee-medium-green text-rupeebee-medium-green hover:bg-rupeebee-light-beige"
+            >
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                Sign in with Email (Mobile App Users)
+              </div>
+            </Button>
+          </div>
+        )}
+
+        {loginMethod === 'google' && (
+          <div className="space-y-4">
+            <Button
+              onClick={handleGoogleSignIn}
+              disabled={isLoading}
+              className="w-full bg-red-600 hover:bg-red-700 text-white"
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Signing in...
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <LogIn className="w-4 h-4" />
+                  Sign in with Google
+                </div>
+              )}
+            </Button>
+            <Button
+              onClick={() => setLoginMethod('choose')}
+              variant="ghost"
+              className="w-full text-gray-600"
+            >
+              ← Back to options
+            </Button>
+          </div>
+        )}
+
+        {loginMethod === 'email' && (
+          <form onSubmit={handleEmailSignIn} className="space-y-4">
+            <div className="text-left">
+              <Label htmlFor="email" className="text-rupeebee-dark-text">
+                Email Address
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your.email@example.com"
+                className="mt-1 focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                required
+              />
+            </div>
+            
+            <div className="text-left">
+              <Label htmlFor="password" className="text-rupeebee-dark-text">
+                Password
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="mt-1 focus:ring-rupeebee-medium-green focus:border-rupeebee-medium-green"
+                required
+              />
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isLoading || !email || !password}
+              className="w-full bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white"
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Signing in...
+                </div>
+              ) : (
+                'Sign In'
+              )}
+            </Button>
+
+            <Button
+              type="button"
+              onClick={() => setLoginMethod('choose')}
+              variant="ghost"
+              className="w-full text-gray-600"
+            >
+              ← Back to options
+            </Button>
+          </form>
+        )}
+
+        {authError && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"
+          >
+            {authError}
+          </motion.div>
+        )}
+
+        <div className="mt-6 text-sm text-gray-500 text-center">
+          <p>
+            Don&apos;t have an account?{' '}
+            <a 
+              href="/download" 
+              className="text-rupeebee-medium-green hover:text-rupeebee-dark-green font-medium"
+            >
+              Download the RupeeBee app
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WriteReviewForm() {
+  const { user, signOut } = useAuth();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [reviewData, setReviewData] = useState<ReviewSubmission>({
+    rating: 0,
+    review_text: '',
+    email_phone: user?.email || '',
+    is_app_user: true,
+    recaptcha_token: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const handleRatingChange = (rating: number) => {
+    setReviewData(prev => ({ ...prev, rating }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (reviewData.rating === 0) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please select a rating.'
+      });
+      return;
+    }
+
+    if (reviewData.review_text.length < 10) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please write a review with at least 10 characters.'
+      });
+      return;
+    }
+
+    // Verify reCAPTCHA
+    const recaptchaToken = recaptchaRef.current?.getValue();
+    if (!recaptchaToken) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please complete the reCAPTCHA verification.'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      // Get the session token
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Please sign in again to submit your review.'
+        });
+        return;
+      }
+
+      const response = await fetch('/api/reviews/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          ...reviewData,
+          email_phone: user?.email || '',
+          recaptcha_token: recaptchaToken
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: result.message
+        });
+        setReviewData({
+          rating: 0,
+          review_text: '',
+          email_phone: user?.email || '',
+          is_app_user: true,
+          recaptcha_token: ''
+        });
+        // Reset reCAPTCHA
+        recaptchaRef.current?.reset();
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: result.message || 'Failed to submit review. Please try again.'
+        });
+        // Reset reCAPTCHA on error
+        recaptchaRef.current?.reset();
+      }
+    } catch {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.'
+      });
+      // Reset reCAPTCHA on error
+      recaptchaRef.current?.reset();
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold text-rupeebee-dark-text">
+            Write Your Review
+          </h2>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 text-sm text-rupeebee-medium-text">
+              <CheckCircle className="w-4 h-4 text-green-500" />
+              <span className="hidden sm:inline">Verified User: {user?.email}</span>
+              <span className="sm:hidden">Verified</span>
+            </div>
+            <Button
+              onClick={signOut}
+              variant="outline"
+              size="sm"
+              className="border-gray-300 text-rupeebee-medium-text hover:bg-gray-50"
+            >
+              <LogOut className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Sign Out</span>
+            </Button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Rating */}
+          <div>
+            <Label className="text-lg font-medium text-rupeebee-dark-text mb-3 block">
+              Rating *
+            </Label>
+            <div className="flex items-center gap-3">
+              <StarRating
+                rating={reviewData.rating}
+                onChange={handleRatingChange}
+                size="lg"
+              />
+              <span className="text-rupeebee-medium-text">
+                {reviewData.rating > 0 ? `${reviewData.rating} star${reviewData.rating !== 1 ? 's' : ''}` : 'Click to rate'}
+              </span>
+            </div>
+          </div>
+
+          {/* Review Text */}
+          <div>
+            <Label htmlFor="review-text" className="text-lg font-medium text-rupeebee-dark-text mb-3 block">
+              Your Review *
+            </Label>
+            <textarea
+              id="review-text"
+              value={reviewData.review_text}
+              onChange={(e) => setReviewData(prev => ({ ...prev, review_text: e.target.value }))}
+              placeholder="Share your experience with RupeeBee..."
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rupeebee-medium-green focus:border-transparent text-rupeebee-dark-text resize-none"
+              rows={4}
+              maxLength={500}
+              required
+            />
+            <p className="text-sm text-rupeebee-medium-text mt-2">
+              {reviewData.review_text.length}/500 characters
+            </p>
+          </div>
+
+          {/* Status Messages */}
+          {submitStatus.type && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`p-4 rounded-lg border ${
+                submitStatus.type === 'success'
+                  ? 'bg-green-50 border-green-200 text-green-800'
+                  : 'bg-red-50 border-red-200 text-red-800'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                {submitStatus.type === 'success' ? (
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                ) : (
+                  <AlertCircle className="w-5 h-5 text-red-600" />
+                )}
+                <span>{submitStatus.message}</span>
+              </div>
+            </motion.div>
+          )}
+
+          {/* reCAPTCHA */}
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
+              theme="light"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex gap-4">
+            <Link href="/reviews" className="flex-1">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full border-gray-300 text-rupeebee-medium-text hover:bg-gray-50"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Reviews
+              </Button>
+            </Link>
+            <Button
+              type="submit"
+              disabled={isSubmitting || reviewData.rating === 0 || reviewData.review_text.length < 10}
+              className="flex-1 bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white py-3 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Submitting Review...
+                </div>
+              ) : (
+                'Submit Review'
+              )}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default function WriteReviewPage() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-20 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rupeebee-medium-green"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-20">
+      <div className="container mx-auto px-4 py-12">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-4xl font-bold text-rupeebee-dark-text mb-4">
+            Write a Review
+          </h1>
+          <p className="text-xl text-rupeebee-medium-text max-w-2xl mx-auto">
+            Share your experience with RupeeBee and help others make informed decisions.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {user ? <WriteReviewForm /> : <AuthPrompt />}
+        </motion.div>
+      </div>
+    </div>
+  );
+}

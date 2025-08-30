@@ -2,6 +2,8 @@ export interface Review {
   id: string;
   user_identifier?: string;
   user_display_name: string;
+  user_avatar?: string;
+  rupeebee_user_id?: string;
   rating: number;
   review_text: string;
   is_verified: boolean;
@@ -65,6 +67,7 @@ export interface AdminFeedbackReview {
   rating?: number;
   category?: string;
   status: string;
+  admin_notes?: string;
   created_at: string;
   updated_at: string;
 }
