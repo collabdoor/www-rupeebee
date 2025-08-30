@@ -19,7 +19,7 @@ export const financialTips: Tip[] = [
     id: 'verify-sender',
     type: 'do',
     title: 'Verify sender before clicking links',
-    description: 'Always verify the sender\'s identity before clicking any links in messages, emails, or notifications. Fraudsters often impersonate banks and legitimate companies.',
+    description: 'Always verify the sender\'s identity before clicking any links in the messages, emails, or notifications. Fraudsters often impersonate banks and legitimate companies.',
     details: 'Authentic banks and financial institutions will never ask for sensitive information through suspicious links or urgent messages.',
     example: {
       type: 'warning',
