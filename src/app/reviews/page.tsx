@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Star, User, CheckCircle, LogIn, LogOut, Clock, Filter, AlertCircle, ThumbsUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -61,9 +61,9 @@ function RatingDistribution({ stats }: RatingDistributionProps) {
               <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
             </div>
             
-            <div className="flex-1 bg-gray-200 rounded-full h-2">
+            <div className="flex-1 bg-gray-200 rounded-full h-2 relative overflow-hidden">
               <div 
-                className="bg-yellow-400 h-2 rounded-full transition-all duration-300"
+                className={`bg-yellow-400 h-2 rounded-full transition-all duration-300 absolute top-0 left-0`}
                 style={{ width: `${percentage}%` }}
               />
             </div>
@@ -495,9 +495,24 @@ export default function ReviewsPage() {
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'rating_high' | 'rating_low'>('newest');
 
+  // Stable function for loading stats
+  const loadStats = useCallback(async () => {
+    try {
+      const response = await fetch('/api/reviews/stats');
+      const data = await response.json();
+      setStats(data);
+    } catch (error) {
+      console.error('Error loading stats:', error);
+    }
+  }, []);
+
+  // Stable function for loading reviews - uses current page via ref to avoid dependency
+  const pageRef = useRef(page);
+  pageRef.current = page;
+
   const loadReviews = useCallback(async (reset = false) => {
     try {
-      const currentPage = reset ? 1 : page;
+      const currentPage = reset ? 1 : pageRef.current;
       const params = new URLSearchParams({
         page: currentPage.toString(),
         limit: '10',
@@ -525,22 +540,19 @@ export default function ReviewsPage() {
     } finally {
       setLoadingReviews(false);
     }
-  }, [page, ratingFilter, sortBy]);
+  }, [ratingFilter, sortBy]); // Removed page dependency
 
-  const loadStats = useCallback(async () => {
-    try {
-      const response = await fetch('/api/reviews/stats');
-      const data = await response.json();
-      setStats(data);
-    } catch (error) {
-      console.error('Error loading stats:', error);
-    }
-  }, []);
+  const loadMoreReviews = useCallback(() => {
+    loadReviews(false);
+  }, [loadReviews]);
 
+  // Initial load and filter changes
   useEffect(() => {
-    loadStats();
+    setPage(1);
+    setLoadingReviews(true);
     loadReviews(true);
-  }, [loadStats, loadReviews, ratingFilter, sortBy]);
+    loadStats();
+  }, [ratingFilter, sortBy, loadReviews, loadStats]);
 
   if (loading) {
     return (
@@ -551,7 +563,7 @@ export default function ReviewsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige">
+    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-20">
       <div className="container mx-auto px-4 py-12">
         {/* Header */}
         <motion.div
@@ -715,7 +727,7 @@ export default function ReviewsPage() {
                 {hasMore && reviews.length > 0 && (
                   <div className="text-center">
                     <Button
-                      onClick={() => loadReviews()}
+                      onClick={loadMoreReviews}
                       variant="outline"
                       className="border-rupeebee-medium-green text-rupeebee-medium-green hover:bg-rupeebee-medium-green hover:text-white"
                     >

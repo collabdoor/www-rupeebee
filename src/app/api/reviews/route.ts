@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
-    const rating_filter = searchParams.get('rating') ? parseInt(searchParams.get('rating')!) : undefined;
+    const rating_filter = searchParams.get('rating_filter') ? parseInt(searchParams.get('rating_filter')!) : undefined;
     const sort = (searchParams.get('sort') || 'newest') as 'newest' | 'oldest' | 'rating_high' | 'rating_low';
 
     if (searchParams.get('stats') === 'true') {

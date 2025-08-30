@@ -86,7 +86,7 @@ export async function getReviewsStats(): Promise<ReviewsStats> {
   };
 }
 
-export async function submitReview(submission: ReviewSubmission, userToken?: string): Promise<{ success: boolean; message: string; id?: string }> {
+export async function submitReview(submission: ReviewSubmission): Promise<{ success: boolean; message: string; id?: string }> {
   try {
     // Always use admin client for review submissions since we verify authentication in the API route
     // This bypasses RLS policies while maintaining security through API-level authentication

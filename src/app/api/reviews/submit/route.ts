@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       is_app_user: true
     };
 
-    const result = await submitReview(authenticatedSubmission, token);
+    const result = await submitReview(authenticatedSubmission);
 
     if (result.success) {
       return NextResponse.json(result, { status: 201 });
