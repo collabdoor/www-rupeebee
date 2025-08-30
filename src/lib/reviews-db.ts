@@ -133,10 +133,11 @@ export async function submitReview(submission: ReviewSubmission & { user?: UserD
                        null;
       
       // Get user avatar from Supabase auth (OAuth providers) or profile pictures storage
-      userAvatar = submission.user.user_metadata?.avatar_url || 
-                   submission.user.user_metadata?.picture || 
-                   submission.user.user_metadata?.profile_picture_url ||
+      // Priority: App profile picture > OAuth avatars
+      userAvatar = submission.user.user_metadata?.profile_picture_url ||
                    submission.user.user_metadata?.profile_picture ||
+                   submission.user.user_metadata?.avatar_url || 
+                   submission.user.user_metadata?.picture || 
                    null;
 
       // Try to get name from user metadata first, then fall back to email
