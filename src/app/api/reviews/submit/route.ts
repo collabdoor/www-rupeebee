@@ -53,15 +53,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user is a verified RupeeBee app user
-    const rupeebeeUserId = user.user_metadata?.rupeebee_user_id;
-    const isVerifiedAppUser = Boolean(rupeebeeUserId);
+    // Check if user is a verified user based on email verification
+    const isVerifiedAppUser = Boolean(
+      user && 
+      user.email && 
+      user.email_confirmed_at && // Ensure email is verified
+      (
+        // Email/password users from app
+        user.app_metadata?.provider === 'email' ||
+        // Google OAuth users (app or website) with verified email
+        user.app_metadata?.provider === 'google'
+      )
+    );
 
     if (!isVerifiedAppUser) {
       return NextResponse.json(
         { 
-          message: 'Only verified RupeeBee app users can write reviews. Please download and sign up through the RupeeBee mobile app first.',
-          error_code: 'NOT_APP_USER'
+          message: 'Only users with verified email addresses can write reviews. Please verify your email or sign in with Google.',
+          error_code: 'EMAIL_NOT_VERIFIED'
         },
         { status: 403 }
       );

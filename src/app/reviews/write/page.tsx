@@ -281,20 +281,20 @@ function WriteReviewForm() {
               <AlertCircle className="w-8 h-8 text-yellow-600" />
             </div>
             <h2 className="text-xl font-bold text-rupeebee-dark-text mb-3">
-              RupeeBee App Required
+              Account Verification Required
             </h2>
             <p className="text-rupeebee-medium-text">
-              Only verified RupeeBee app users can write reviews. Please download and sign up through the mobile app first.
+              To write reviews, please sign in with your RupeeBee account or register through the mobile app first.
             </p>
           </div>
 
           <div className="space-y-4">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h3 className="font-medium text-blue-800 mb-2">How to get verified:</h3>
+              <h3 className="font-medium text-blue-800 mb-2">How to get access:</h3>
               <ol className="text-sm text-blue-700 space-y-1">
-                <li>1. Download the RupeeBee mobile app</li>
-                <li>2. Sign up with the same Google account</li>
-                <li>3. Complete your profile in the app</li>
+                <li>1. If you have the app: Use the same Google account or email/password</li>
+                <li>2. If you don&apos;t have the app: Download the RupeeBee mobile app</li>
+                <li>3. Sign up with the same Google account</li>
                 <li>4. Come back here to write your review</li>
               </ol>
             </div>

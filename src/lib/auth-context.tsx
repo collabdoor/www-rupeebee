@@ -36,8 +36,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Check if the current user is a verified RupeeBee app user
-  const isVerifiedAppUser = Boolean(user?.user_metadata?.rupeebee_user_id);
+  // Check if the current user is verified based on email verification
+  const isVerifiedAppUser = Boolean(
+    user && 
+    user.email && 
+    user.email_confirmed_at && // Ensure email is verified
+    (
+      // Email/password users from app
+      user.app_metadata?.provider === 'email' ||
+      // Google OAuth users (app or website) with verified email
+      user.app_metadata?.provider === 'google'
+    )
+  );
 
   useEffect(() => {
     // Get initial session

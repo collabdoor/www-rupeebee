@@ -125,18 +125,25 @@ export async function submitReview(submission: ReviewSubmission & { user?: UserD
     let rupeebeeUserId = null;
 
     if (submission.user) {
-      // Check if user has RupeeBee user ID in metadata
-      rupeebeeUserId = submission.user.user_metadata?.rupeebee_user_id || null;
+      // Check if user has RupeeBee user ID in metadata, fallback to Supabase user ID
+      // Priority: custom rupeebee_user_id > metadata.sub > user.id
+      rupeebeeUserId = submission.user.user_metadata?.rupeebee_user_id || 
+                       submission.user.user_metadata?.sub || 
+                       submission.user.id || 
+                       null;
       
-      // Get user avatar from Supabase auth
+      // Get user avatar from Supabase auth (OAuth providers) or profile pictures storage
       userAvatar = submission.user.user_metadata?.avatar_url || 
                    submission.user.user_metadata?.picture || 
+                   submission.user.user_metadata?.profile_picture_url ||
+                   submission.user.user_metadata?.profile_picture ||
                    null;
 
       // Try to get name from user metadata first, then fall back to email
       const fullName = typeof submission.user.user_metadata?.full_name === 'string' ? submission.user.user_metadata.full_name :
                        typeof submission.user.user_metadata?.name === 'string' ? submission.user.user_metadata.name :
                        typeof submission.user.user_metadata?.display_name === 'string' ? submission.user.user_metadata.display_name :
+                       typeof submission.user.user_metadata?.username === 'string' ? submission.user.user_metadata.username :
                        undefined;
       
       if (fullName) {
@@ -148,9 +155,13 @@ export async function submitReview(submission: ReviewSubmission & { user?: UserD
       
       // If user is verified app user and has RupeeBee ID, enhance the display
       if (submission.is_app_user && rupeebeeUserId) {
-        displayName = fullName || submission.user.email?.split('@')[0] || 'Verified RupeeBee User';
+        displayName = fullName || 
+                     (typeof submission.user.user_metadata?.username === 'string' ? submission.user.user_metadata.username : null) ||
+                     submission.user.email?.split('@')[0] || 'Verified RupeeBee User';
       } else if (submission.is_app_user) {
-        displayName = fullName || submission.user.email?.split('@')[0] || 'Verified User';
+        displayName = fullName || 
+                     (typeof submission.user.user_metadata?.username === 'string' ? submission.user.user_metadata.username : null) ||
+                     submission.user.email?.split('@')[0] || 'Verified User';
       }
     }
 
