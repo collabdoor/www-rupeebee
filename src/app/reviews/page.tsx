@@ -273,7 +273,7 @@ export default function ReviewsPage() {
                     className="bg-white rounded-xl border border-gray-200 p-6"
                   >
                     <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="flex gap-3 flex-1 min-w-0">
                         <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden">
                           {review.user_avatar ? (
                             <Image 
@@ -296,27 +296,55 @@ export default function ReviewsPage() {
                           </div>
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="font-semibold text-gray-800 truncate">
-                              {review.user_display_name || 'RupeeBee User'}
-                            </span>
-                            {review.is_verified && (
-                              <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                            )}
-                            {review.rupeebee_user_id && (
-                              <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
-                                App User
+                          {/* Mobile: Stack name and badges on first line, stars below */}
+                          <div className="block sm:hidden">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-semibold text-gray-800 truncate">
+                                {review.user_display_name || 'RupeeBee User'}
                               </span>
-                            )}
-                            <div className="ml-2">
+                              {review.is_verified && (
+                                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2 mb-1">
+                              {review.rupeebee_user_id && (
+                                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
+                                  App User
+                                </span>
+                              )}
                               <StarRating rating={review.rating} readonly size="sm" />
                             </div>
+                            {review.is_verified && (
+                              <span className="text-xs text-green-600 font-medium">
+                                Verified RupeeBee User
+                              </span>
+                            )}
                           </div>
-                          {review.is_verified && (
-                            <span className="text-xs text-green-600 font-medium">
-                              Verified RupeeBee User
-                            </span>
-                          )}
+                          
+                          {/* Desktop: All in one line */}
+                          <div className="hidden sm:block">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="font-semibold text-gray-800 truncate">
+                                {review.user_display_name || 'RupeeBee User'}
+                              </span>
+                              {review.is_verified && (
+                                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                              )}
+                              {review.rupeebee_user_id && (
+                                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
+                                  App User
+                                </span>
+                              )}
+                              <div className="ml-2">
+                                <StarRating rating={review.rating} readonly size="sm" />
+                              </div>
+                            </div>
+                            {review.is_verified && (
+                              <span className="text-xs text-green-600 font-medium">
+                                Verified RupeeBee User
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 flex-shrink-0 ml-4">
