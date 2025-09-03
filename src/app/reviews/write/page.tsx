@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { Star, User, CheckCircle, LogIn, LogOut, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -85,13 +84,13 @@ function AuthPrompt() {
 
   return (
     <div className="max-w-md mx-auto">
-      <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
         <div className="text-center mb-5">
-          <LogIn className="w-12 h-12 text-rupeebee-medium-green mx-auto mb-3" />
-          <h2 className="text-xl font-bold text-rupeebee-dark-text mb-3">
+          <LogIn className="w-12 h-12 text-green-600 mx-auto mb-3" />
+          <h2 className="text-xl font-bold text-gray-800 mb-3">
             Sign in to Write a Review
           </h2>
-          <p className="text-rupeebee-medium-text text-sm">
+          <p className="text-gray-600 text-sm">
             Only verified RupeeBee app users can write reviews. Please use the same account you created in the mobile app.
           </p>
         </div>
@@ -120,7 +119,7 @@ function AuthPrompt() {
             <Button
               onClick={() => setLoginMethod('email')}
               variant="outline"
-              className="w-full border-rupeebee-medium-green text-rupeebee-medium-green hover:bg-rupeebee-light-beige"
+              className="w-full border-green-600 text-green-600 hover:bg-green-50"
             >
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
@@ -173,7 +172,7 @@ function AuthPrompt() {
         {loginMethod === 'email' && (
           <form onSubmit={handleEmailSignIn} className="space-y-4">
             <div className="text-left">
-              <Label htmlFor="email" className="text-rupeebee-dark-text">
+              <Label htmlFor="email" className="text-gray-800">
                 Email Address
               </Label>
               <Input
@@ -182,13 +181,13 @@ function AuthPrompt() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
-                className="mt-1 focus:outline-none focus:border-gray-400"
+                className="mt-1 focus:outline-none focus:border-green-500"
                 required
               />
             </div>
             
             <div className="text-left">
-              <Label htmlFor="password" className="text-rupeebee-dark-text">
+              <Label htmlFor="password" className="text-gray-800">
                 Password
               </Label>
               <Input
@@ -197,7 +196,7 @@ function AuthPrompt() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="mt-1 focus:outline-none focus:border-gray-400"
+                className="mt-1 focus:outline-none focus:border-green-500"
                 required
               />
             </div>
@@ -205,7 +204,7 @@ function AuthPrompt() {
             <Button
               type="submit"
               disabled={isLoading || !email || !password}
-              className="w-full bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white"
+              className="w-full bg-green-600 hover:bg-green-700 text-white"
             >
               {isLoading ? (
                 <div className="flex items-center gap-2">
@@ -229,13 +228,9 @@ function AuthPrompt() {
         )}
 
         {authError && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"
-          >
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
             {authError}
-          </motion.div>
+          </div>
         )}
 
         <div className="mt-5 text-sm text-gray-500 text-center">
@@ -243,7 +238,7 @@ function AuthPrompt() {
             Don&apos;t have the RupeeBee app?{' '}
             <a 
               href="/download" 
-              className="text-rupeebee-medium-green hover:text-rupeebee-dark-green font-medium"
+              className="text-green-600 hover:text-green-700 font-medium"
             >
               Download it here
             </a>{' '}
@@ -275,15 +270,15 @@ function WriteReviewForm() {
   if (!isVerifiedAppUser) {
     return (
       <div className="max-w-xl mx-auto">
-        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+        <div className="bg-white rounded-xl border border-gray-200 p-6">
           <div className="text-center mb-6">
             <div className="w-16 h-16 mx-auto mb-4 bg-yellow-50 rounded-full flex items-center justify-center">
               <AlertCircle className="w-8 h-8 text-yellow-600" />
             </div>
-            <h2 className="text-xl font-bold text-rupeebee-dark-text mb-3">
+            <h2 className="text-xl font-bold text-gray-800 mb-3">
               Account Verification Required
             </h2>
-            <p className="text-rupeebee-medium-text">
+            <p className="text-gray-600">
               To write reviews, please sign in with your RupeeBee account or register through the mobile app first.
             </p>
           </div>
@@ -301,25 +296,25 @@ function WriteReviewForm() {
 
             <div className="flex gap-3">
               <Link href="/download" className="flex-1">
-                <Button className="w-full bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white">
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
                   Download RupeeBee App
                 </Button>
               </Link>
               <Button
                 onClick={signOut}
                 variant="outline"
-                className="flex-1 border-gray-300 text-rupeebee-medium-text hover:bg-gray-50"
+                className="flex-1 border-gray-300 text-gray-600 hover:bg-gray-50"
               >
                 Sign Out
               </Button>
             </div>
 
             <div className="text-center">
-              <p className="text-sm text-rupeebee-medium-text">
+              <p className="text-sm text-gray-600">
                 Already have the app?{' '}
                 <button
                   onClick={() => window.location.reload()}
-                  className="text-rupeebee-medium-green hover:text-rupeebee-dark-green font-medium"
+                  className="text-green-600 hover:text-green-700 font-medium"
                 >
                   Refresh this page
                 </button>{' '}
@@ -442,13 +437,13 @@ function WriteReviewForm() {
 
   return (
     <div className="max-w-xl mx-auto">
-      <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+      <div className="bg-white rounded-xl border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-rupeebee-dark-text">
+          <h2 className="text-xl font-bold text-gray-800">
             Write Your Review
           </h2>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-sm text-rupeebee-medium-text">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
               <CheckCircle className="w-4 h-4 text-green-500" />
               <span className="hidden sm:inline">Verified User: {user?.email}</span>
               <span className="sm:hidden">Verified</span>
@@ -457,7 +452,7 @@ function WriteReviewForm() {
               onClick={signOut}
               variant="outline"
               size="sm"
-              className="border-gray-300 text-rupeebee-medium-text hover:bg-gray-50"
+              className="border-gray-300 text-gray-600 hover:bg-gray-50"
             >
               <LogOut className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:inline">Sign Out</span>
@@ -468,7 +463,7 @@ function WriteReviewForm() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Rating */}
           <div>
-            <Label className="text-base font-medium text-rupeebee-dark-text mb-2 block">
+            <Label className="text-base font-medium text-gray-800 mb-2 block">
               Rating *
             </Label>
             <div className="flex items-center gap-3">
@@ -477,7 +472,7 @@ function WriteReviewForm() {
                 onChange={handleRatingChange}
                 size="md"
               />
-              <span className="text-rupeebee-medium-text text-sm">
+              <span className="text-gray-600 text-sm">
                 {reviewData.rating > 0 ? `${reviewData.rating} star${reviewData.rating !== 1 ? 's' : ''}` : 'Click to rate'}
               </span>
             </div>
@@ -485,7 +480,7 @@ function WriteReviewForm() {
 
           {/* Review Text */}
           <div>
-            <Label htmlFor="review-text" className="text-base font-medium text-rupeebee-dark-text mb-2 block">
+            <Label htmlFor="review-text" className="text-base font-medium text-gray-800 mb-2 block">
               Your Review *
             </Label>
             <textarea
@@ -493,21 +488,19 @@ function WriteReviewForm() {
               value={reviewData.review_text}
               onChange={(e) => setReviewData(prev => ({ ...prev, review_text: e.target.value }))}
               placeholder="Share your experience with RupeeBee..."
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-rupeebee-dark-text resize-none text-sm focus:outline-none focus:border-gray-400"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-gray-800 resize-none text-sm focus:outline-none focus:border-green-500"
               rows={4}
               maxLength={500}
               required
             />
-            <p className="text-xs text-rupeebee-medium-text mt-1">
+            <p className="text-xs text-gray-600 mt-1">
               {reviewData.review_text.length}/500 characters
             </p>
           </div>
 
           {/* Status Messages */}
           {submitStatus.type && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className={`p-3 rounded-lg border ${
                 submitStatus.type === 'success'
                   ? 'bg-green-50 border-green-200 text-green-800'
@@ -522,7 +515,7 @@ function WriteReviewForm() {
                 )}
                 <span className="text-sm">{submitStatus.message}</span>
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* reCAPTCHA */}
@@ -542,7 +535,7 @@ function WriteReviewForm() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full border-gray-300 text-rupeebee-medium-text hover:bg-gray-50"
+                className="w-full border-gray-300 text-gray-600 hover:bg-gray-50"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Reviews
@@ -551,7 +544,7 @@ function WriteReviewForm() {
             <Button
               type="submit"
               disabled={isSubmitting || reviewData.rating === 0 || reviewData.review_text.length < 10}
-              className="flex-1 bg-rupeebee-medium-green hover:bg-rupeebee-dark-green text-white py-2.5 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2.5 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <div className="flex items-center gap-2">
@@ -574,37 +567,28 @@ export default function WriteReviewPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-24 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-rupeebee-medium-green"></div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 pt-24 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rupeebee-light-beige via-white to-rupeebee-light-beige pt-24">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 pt-24">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
-        >
-          <h1 className="text-3xl font-bold text-rupeebee-dark-text mb-3">
+        <div className="text-center mb-8 mt-16">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
             Write a Review
           </h1>
-          <p className="text-lg text-rupeebee-medium-text max-w-xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">
             Share your experience with RupeeBee and help others make informed decisions.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
+        <div>
           {user ? <WriteReviewForm /> : <AuthPrompt />}
-        </motion.div>
+        </div>
       </div>
     </div>
   );
