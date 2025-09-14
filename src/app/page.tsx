@@ -3,6 +3,7 @@ import {
   FeaturesSection,
   TechStackAndComparison,
 } from "@/components";
+import RupeeBeeFeaturedSection from "@/components/rupeebee-featured-section";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <FeaturesSection />
         {/* <ForIndiaSection /> */}
         <TechStackAndComparison />
+        <RupeeBeeFeaturedSection />
       </main>
     </div>
   );

@@ -1,17 +1,10 @@
 "use client";
 
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,10 +15,6 @@ export default function Header() {
       link: "/learn",
     },
     {
-      name: "What's Next?",
-      link: "/next",
-    },
-    {
       name: "Reviews",
       link: "/reviews",
     },
@@ -34,122 +23,103 @@ export default function Header() {
       link: "/credits",
     },
     {
-      name: "Contact",
-      link: "/contact",
-    },
-    {
       name: "Terms",
       link: "/terms",
     }
   ];
 
   return (
-    <div className="relative w-full">
-      <Navbar>
-        {/* Desktop Navigation */}
-        <NavBody>
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-3 group relative z-20 mr-4 px-2 py-1"
+            className="flex items-center gap-3 group"
           >
             <div className="relative">
-              <Image
-                src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/logo-variants/green-dark-logo.webp"
-                alt="RupeeBee"
-                width={48}
-                height={48}
-                className="object-contain transition-transform duration-300 group-hover:scale-105"
-                priority
-                unoptimized
-              />
-            </div>
-            <div className="hidden sm:block">
-              {/* <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-                RupeeBee
-              </span> */}
-            </div>
-          </Link>
-
-          <NavItems items={navItems} className="text-md" />
-
-          <Link
-            href="https://punjabandsindbank.co.in/"
-            className="flex items-center gap-3 group relative z-20 py-1"
-          >
-            <div className="relative">
-              <Image
-                src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png"
-                alt="RupeeBee"
-                width={52}
-                height={52}
-                className="object-contain transition-transform duration-300 group-hover:scale-105 rounded-full"
-                priority
-                unoptimized
-              />
-            </div>
-          </Link>
-        </NavBody>
-
-        {/* Mobile Navigation */}
-        <MobileNav>
-          <MobileNavHeader>
-            {/* Custom Logo for Mobile */}
-            <Link
-              href="/"
-              className="flex items-center gap-3 relative z-20 mr-4 px-2 py-1"
-            >
               <Image
                 src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/logo-variants/green-dark-logo.webp"
                 alt="RupeeBee"
                 width={40}
                 height={40}
-                className="object-contain"
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
                 priority
                 unoptimized
               />
-              {/* <span className="text-lg font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-                RupeeBee
-              </span> */}
-            </Link>
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
-          </MobileNavHeader>
+            </div>
+            <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+              RupeeBee
+            </span>
+          </Link>
 
-          <MobileNavMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-          >
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item, idx) => (
               <Link
-                key={`mobile-link-${idx}`}
+                key={`nav-${idx}`}
                 href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300 hover:text-green-600 transition-colors duration-300 py-2 block"
+                className="relative text-gray-600 hover:text-green-600 transition-colors duration-200 font-medium text-sm"
               >
-                <span className="block">{item.name}</span>
+                {item.name}
               </Link>
             ))}
+          </nav>
+
+          {/* Bank Partner Logo & Mobile Menu Button */}
+          <div className="flex items-center gap-4">
+            {/* Bank Partner Logo */}
             <Link
               href="https://punjabandsindbank.co.in/"
-              className="flex items-center gap-3 group relative z-20 py-1"
+              className="flex items-center group"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <div className="relative">
-                <Image
-                  src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png"
-                  alt="RupeeBee"
-                  width={52}
-                  height={52}
-                  className="object-contain transition-transform duration-300 group-hover:scale-105 rounded-full"
-                  priority
-                  unoptimized
-                />
-              </div>
+              <Image
+                src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png"
+                alt="Punjab & Sind Bank"
+                width={36}
+                height={36}
+                className="object-contain transition-transform duration-300 group-hover:scale-105 rounded-full"
+                priority
+                unoptimized
+              />
             </Link>
-          </MobileNavMenu>
-        </MobileNav>
-      </Navbar>
-    </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-green-600 hover:bg-gray-100 transition-colors duration-200"
+              aria-expanded="false"
+            >
+              <span className="sr-only">Open main menu</span>
+              {isMobileMenuOpen ? (
+                <X className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="block h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200 bg-white">
+              {navItems.map((item, idx) => (
+                <Link
+                  key={`mobile-nav-${idx}`}
+                  href={item.link}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-green-600 hover:bg-gray-50 rounded-md transition-colors duration-200"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
   );
 }
