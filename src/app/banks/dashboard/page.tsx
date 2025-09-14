@@ -6,6 +6,15 @@ import { getCurrentUser, getModulesByBank, signOut, BankLearningModule } from '@
 import ModuleUploadForm from '@/components/banks/ModuleUploadForm';
 import ModuleListTable from '@/components/banks/ModuleListTable';
 import DashboardStats from '@/components/banks/DashboardStats';
+import { BankDashboardLayout } from '@/components/banks/BankDashboardLayout';
+import { 
+  ListProvider, 
+  ListGroup, 
+  ListHeader, 
+  ListItems, 
+  ListItem,
+  type DragEndEvent 
+} from '@/components/ui/kibo-ui/list';
 
 export default function BankDashboardPage() {
   const [user, setUser] = useState<any>(null);
@@ -76,92 +85,63 @@ export default function BankDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-600 rounded-lg mr-3"></div>
-              <h1 className="text-xl font-semibold text-gray-900">Bank Learning Portal</h1>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <div className="text-sm text-gray-600">
-                Welcome, <span className="font-medium">{user?.user_metadata?.bank_name || user?.email}</span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition duration-200"
-              >
-                Sign Out
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
-            {['overview', 'upload', 'modules'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab as any)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm capitalize transition duration-200 ${
-                  activeTab === tab
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                {tab === 'overview' ? 'Dashboard' : tab === 'upload' ? 'Upload Module' : 'My Modules'}
-              </button>
-            ))}
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <BankDashboardLayout
+      user={user}
+      activeTab={activeTab}
+      onTabChange={setActiveTab}
+      onLogout={handleLogout}
+    >
+      <div>
         {activeTab === 'overview' && (
           <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Dashboard Overview</h2>
               <DashboardStats modules={modules} />
             </div>
             
             {/* Recent Activity */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Modules</h3>
-              <div className="space-y-4">
-                {modules.slice(0, 5).map((module) => (
-                  <div key={module.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-                    <div>
-                      <h4 className="font-medium text-gray-900">{module.title}</h4>
-                      <p className="text-sm text-gray-600">{module.category} • {module.language}</p>
-                    </div>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        module.is_published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {module.is_published ? 'Published' : 'Draft'}
-                      </span>
-                      <span>{module.views_count} views</span>
-                    </div>
-                  </div>
-                ))}
-                {modules.length === 0 && (
-                  <p className="text-gray-500 text-center py-8">No modules uploaded yet. Start by creating your first learning module!</p>
-                )}
-              </div>
+              {modules.length === 0 ? (
+                <p className="text-gray-500 text-center py-8">No modules uploaded yet. Start by creating your first learning module!</p>
+              ) : (
+                <ListProvider onDragEnd={(event: DragEndEvent) => {}} className="h-auto">
+                  <ListGroup id="recent-modules">
+                    <ListHeader name="Recent Modules" color="#3b82f6" />
+                    <ListItems>
+                      {modules.slice(0, 5).map((module, index) => (
+                        <ListItem
+                          key={module.id}
+                          id={module.id}
+                          name={module.title}
+                          index={index}
+                          parent="recent-modules"
+                        >
+                          <div className="flex items-center justify-between w-full">
+                            <div className="flex-1">
+                              <h4 className="font-medium text-gray-900">{module.title}</h4>
+                              <p className="text-sm text-gray-600">{module.category} • {module.language}</p>
+                            </div>
+                            <div className="flex items-center space-x-4 text-sm text-gray-500">
+                              <span className={`px-2 py-1 rounded-full text-xs ${
+                                module.is_published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {module.is_published ? 'Published' : 'Draft'}
+                              </span>
+                              <span>{module.views_count} views</span>
+                            </div>
+                          </div>
+                        </ListItem>
+                      ))}
+                    </ListItems>
+                  </ListGroup>
+                </ListProvider>
+              )}
             </div>
           </div>
         )}
 
         {activeTab === 'upload' && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Upload New Module</h2>
             <ModuleUploadForm 
               bankName={user?.user_metadata?.bank_name || user?.email}
               onSuccess={refreshModules}
@@ -171,14 +151,13 @@ export default function BankDashboardPage() {
 
         {activeTab === 'modules' && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">My Learning Modules</h2>
             <ModuleListTable 
               modules={modules} 
               onModuleUpdate={refreshModules}
             />
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </BankDashboardLayout>
   );
 }

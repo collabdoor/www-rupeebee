@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
 import { AuthProvider } from "@/lib/auth-context";
+import { ConditionalLayout } from "@/components";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,9 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${roboto.variable} antialiased`}>
         <AuthProvider>
-          <Header /> 
-          {children} 
-          <Footer />
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
         </AuthProvider>
       </body>
     </html>
