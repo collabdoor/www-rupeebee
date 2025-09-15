@@ -6,7 +6,12 @@
     "dev": "next dev -p 4000 --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup-storage": "node scripts/setup-storage.js",
+    "test-upload": "node scripts/test-upload.js",
+    "test-buckets": "node scripts/test-multiple-buckets.js",
+    "test-auth-upload": "node scripts/test-auth-upload.js",
+    "test-api-upload": "node scripts/test-api-upload.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -55,8 +60,11 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "dotenv": "^17.2.2",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
+    "form-data": "^4.0.4",
+    "node-fetch": "^3.3.2",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"

@@ -1,7 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { createModule, uploadFile, getPublicUrl, QuizQuestion } from '@/lib/supabase';
+import { createModule, QuizQuestion } from '@/lib/supabase';
+import { 
+  uploadFileToStorage, 
+  uploadFileWithMultipleBuckets,
+  getPublicFileUrl, 
+  STORAGE_BUCKETS, 
+  generateFilePath, 
+  validateFile, 
+  formatFileSize,
+  getFileType
+} from '@/lib/storage';
+import { uploadFileWithFallback } from '@/lib/upload-api';
 
 interface ModuleUploadFormProps {
   bankName: string;
@@ -62,7 +73,22 @@ export default function ModuleUploadForm({ bankName, onSuccess }: ModuleUploadFo
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file before setting it
+      const fileType = getFileType(file.name);
+      
+      if (fileType === 'UNKNOWN') {
+        setError('Invalid file type. Please select a PDF or video file.');
+        return;
+      }
+      
+      const validation = validateFile(file, fileType);
+      if (!validation.isValid) {
+        setError(validation.errors.join('; '));
+        return;
+      }
+      
       setContentFile(file);
+      setError(''); // Clear any previous errors
     }
   };
 
@@ -76,21 +102,19 @@ export default function ModuleUploadForm({ bankName, onSuccess }: ModuleUploadFo
 
       // Upload file if present
       if (contentFile) {
-        const fileExtension = contentFile.name.split('.').pop();
-        const fileName = `${Date.now()}-${bankName.replace(/\s+/g, '-').toLowerCase()}.${fileExtension}`;
-        const filePath = `bank_modules/${fileName}`;
-
-        const { data: uploadData, error: uploadError } = await uploadFile(
+        // Use the API-based upload that bypasses RLS policies
+        const { data: uploadData, error: uploadError, publicUrl } = await uploadFileWithFallback(
           contentFile,
-          'bank_modules',
-          filePath
+          bankName,
+          formData.category
         );
 
         if (uploadError) {
           throw new Error(`File upload failed: ${uploadError.message}`);
         }
 
-        contentUrl = getPublicUrl('bank_modules', filePath);
+        // Use the public URL returned from the API
+        contentUrl = publicUrl || '';
       }
 
       // Create module
@@ -261,9 +285,9 @@ export default function ModuleUploadForm({ bankName, onSuccess }: ModuleUploadFo
 
         {/* File Upload */}
         {(formData.content_type === 'PDF' || formData.content_type === 'Video Link') && (
-          <div>
-            <label htmlFor="content_file" className="block text-sm font-medium text-gray-700 mb-2">
-              Upload Content File
+          <div className="space-y-2">
+            <label htmlFor="content_file" className="block text-sm font-medium text-gray-700">
+              Upload Content File *
             </label>
             <input
               type="file"
@@ -272,6 +296,21 @@ export default function ModuleUploadForm({ bankName, onSuccess }: ModuleUploadFo
               accept={formData.content_type === 'PDF' ? '.pdf' : 'video/*'}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
+            <div className="text-sm text-gray-500">
+              {formData.content_type === 'PDF' ? (
+                <span>Supported format: PDF • Maximum size: 50MB</span>
+              ) : (
+                <span>Supported formats: MP4, AVI, MOV, WMV, FLV, WebM, MKV • Maximum size: 500MB</span>
+              )}
+            </div>
+            {contentFile && (
+              <div className="text-sm text-green-600 flex items-center space-x-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>File selected: {contentFile.name} ({formatFileSize(contentFile.size)})</span>
+              </div>
+            )}
           </div>
         )}
 
