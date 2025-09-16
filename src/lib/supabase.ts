@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, User } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -22,6 +22,9 @@ export const supabaseAdmin = createClient(
     }
   }
 );
+
+// Re-export User type for convenience
+export type { User };
 
 // Types for the bank learning modules
 export interface BankLearningModule {
@@ -75,7 +78,7 @@ export const signInWithEmail = async (email: string, password: string) => {
   return { data, error };
 };
 
-export const signUpWithEmail = async (email: string, password: string, metadata?: any) => {
+export const signUpWithEmail = async (email: string, password: string, metadata?: Record<string, unknown>) => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,

@@ -8,6 +8,7 @@ import {
   User,
   LogOut,
 } from "lucide-react";
+import { type User as SupabaseUser } from '@supabase/supabase-js';
 import {
   Sidebar,
   SidebarBody,
@@ -18,7 +19,7 @@ type TabType = 'overview' | 'upload' | 'modules';
 
 interface BankDashboardLayoutProps {
   children: React.ReactNode;
-  user: any;
+  user: SupabaseUser | null;
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
   onLogout: () => void;
@@ -145,7 +146,7 @@ export const BankDashboardLayout = ({
   );
 };
 
-const Logo = ({ user }: { user: any }) => {
+const Logo = ({ user }: { user: SupabaseUser | null }) => {
   return (
     <div className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />

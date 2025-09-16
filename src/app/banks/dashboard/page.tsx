@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { getCurrentUser, getModulesByBank, signOut, BankLearningModule } from '@/lib/supabase';
+import { getCurrentUser, getModulesByBank, signOut, BankLearningModule, type User } from '@/lib/supabase';
 import ModuleUploadForm from '@/components/banks/ModuleUploadForm';
 import ModuleListTable from '@/components/banks/ModuleListTable';
 import DashboardStats from '@/components/banks/DashboardStats';
@@ -12,22 +12,17 @@ import {
   ListGroup, 
   ListHeader, 
   ListItems, 
-  ListItem,
-  type DragEndEvent 
+  ListItem
 } from '@/components/ui/kibo-ui/list';
 
 export default function BankDashboardPage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [modules, setModules] = useState<BankLearningModule[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'upload' | 'modules'>('overview');
   const router = useRouter();
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const { user, error } = await getCurrentUser();
       
@@ -44,12 +39,16 @@ export default function BankDashboardPage() {
 
       setUser(user);
       await loadModules(user.user_metadata?.bank_name);
-    } catch (error) {
+    } catch {
       router.push('/banks/login');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [router]);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   const loadModules = async (bankName?: string) => {
     try {
@@ -104,7 +103,7 @@ export default function BankDashboardPage() {
               {modules.length === 0 ? (
                 <p className="text-gray-500 text-center py-8">No modules uploaded yet. Start by creating your first learning module!</p>
               ) : (
-                <ListProvider onDragEnd={(event: DragEndEvent) => {}} className="h-auto">
+                <ListProvider onDragEnd={() => {}} className="h-auto">
                   <ListGroup id="recent-modules">
                     <ListHeader name="Recent Modules" color="#3b82f6" />
                     <ListItems>

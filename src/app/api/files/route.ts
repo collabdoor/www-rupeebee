@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
               break;
             }
           }
-        } catch (bucketError) {
+        } catch {
           continue;
         }
       }

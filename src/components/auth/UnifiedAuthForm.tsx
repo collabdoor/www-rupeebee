@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from "react";
-import { Eye, EyeOff, ArrowRight, Building, User, Phone, Mail } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Eye, EyeOff, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 // Helper function to merge class names
 const cn = (...classes: string[]) => {
@@ -50,44 +50,7 @@ const Button = ({
   );
 };
 
-// Custom Input Component
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  className?: string;
-  label?: string;
-  error?: string;
-  icon?: React.ReactNode;
-}
-
-const Input = ({ className = "", label, error, icon, required, ...props }: InputProps) => {
-  return (
-    <div className="space-y-1">
-      {label && (
-        <label htmlFor={props.id} className="block text-sm font-medium text-gray-700">
-          {label} {required && <span className="text-blue-500">*</span>}
-        </label>
-      )}
-      <div className="relative">
-        {icon && (
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            {icon}
-          </div>
-        )}
-        <input
-          className={cn(
-            "flex h-10 w-full rounded-md border bg-gray-50 border-gray-200 px-3 py-2 text-sm text-gray-800 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-            icon ? "pl-10" : "",
-            error ? "border-red-500 focus-visible:ring-red-500" : "",
-            className
-          )}
-          {...props}
-        />
-      </div>
-      {error && (
-        <p className="text-sm text-red-600">{error}</p>
-      )}
-    </div>
-  );
-};
+// Component and interfaces start here
 
 // Animated Bee/Finance visual component (replacing travel map for banking theme)
 const FinanceVisualization = () => {
@@ -145,7 +108,7 @@ const FinanceVisualization = () => {
 
     const dots = generateDots(dimensions.width, dimensions.height);
     let animationFrameId: number;
-    let startTime = Date.now();
+    const startTime = Date.now();
 
     function animate() {
       if (!ctx) return;
@@ -217,7 +180,6 @@ const UnifiedAuthForm = ({
   footerLink,
   logoText = "RupeeBee",
   logoIcon,
-  backgroundTitle = "Banking Portal",
   backgroundSubtitle = "Secure access to your financial learning platform"
 }: AuthFormProps) => {
   const [formData, setFormData] = useState<Record<string, string>>({});

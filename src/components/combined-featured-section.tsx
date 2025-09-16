@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { Activity, ArrowRight, Files, Flower, GalleryVerticalEnd, MapPin } from 'lucide-react'
 import DottedMap from 'dotted-map'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from 'recharts'
@@ -44,7 +43,7 @@ export default function CombinedFeaturedSection() {
         {/* ✅ 2. FEATURED CASE STUDY BLOCK - Top Right */}
         <div className="flex flex-col justify-between gap-4 p-6 rounded-none border border-gray-200 dark:border-gray-800 bg-card">
           <div>
-            <span className="text-xs flex items-center gap-2 text-sm text-gray-500">
+            <span className="flex items-center gap-2 text-sm text-gray-500">
               <GalleryVerticalEnd className="w-4 h-4" /> {featuredCasestudy.tags}
             </span>
             <h3 className="text-xl font-normal text-gray-900 dark:text-white">
@@ -74,14 +73,12 @@ export default function CombinedFeaturedSection() {
         <div className="grid sm:grid-cols-2 rounded-none bg-card">
           <FeatureCard
             icon={<Files className="w-4 h-4" />}
-            image="/1.png"
             title="Ready to use blocks"
             subtitle="Copy & Paste"
             description="Plug-n-play UI blocks you can drop right into any project."
           />
           <FeatureCard
             icon={<Flower className="w-4 h-4" />}
-            image="/2.png"
             title="Customize with ease"
             subtitle="Easy to Use"
             description="Design your layout exactly the way you want with full flexibility."
@@ -93,12 +90,12 @@ export default function CombinedFeaturedSection() {
 }
 
 // ----------------- Feature Card Component -------------------
-function FeatureCard({ icon, image, title, subtitle, description }: { icon: React.ReactNode, image: string, title: string, subtitle: string, description: string }) {
+function FeatureCard({ icon, title, subtitle, description }: { icon: React.ReactNode, title: string, subtitle: string, description: string }) {
   return (
     <div className="relative flex flex-col gap-3 p-4 border border-gray-200 dark:border-gray-800 bg-background transition">
       <div className="flex items-center gap-4">
         <div>
-          <span className="text-xs flex items-center gap-2 text-sm text-gray-500 mb-4">
+          <span className="flex items-center gap-2 text-sm text-gray-500 mb-4">
             {icon}
             {title}
           </span>
@@ -331,7 +328,7 @@ ChartContainer.displayName = "Chart"
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([_, config]) => config.theme || config.color,
+    ([, config]) => config.theme || config.color,
   )
 
   if (!colorConfig.length) {
@@ -362,17 +359,18 @@ ${colorConfig
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ChartTooltip = RechartsPrimitive.Tooltip as React.FC<RechartsPrimitive.TooltipProps<any, any>>
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   {
     active?: boolean
-    payload?: Array<any>
+    payload?: Array<Record<string, unknown>>
     label?: React.ReactNode
-    labelFormatter?: (label: any, payload: Array<any>) => React.ReactNode
+    labelFormatter?: (label: unknown, payload: Array<unknown>) => React.ReactNode
     labelClassName?: string
-    formatter?: (value: any, name: any, item: any, index: number, payload: any) => React.ReactNode
+    formatter?: (value: unknown, name: unknown, item: unknown, index: number, payload: unknown) => React.ReactNode
     color?: string
     hideLabel?: boolean
     hideIndicator?: boolean
@@ -443,6 +441,7 @@ const ChartTooltipContent = React.forwardRef<
 
     const nestLabel = payload.length === 1 && indicator !== "dot"
 
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     return (
       <div
         ref={ref}
@@ -454,13 +453,13 @@ const ChartTooltipContent = React.forwardRef<
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
           {payload.map((item, index) => {
-            const key = `${nameKey || item.name || item.dataKey || "value"}`
+            const key = `${nameKey || (item as any).name || (item as any).dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color || item.payload.fill || item.color
+            const indicatorColor = color || (item as any).payload?.fill || (item as any).color
 
             return (
               <div
-                key={item.dataKey}
+                key={(item as any).dataKey}
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center",
@@ -503,12 +502,12 @@ const ChartTooltipContent = React.forwardRef<
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
                         <span className="text-muted-foreground">
-                          {itemConfig?.label || item.name}
+                          {itemConfig?.label || (item as any).name}
                         </span>
                       </div>
-                      {item.value && (
+                      {(item as any).value && (
                         <span className="font-mono font-medium tabular-nums text-foreground">
-                          {typeof item.value === 'number' ? item.value.toLocaleString() : item.value}
+                          {typeof (item as any).value === 'number' ? ((item as any).value as number).toLocaleString() : (item as any).value}
                         </span>
                       )}
                     </div>
@@ -520,6 +519,7 @@ const ChartTooltipContent = React.forwardRef<
         </div>
       </div>
     )
+    /* eslint-enable @typescript-eslint/no-explicit-any */
   },
 )
 ChartTooltipContent.displayName = "ChartTooltip"
@@ -529,6 +529,7 @@ const ChartLegend = RechartsPrimitive.Legend as unknown as React.FC<RechartsPrim
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     payload?: Array<any>
     verticalAlign?: 'top' | 'middle' | 'bottom'
     hideIcon?: boolean

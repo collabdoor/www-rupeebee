@@ -52,7 +52,7 @@ export default function BankLoginPage() {
           setError('Access denied. This portal is for banks only.');
         }
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);

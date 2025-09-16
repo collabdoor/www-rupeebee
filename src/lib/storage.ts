@@ -1,10 +1,23 @@
 import { supabase, supabaseAdmin } from './supabase';
 
+// Types for upload results
+interface UploadError {
+  message: string;
+  details?: unknown;
+}
+
+interface UploadResult {
+  data: unknown;
+  error: UploadError | null;
+  bucket?: string;
+}
+
 // Storage bucket names - with fallback strategy
 export const STORAGE_BUCKETS = {
-  BANK_MODULES: 'user-uploads', // Using user-uploads as it was successfully created
-  USER_UPLOADS: 'user-uploads',
-  TEMP_FILES: 'temp-files'
+  BANK_MODULES: 'user-uploads', // Use existing working bucket for bank content (permanent)
+  USER_UPLOADS: 'user-uploads', // Same bucket, organized by folder structure
+  TEMP_FILES: 'temp-files', // For temporary files only (avoid for permanent content)
+  FALLBACK: 'rupeebee-assets' // Fallback if others fail
 } as const;
 
 // Allowed file types
@@ -18,7 +31,7 @@ export const ALLOWED_FILE_TYPES = {
 // Max file sizes (in bytes)
 export const MAX_FILE_SIZES = {
   PDF: 50 * 1024 * 1024, // 50MB
-  VIDEO: 500 * 1024 * 1024, // 500MB
+  VIDEO: 100 * 1024 * 1024, // 100MB (reduced for better compatibility)
   IMAGE: 10 * 1024 * 1024, // 10MB
   DOCUMENT: 25 * 1024 * 1024 // 25MB
 } as const;
@@ -44,7 +57,7 @@ export async function initializeStorageBuckets() {
       
       if (!bucketExists) {
         // Create bucket with appropriate settings
-        const { data, error } = await supabaseAdmin.storage.createBucket(bucketName, {
+        const { error } = await supabaseAdmin.storage.createBucket(bucketName, {
           public: true,
           allowedMimeTypes: getDefaultAllowedMimeTypes(),
           fileSizeLimit: MAX_FILE_SIZES.VIDEO // Use largest limit as default
@@ -95,7 +108,7 @@ export function validateFile(file: File, fileType: 'PDF' | 'VIDEO' | 'IMAGE' | '
   // Check file extension
   const allowedExtensions = ALLOWED_FILE_TYPES[fileType];
   const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
-  if (!allowedExtensions.includes(fileExtension as any)) {
+  if (!fileExtension || !allowedExtensions.includes(fileExtension as typeof allowedExtensions[number])) {
     errors.push(`Invalid file type. Allowed: ${allowedExtensions.join(', ')}`);
   }
   
@@ -112,7 +125,6 @@ export function generateFilePath(originalName: string, bankName: string, categor
   const timestamp = Date.now();
   const cleanBankName = bankName.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
   const cleanCategory = category.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-  const fileExtension = originalName.split('.').pop()?.toLowerCase() || 'bin';
   const safeName = originalName.replace(/[^a-zA-Z0-9.]/g, '-').toLowerCase();
   
   return `bank-modules/${cleanBankName}/${cleanCategory}/${timestamp}-${safeName}`;
@@ -193,7 +205,7 @@ export async function uploadFileWithMultipleBuckets(
     validateFileType?: 'PDF' | 'VIDEO' | 'IMAGE' | 'DOCUMENT';
     upsert?: boolean;
   } = {}
-): Promise<{ data: any; error: any; bucket?: string }> {
+): Promise<UploadResult> {
   
   // Try buckets in order of preference
   const bucketsToTry = [
@@ -204,7 +216,7 @@ export async function uploadFileWithMultipleBuckets(
     'profile-pictures'  // Existing bucket
   ];
   
-  let lastError: any = null;
+  let lastError: UploadError | null = null;
   
   for (const bucket of bucketsToTry) {
     console.log(`Trying to upload to bucket: ${bucket}`);
@@ -332,10 +344,10 @@ export function formatFileSize(bytes: number): string {
 export function getFileType(filename: string): 'PDF' | 'VIDEO' | 'IMAGE' | 'DOCUMENT' | 'UNKNOWN' {
   const extension = '.' + filename.split('.').pop()?.toLowerCase();
   
-  if (ALLOWED_FILE_TYPES.PDF.includes(extension as any)) return 'PDF';
-  if (ALLOWED_FILE_TYPES.VIDEO.includes(extension as any)) return 'VIDEO';
-  if (ALLOWED_FILE_TYPES.IMAGE.includes(extension as any)) return 'IMAGE';
-  if (ALLOWED_FILE_TYPES.DOCUMENT.includes(extension as any)) return 'DOCUMENT';
+  if (extension && ALLOWED_FILE_TYPES.PDF.includes(extension as typeof ALLOWED_FILE_TYPES.PDF[number])) return 'PDF';
+  if (extension && ALLOWED_FILE_TYPES.VIDEO.includes(extension as typeof ALLOWED_FILE_TYPES.VIDEO[number])) return 'VIDEO';
+  if (extension && ALLOWED_FILE_TYPES.IMAGE.includes(extension as typeof ALLOWED_FILE_TYPES.IMAGE[number])) return 'IMAGE';
+  if (extension && ALLOWED_FILE_TYPES.DOCUMENT.includes(extension as typeof ALLOWED_FILE_TYPES.DOCUMENT[number])) return 'DOCUMENT';
   
   return 'UNKNOWN';
 }

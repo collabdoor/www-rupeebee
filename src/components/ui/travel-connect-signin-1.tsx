@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Helper function to merge class names
 const cn = (...classes: string[]) => {
@@ -62,7 +62,7 @@ const DotMap = () => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   // Set up routes that will animate across the map
-  const routes: { start: RoutePoint; end: RoutePoint; color: string }[] = [
+  const routes: { start: RoutePoint; end: RoutePoint; color: string }[] = useMemo(() => [
     {
       start: { x: 100, y: 150, delay: 0 },
       end: { x: 200, y: 80, delay: 2 },
@@ -83,7 +83,7 @@ const DotMap = () => {
       end: { x: 180, y: 180, delay: 2.5 },
       color: "#2563eb",
     },
-  ];
+  ], []);
 
   // Create dots for the world map
   const generateDots = (width: number, height: number) => {
@@ -152,6 +152,7 @@ const DotMap = () => {
 
     // Draw background dots
     function drawDots() {
+      if (!ctx) return;
       ctx.clearRect(0, 0, dimensions.width, dimensions.height);
       
       // Draw the dots
@@ -165,6 +166,7 @@ const DotMap = () => {
 
     // Draw animated routes
     function drawRoutes() {
+      if (!ctx) return;
       const currentTime = (Date.now() - startTime) / 1000; // Time in seconds
       
       routes.forEach(route => {
@@ -230,7 +232,7 @@ const DotMap = () => {
     animate();
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [dimensions]);
+  }, [dimensions, routes]);
 
   return (
     <div className="relative w-full h-full overflow-hidden">

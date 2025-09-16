@@ -101,7 +101,7 @@ export default function BankSignupPage() {
           router.push('/banks/login');
         }, 3000);
       }
-    } catch (error) {
+    } catch {
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);

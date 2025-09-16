@@ -16,7 +16,8 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
     '/auth/',
     '/banks/login',
     '/banks/signup', 
-    '/admin/login'
+    '/admin/login',
+    '/banks/dashboard'
   ];
   
   // Check if current path is an auth route

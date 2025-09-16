@@ -1,14 +1,11 @@
 'use client'
 
-import Image from 'next/image'
-import { Activity, ArrowRight, Files, Users, Shield, BookOpen, Globe as GlobeIcon, Send, MapPin } from 'lucide-react'
+import { Activity, Users, Shield, BookOpen, Globe as GlobeIcon, Send, MapPin } from 'lucide-react'
 import DottedMap from 'dotted-map'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from 'recharts'
-import { Card } from '@/components/ui/card'
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 import { cn } from "@/lib/utils"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 
@@ -43,7 +40,7 @@ export default function RupeeBeeFeaturedSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            What's Next for RupeeBee?
+            What&apos;s Next for RupeeBee?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Born from the SAFE Hackathon 2025, RupeeBee is a movement towards financial literacy for all. 
@@ -210,8 +207,11 @@ function PartnershipForm({
   handleChange, 
   handleSubmit 
 }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formData: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleChange: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleSubmit: any
 }) {
   return (
@@ -425,7 +425,7 @@ ChartContainer.displayName = "Chart"
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([_, config]) => config.theme || config.color,
+    ([, config]) => config.theme || config.color,
   )
 
   if (!colorConfig.length) {
@@ -456,16 +456,20 @@ ${colorConfig
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ChartTooltip = RechartsPrimitive.Tooltip as React.FC<RechartsPrimitive.TooltipProps<any, any>>
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   {
     active?: boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     payload?: Array<any>
     label?: React.ReactNode
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     labelFormatter?: (label: any, payload: Array<any>) => React.ReactNode
     labelClassName?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     formatter?: (value: any, name: any, item: any, index: number, payload: any) => React.ReactNode
     color?: string
     hideLabel?: boolean

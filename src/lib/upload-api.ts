@@ -58,7 +58,7 @@ export async function uploadFileWithFallback(
   file: File,
   bankName: string,
   category?: string
-): Promise<{ data: any; error: any; publicUrl?: string }> {
+): Promise<{ data: { path?: string } | null; error: { message: string } | null; publicUrl?: string }> {
   
   // Try API upload first (works around RLS policies)
   const apiResult = await uploadFileViaAPI(file, bankName, category);

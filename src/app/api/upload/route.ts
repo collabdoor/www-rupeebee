@@ -45,12 +45,12 @@ export async function POST(request: NextRequest) {
     // Generate file path
     const filePath = generateFilePath(file.name, bankName, category || 'general');
 
-    // Try uploading to different buckets
+    // Try uploading to different buckets - prioritize permanent storage
     const bucketsToTry = [
-      'user-uploads',
-      'temp-files',
-      'rupeebee-assets',
-      'community-images'
+      'bank-modules',    // Primary bucket for bank educational content (PDFs & videos)
+      'user-uploads',    // Permanent fallback bucket (works with existing policies)
+      'rupeebee-assets'  // General assets bucket (no temp-files to avoid deletion risk)
+      // Note: temp-files removed to ensure permanent storage
     ];
 
     let uploadResult = null;

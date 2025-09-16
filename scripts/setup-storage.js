@@ -39,7 +39,7 @@ const BUCKETS = [
         'video/mp4', 'video/avi', 'video/quicktime', 'video/x-msvideo',
         'video/x-ms-wmv', 'video/x-flv', 'video/webm', 'video/x-matroska'
       ],
-      fileSizeLimit: 500 * 1024 * 1024 // 500MB
+      fileSizeLimit: 100 * 1024 * 1024 // 100MB (more reasonable limit)
     }
   },
   {

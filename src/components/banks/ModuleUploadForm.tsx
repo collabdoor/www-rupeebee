@@ -3,11 +3,6 @@
 import { useState } from 'react';
 import { createModule, QuizQuestion } from '@/lib/supabase';
 import { 
-  uploadFileToStorage, 
-  uploadFileWithMultipleBuckets,
-  getPublicFileUrl, 
-  STORAGE_BUCKETS, 
-  generateFilePath, 
   validateFile, 
   formatFileSize,
   getFileType
@@ -60,7 +55,7 @@ export default function ModuleUploadForm({ bankName, onSuccess }: ModuleUploadFo
     }]);
   };
 
-  const updateQuizQuestion = (index: number, field: keyof QuizQuestion, value: any) => {
+  const updateQuizQuestion = (index: number, field: keyof QuizQuestion, value: string | number | string[]) => {
     setQuizQuestions(prev => prev.map((q, i) => 
       i === index ? { ...q, [field]: value } : q
     ));
@@ -102,8 +97,8 @@ export default function ModuleUploadForm({ bankName, onSuccess }: ModuleUploadFo
 
       // Upload file if present
       if (contentFile) {
-        // Use the API-based upload that bypasses RLS policies
-        const { data: uploadData, error: uploadError, publicUrl } = await uploadFileWithFallback(
+        // Use the API-based upload that prioritizes bank-modules bucket
+        const { error: uploadError, publicUrl } = await uploadFileWithFallback(
           contentFile,
           bankName,
           formData.category
