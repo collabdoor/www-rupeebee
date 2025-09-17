@@ -88,15 +88,26 @@ export default function HeroSection() {
             </LayoutGroup>
           </div>
 
-          {/* Download Button */}
-          <div className="flex justify-center relative text-white z-50">
-            <button
-              className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 hover:bg-blue-500 text-white text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
-              disabled
-            >
-              <Download className="w-5 h-5" />
-              Coming Soon!
-            </button>
+          {/* Bank Hub Platform Benefits & CTA */}
+          <div className="flex flex-col items-center gap-6 mt-8">
+            <div className="bg-yellow-100 border border-yellow-300 rounded-xl px-6 py-4 text-center max-w-2xl shadow-sm">
+              <span className="text-lg sm:text-xl text-yellow-900 font-semibold">
+                <span className="font-bold text-green-700">New:</span> Financial institutions can now showcase their services directly through our platform!
+              </span>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button
+                className="inline-flex items-center gap-2 px-6 py-4 bg-blue-700 hover:bg-blue-500 text-white text-xl font-medium rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl"
+                disabled
+              >
+                <Download className="w-5 h-5" />
+                Coming Soon!
+              </button>
+              <a href="/banks/signup" className="inline-flex items-center gap-2 px-6 py-3 bg-green-700 hover:bg-green-600 text-white text-lg font-medium rounded-full transition-colors duration-200 shadow-md">
+                Bank Partnership
+              </a>
+            </div>
           </div>
         </div>
       </div>

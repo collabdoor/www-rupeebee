@@ -28,7 +28,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200/80">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200/80 bg-white/95 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -47,9 +47,18 @@ export default function Header() {
                 unoptimized
               />
             </div>
-            <span className="hidden sm:block text-xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-              RupeeBee
-            </span>
+            {/* PSB Partner Logo */}
+            <div className="relative">
+              <Image
+                src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png"
+                alt="Punjab & Sind Bank"
+                width={32}
+                height={32}
+                className="object-contain transition-transform duration-300 group-hover:scale-105 rounded-full"
+                priority
+                unoptimized
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -65,25 +74,23 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Bank Partner Logo & Mobile Menu Button */}
+          {/* Bank Auth & Mobile Menu */}
           <div className="flex items-center gap-4">
-            {/* Bank Partner Logo */}
-            <Link
-              href="https://punjabandsindbank.co.in/"
-              className="flex items-center group"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png"
-                alt="Punjab & Sind Bank"
-                width={36}
-                height={36}
-                className="object-contain transition-transform duration-300 group-hover:scale-105 rounded-full"
-                priority
-                unoptimized
-              />
-            </Link>
+            {/* Bank Authentication Buttons - Desktop */}
+            <div className="hidden md:flex items-center gap-3">
+              <Link
+                href="/banks/login"
+                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-green-600 border border-gray-300 hover:border-green-300 rounded-lg transition-colors duration-200"
+              >
+                Bank Login
+              </Link>
+              <Link
+                href="/banks/signup"
+                className="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors duration-200 shadow-sm"
+              >
+                Bank Signup
+              </Link>
+            </div>
 
             {/* Mobile Menu Button */}
             <button
@@ -115,6 +122,24 @@ export default function Header() {
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Mobile Bank Auth Buttons */}
+              <div className="pt-4 space-y-2 border-t border-gray-200 mt-4">
+                <Link
+                  href="/banks/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-center text-base font-medium text-gray-600 hover:text-green-600 border border-gray-300 hover:border-green-300 rounded-md transition-colors duration-200"
+                >
+                  Bank Login
+                </Link>
+                <Link
+                  href="/banks/signup"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-center text-base font-medium text-white bg-green-600 hover:bg-green-700 rounded-md transition-colors duration-200"
+                >
+                  Bank Signup
+                </Link>
+              </div>
             </div>
           </div>
         )}
