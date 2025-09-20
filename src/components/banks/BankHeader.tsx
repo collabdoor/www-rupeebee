@@ -3,6 +3,7 @@ import React from "react";
 import { Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { type User as SupabaseUser } from '@supabase/supabase-js';
+import Image from "next/image";
 
 interface BankHeaderProps {
   user: SupabaseUser | null;
@@ -34,9 +35,7 @@ export const BankHeader = ({ user, activeTab }: BankHeaderProps) => {
         <div className="flex items-center gap-6">
           {/* Bank Logo Placeholder */}
           <div className="h-16 w-16 rounded-lg border-2 border-gray-200 dark:border-neutral-700 bg-blue-600 dark:bg-blue-500 flex items-center justify-center">
-            <span className="text-white text-xl font-bold">
-              {user?.user_metadata?.bank_name?.slice(0, 2).toUpperCase() || 'BK'}
-            </span>
+            <Image src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png" alt="Bank Logo" width={64} height={64} />
           </div>
 
           {/* Page Title Section */}
@@ -48,7 +47,8 @@ export const BankHeader = ({ user, activeTab }: BankHeaderProps) => {
               {getPageDescription()}
             </p>
             <p className="text-sm text-blue-600 dark:text-blue-400 mt-1 font-medium">
-              {user?.user_metadata?.bank_name || 'Bank Portal'}
+              {/* {user?.user_metadata?.bank_name || 'Bank Portal'} */}
+              Punjab & Sind Bank
             </p>
           </div>
         </div>
@@ -70,7 +70,8 @@ export const BankHeader = ({ user, activeTab }: BankHeaderProps) => {
             <User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
             <div className="text-sm">
               <div className="font-medium text-gray-900 dark:text-white">
-                {user?.user_metadata?.bank_name || 'Bank Admin'}
+                {/* {user?.user_metadata?.bank_name || 'Bank Admin'} */}
+                Punjab & Sind Bank
               </div>
               <div className="text-gray-500 dark:text-gray-400 text-xs">
                 {user?.email}

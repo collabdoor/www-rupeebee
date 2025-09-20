@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   Home,
   Upload,
@@ -130,14 +131,12 @@ const Logo = ({ user }: { user: SupabaseUser | null }) => {
   const bankName = user?.user_metadata?.bank_name || 'Bank Portal';
   
   return (
-    <div className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
-      <div className="h-8 w-8 bg-blue-600 dark:bg-blue-500 rounded-lg flex-shrink-0 flex items-center justify-center">
-        <span className="text-white text-xs font-semibold">
-          {bankName.slice(0, 2).toUpperCase()}
-        </span>
+    <div>
+      <div className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
+        <Image src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png" alt="Bank Logo" width={32} height={32} />
       </div>
-      <div className="font-medium text-black dark:text-white whitespace-pre">
-        {bankName}
+      <div className="font-bold text-black dark:text-white whitespace-pre">
+        Punjab & Sind Bank
       </div>
     </div>
   );
@@ -149,9 +148,7 @@ const LogoIcon = ({ user }: { user?: SupabaseUser | null }) => {
   return (
     <div className="font-normal flex justify-center items-center text-sm text-black py-1 relative z-20">
       <div className="h-8 w-8 bg-blue-600 dark:bg-blue-500 rounded-lg flex-shrink-0 flex items-center justify-center">
-        <span className="text-white text-xs font-semibold">
-          {bankName.slice(0, 2).toUpperCase()}
-        </span>
+        <Image src="https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/psbpsb.png" alt="Bank Logo" width={32} height={32} />
       </div>
     </div>
   );
