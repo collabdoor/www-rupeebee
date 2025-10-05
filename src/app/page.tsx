@@ -12,7 +12,7 @@ export default function Home() {
       <main className="">
         <HeroSection />
         <VideoPlayer 
-          googleDriveUrl="https://drive.google.com/file/d/10gQsXBDPzjOsVebp8ZP8LcLWItEeL8k9/view?usp=drive_link"
+          googleDriveUrl="https://drive.google.com/file/d/15seKzvGMQ7FyoY0sgs7W29Ds6kY1I2_A/view?usp=drive_link"
           title="Discover RupeeBee"
           description=""
         />

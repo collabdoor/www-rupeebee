@@ -14,7 +14,9 @@ import {
   Github,
   Globe,
   Book,
+  Presentation,
 } from "lucide-react";
+import test from "node:test";
 
 export default function Credits() {
   return (
@@ -266,7 +268,7 @@ const importantLinks = [
   {
     title: "Video Demo",
     description: "Watch the RupeeBee application in action",
-    url: "https://drive.google.com/file/d/10gQsXBDPzjOsVebp8ZP8LcLWItEeL8k9/view?usp=drive_link",
+    url: "https://drive.google.com/file/d/15seKzvGMQ7FyoY0sgs7W29Ds6kY1I2_A/view?usp=drive_link",
     icon: <Globe className="w-5 h-5 text-blue-600" />,
   },
   {
@@ -274,5 +276,19 @@ const importantLinks = [
     description: "Read the comprehensive project documentation (not yet open sourced)",
     url: "https://github.com/collabdoor/",
     icon: <Book className="w-5 h-5 text-green-600" />,
+  },
+
+  {
+    title: "RupeeBee Pitch Deck",
+    description: "Our phase 2 pitch deck showcasing key features and benefits.",
+    url: "  https://www.canva.com/design/DAGxI_righA/zlY4YTp4J59O9A1JPehWTA/view?utm_content=DAGxI_righA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd6641d25c8",
+    icon: <Presentation className="w-5 h-5 text-red-600" />,
+  },
+
+  {
+    title: "RupeeBee Testimonials",
+    description: "Our phase 2 testimonials showcasing user feedback.",
+    url: "https://www.canva.com/design/DAGxI7KpG_4/pZx5EKA49T55I7l8gK4QBw/view?utm_content=DAGxI7KpG_4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h6c6c360f21",
+    icon: <Presentation className="w-5 h-5 text-red-600" />,
   },
 ];
