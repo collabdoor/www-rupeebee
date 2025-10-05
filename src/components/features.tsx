@@ -30,7 +30,7 @@ const features = [
     description:
       "Grow your money with intelligent planning and investment strategies",
     icon: TrendingUpIcon,
-    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/26.webp",
+    image: "https://nufgvtezrxkvorztcwqo.supabase.co/storage/v1/object/public/rupeebee-assets/screenshots/26.png",
     gradient: "from-blue-100 to-cyan-100",
     iconColor: "text-blue-600",
   },

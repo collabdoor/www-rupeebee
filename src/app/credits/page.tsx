@@ -251,40 +251,28 @@ const teamAvatars = [
 
 // Important Links Configuration
 const importantLinks = [
-  {
-    title: "Project Repository",
-    description: "View the source code and contribute to the project",
-    url: "https://github.com/collabdoor/www-rupeebee",
-    icon: <Github className="w-5 h-5 text-gray-600" />,
-  },
-  {
-    title: "Live Demo",
-    description: "Try the RupeeBee application live",
-    url: "https://rupeebee.com",
-    icon: <Globe className="w-5 h-5 text-blue-600" />,
-  },
-  {
-    title: "Documentation",
-    description: "Read the comprehensive project documentation",
-    url: "#",
-    icon: <Book className="w-5 h-5 text-green-600" />,
-  },
-  {
-    title: "PSB Hackathon",
-    description: "Learn more about the PSB Hackathon Series",
-    url: "https://psb.ac.in",
+   {
+    title: "GFF Hackathon Result Page",
+    description: "Learn more about the GFF Hackathon",
+    url: "https://www.globalfintechfest.com/gff-hackathons/psb-hackathon#:~:text=VNITx-,Punjab%20%26%20Sind%20Bank,-Winners%20Announced",
     icon: <Trophy className="w-5 h-5 text-yellow-600" />,
   },
   {
-    title: "API Documentation",
-    description: "Explore the API endpoints and integration guides",
-    url: "#",
-    icon: <LinkIcon className="w-5 h-5 text-purple-600" />,
+    title: "Hackathon Result",
+    description: "View the results of the PSB Hackathon Series 2025",
+    url: "https://ptu.ac.in/psbs-hackathon-series-2025/",
+    icon: <Github className="w-5 h-5 text-gray-600" />,
   },
   {
-    title: "Support & Contact",
-    description: "Get help and contact the development team",
-    url: "#",
-    icon: <Users className="w-5 h-5 text-red-600" />,
+    title: "Video Demo",
+    description: "Watch the RupeeBee application in action",
+    url: "https://drive.google.com/file/d/10gQsXBDPzjOsVebp8ZP8LcLWItEeL8k9/view?usp=drive_link",
+    icon: <Globe className="w-5 h-5 text-blue-600" />,
+  },
+  {
+    title: "Associated Github Organization",
+    description: "Read the comprehensive project documentation (not yet open sourced)",
+    url: "https://github.com/collabdoor/",
+    icon: <Book className="w-5 h-5 text-green-600" />,
   },
 ];

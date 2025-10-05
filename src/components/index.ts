@@ -4,3 +4,4 @@ export { default as TechStackAndComparison } from './tech-stack-comparison';
 export { default as CTASection } from './cta';
 export { default as ForIndiaSection } from './for-india';
 export { default as HeaderFooterToggle } from './header-footer-toggle';
+export { default as VideoPlayer } from './video-player';
