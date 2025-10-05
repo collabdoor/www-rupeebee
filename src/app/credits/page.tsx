@@ -15,6 +15,7 @@ import {
   Globe,
   Book,
   Presentation,
+  BookAlert,
 } from "lucide-react";
 import test from "node:test";
 
@@ -253,6 +254,12 @@ const teamAvatars = [
 
 // Important Links Configuration
 const importantLinks = [
+  {
+    title: " GFF RupeeBee Booklet",
+    description: "Read the Success Story of RupeeBee",
+    url: "https://www.canva.com/design/DAG08eraHkw/cRjV3yOYlozeDPUROss5vg/view?utm_content=DAG08eraHkw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2d4e33e117",
+    icon: <Book className="w-5 h-5 text-purple-600" />,
+  },
    {
     title: "GFF Hackathon Result Page",
     description: "Learn more about the GFF Hackathon",
