@@ -255,12 +255,6 @@ const teamAvatars = [
 // Important Links Configurations
 const importantLinks = [
   {
-    title: " GFF RupeeBee Booklet",
-    description: "Read the Success Story of RupeeBee",
-    url: "https://www.canva.com/design/DAG08eraHkw/cRjV3yOYlozeDPUROss5vg/view?utm_content=DAG08eraHkw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2d4e33e117",
-    icon: <Book className="w-5 h-5 text-purple-600" />,
-  },
-   {
     title: "GFF Hackathon Result Page",
     description: "Learn more about the GFF Hackathon",
     url: "https://www.globalfintechfest.com/gff-hackathons/psb-hackathon#:~:text=VNITx-,Punjab%20%26%20Sind%20Bank,-Winners%20Announced",
@@ -279,23 +273,33 @@ const importantLinks = [
     icon: <Globe className="w-5 h-5 text-blue-600" />,
   },
   {
-    title: "Associated Github Organization",
-    description: "Read the comprehensive project documentation (not yet open sourced)",
-    url: "https://github.com/collabdoor/",
-    icon: <Book className="w-5 h-5 text-green-600" />,
-  },
-
-  {
     title: "RupeeBee Pitch Deck",
     description: "Our phase 2 pitch deck showcasing key features and benefits.",
     url: "  https://www.canva.com/design/DAGxI_righA/zlY4YTp4J59O9A1JPehWTA/view?utm_content=DAGxI_righA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd6641d25c8",
     icon: <Presentation className="w-5 h-5 text-red-600" />,
   },
-
+  {
+    title: "Global Fintech Fest Pitch Deck",
+    description: "Our pitch deck presented at the Global Fintech Fest.",
+    url: "https://www.canva.com/design/DAG0jEsw0l4/CzkP_WywW7l4th-tp7v-Bg/view?utm_content=DAG0jEsw0l4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h03d057b1c2",
+    icon: <Presentation className="w-5 h-5 text-red-600" />,
+  },
+  {
+    title: " GFF RupeeBee Booklet",
+    description: "Read the Success Story of RupeeBee",
+    url: "https://www.canva.com/design/DAG08eraHkw/cRjV3yOYlozeDPUROss5vg/view?utm_content=DAG08eraHkw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2d4e33e117",
+    icon: <Book className="w-5 h-5 text-purple-600" />,
+  },
   {
     title: "RupeeBee Testimonials",
     description: "Our phase 2 testimonials showcasing user feedback.",
     url: "https://www.canva.com/design/DAGxI7KpG_4/pZx5EKA49T55I7l8gK4QBw/view?utm_content=DAGxI7KpG_4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h6c6c360f21",
     icon: <Presentation className="w-5 h-5 text-red-600" />,
+  },
+  {
+    title: "Associated Github Organization",
+    description: "Read the comprehensive project documentation (not yet open sourced)",
+    url: "https://github.com/collabdoor/",
+    icon: <Book className="w-5 h-5 text-green-600" />,
   },
 ];
