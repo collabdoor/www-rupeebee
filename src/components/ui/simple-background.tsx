@@ -17,7 +17,7 @@ export const TermsBackgroundLines = ({
   return (
     <div
       className={cn(
-        "min-h-screen w-full bg-gradient-to-br from-green-50 via-white to-yellow-50",
+        "relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-green-50 via-white to-yellow-50",
         className
       )}
     >
@@ -60,7 +60,7 @@ const SimpleSVG = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full opacity-30"
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-30"
     >
       {paths.map((path, idx) => (
         <motion.path

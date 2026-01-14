@@ -24,7 +24,7 @@ export default function Credits() {
     <div className="min-h-screen bg-gradient-to-tr from-green-50 via-white to-yellow-50">
       {/* Hero Section with Background Lines */}
       <BackgroundLines className="min-h-screen bg-gradient-to-br from-green-50 via-white to-yellow-50">
-        <section className="relative min-h-screen flex justify-center pt-32">
+        <section className="relative min-h-screen flex justify-center -mt-14 pt-[11.5rem] pb-32">
           <div className="container-responsive relative z-10">
             <div className="pt-24 pb-16 space-y-16">
               {/* Header Section */}

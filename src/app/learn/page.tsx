@@ -89,7 +89,7 @@ function TipCard({ tip }: TipCardProps) {
 
 export default function LearnPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-violet-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-violet-100 -mt-14 pt-14">
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-4xl mx-auto mb-16 mt-32">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
