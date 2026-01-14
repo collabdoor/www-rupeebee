@@ -49,7 +49,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-[80%] mx-auto relative">
+    <header className="sticky top-0 z-50 w-[80%] mx-auto">
       <div className="border-b border-gray-200/80 bg-white/80 backdrop-blur-md rounded-b-3xl shadow-sm ring-1 ring-black/5 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-14">
