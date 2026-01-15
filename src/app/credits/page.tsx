@@ -252,7 +252,7 @@ const teamAvatars = [
   },
 ];
 
-// Important Links Configuration
+// Important Links Configuratio
 const importantLinks = [
   {
     title: "GFF Hackathon Result Page",
