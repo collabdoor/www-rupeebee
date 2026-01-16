@@ -24,7 +24,7 @@ export default function Credits() {
     <div className="min-h-screen bg-gradient-to-tr from-green-50 via-white to-yellow-50">
       {/* Hero Section with Background Lines */}
       <BackgroundLines className="min-h-screen bg-gradient-to-br from-green-50 via-white to-yellow-50">
-        <section className="relative min-h-screen flex justify-center -mt-14 pt-[11.5rem] pb-32">
+        <section className="relative min-h-screen flex justify-center pt-32">
           <div className="container-responsive relative z-10">
             <div className="pt-24 pb-16 space-y-16">
               {/* Header Section */}
@@ -252,8 +252,20 @@ const teamAvatars = [
   },
 ];
 
-// Important Links Configuratio
+// Important Links Configuration
 const importantLinks = [
+  {
+    title: "RupeeBee: Empowering a Financially Wise India",
+    description: "A Success Story from Team RupeeBee at the PSBs Hackathon Series-2025",
+    url: "https://www.financialservices.gov.in/beta/sites/default/files/2025-10/Punjab--Sind-Bank.pdf",
+    icon: <Book className="w-5 h-5 text-purple-600" />,
+  },
+  {
+    title: "RupeeBee Publication",
+    description: "Read the official RupeeBee Publication",
+    url: "/doc/rupeebee-publication.pdf",
+    icon: <Book className="w-5 h-5 text-blue-600" />,
+  },
   {
     title: "GFF Hackathon Result Page",
     description: "Learn more about the GFF Hackathon",
@@ -283,12 +295,6 @@ const importantLinks = [
     description: "Our pitch deck presented at the Global Fintech Fest.",
     url: "https://www.canva.com/design/DAG0jEsw0l4/CzkP_WywW7l4th-tp7v-Bg/view?utm_content=DAG0jEsw0l4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h03d057b1c2",
     icon: <Presentation className="w-5 h-5 text-red-600" />,
-  },
-  {
-    title: " GFF RupeeBee Booklet",
-    description: "Read the Success Story of RupeeBee",
-    url: "https://www.canva.com/design/DAG08eraHkw/cRjV3yOYlozeDPUROss5vg/view?utm_content=DAG08eraHkw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2d4e33e117",
-    icon: <Book className="w-5 h-5 text-purple-600" />,
   },
   {
     title: "RupeeBee Testimonials",
