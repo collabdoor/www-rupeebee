@@ -269,7 +269,7 @@ const importantLinks = [
   {
     title: "GFF Hackathon Result Page",
     description: "Learn more about the GFF Hackathon",
-    url: "https://www.globalfintechfest.com/gff-hackathons/psb-hackathon#:~:text=VNITx-,Punjab%20%26%20Sind%20Bank,-Winners%20Announced",
+    url: "https://2025.globalfintechfest.com/gff-hackathons/psb-hackathon#:~:text=VNITx-,Punjab%20%26%20Sind%20Bank,-Winners%20Announced",
     icon: <Trophy className="w-5 h-5 text-yellow-600" />,
   },
   {
